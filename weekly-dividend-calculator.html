@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>Weekly Dividend Calculator – YieldMax, Roundhill & More</title>
+    <meta name="description" content="Free weekly dividend ETF calculator – see weekly, monthly & yearly income from YieldMax, Roundhill, Defiance, GraniteShares and other high-yield weekly payers.">
+    <meta property="og:title" content="Weekly Dividend Calculator – YieldMax, Roundhill, Defiance">
+    <meta property="og:description" content="Instantly calculate weekly income from any investment and yield. Perfect for YieldMax, Roundhill WeeklyPay, and other weekly dividend ETFs.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/social-preview.png">
+    <meta property="og:url" content="https://weeklyetfs.com/weekly-dividend-calculator.html">
+
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--navy:#001f3d;--red:#e74c3c;--green:#27ae60}
+        body{font-family:'Lato',sans-serif;background:#f4f4f4;color:#333;margin:0;padding:0;line-height:1.6}
+        header{background:var(--navy);padding:10px 20px;text-align:center;position:sticky;top:0;z-index:10;cursor:pointer}
+        .banner-img{max-width:420px;width:80%;height:auto;margin:0 auto;display:block}
+        .content{max-width:900px;margin:20px auto;padding:15px}
+        .calculator{background:#fff;padding:30px 25px;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.12);text-align:center}
+        h1{color:var(--navy);font-size:2em;margin:0 0 8px;line-height:1.2}
+        .subtitle{color:var(--red);font-weight:900;font-size:1.1em;margin:8px 0 20px}
+        .input-group{margin:18px 0;text-align:left;max-width:420px;margin-left:auto;margin-right:auto}
+        label{display:block;font-weight:900;font-size:1.05em;margin-bottom:6px;color:var(--navy)}
+        input{width:100%;padding:14px 12px;font-size:1.4em;border:2px solid #ddd;border-radius:10px;text-align:center;box-sizing:border-box}
+        input:focus{border-color:var(--navy);outline:none}
+        .results{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:25px 0;background:#f8fff8;border:3px solid var(--green);border-radius:12px;padding:16px;overflow:hidden}
+        .result-item{font-size:0.95em}
+        .label-small{font-size:0.8em;color:#444;text-transform:uppercase;letter-spacing:0.5px}
+        .big-number{font-size:1.6em;font-weight:900;color:var(--green);margin:4px 0}
+        .disclaimer{max-width:800px;margin:30px auto;font-size:0.88em;color:#555;line-height:1.6;background:#fff;padding:18px;border-radius:10px;border-left:4px solid var(--red)}
+        .seo-keywords{font-size:0.82em;color:#777;margin-top:20px}
+        .back{margin:30px 0;font-size:1em}
+        footer{padding:25px;background:#fff;text-align:center;border-top:1px solid #ddd;font-size:0.88em}
+        @media(max-width:640px){
+            h1{font-size:1.7em}
+            .results{grid-template-columns:1fr;padding:12px;gap:8px}
+            .big-number{font-size:1.4em}
+            input{font-size:1.3em;padding:12px}
+            .calculator{padding:25px 15px}
+        }
+    </style>
+</head>
+<body>
+
+<header onclick="location.href='/'">
+    <img src="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/Weeklyftps%203.png" alt="WeeklyETFs.com" class="banner-img">
+</header>
+
+<div class="content">
+    <div class="calculator">
+        <h1>Weekly Dividend Calculator</h1>
+        <div class="subtitle">See your weekly paycheck from high-yield ETFs</div>
+
+        <div class="input-group">
+            <label for="investment">Investment Amount</label>
+            <input type="text" id="investment" value="$10,000">
+        </div>
+
+        <div class="input-group">
+            <label for="yield">Expected Annual Yield</label>
+            <input type="text" id="yield" value="18%">
+        </div>
+
+        <div class="results">
+            <div class="result-item">
+                <div class="label-small">Weekly</div>
+                <div class="big-number" id="weekly">$0.00</div>
+            </div>
+            <div class="result-item">
+                <div class="label-small">Monthly</div>
+                <div class="big-number" id="monthly">$0.00</div>
+            </div>
+            <div class="result-item">
+                <div class="label-small">Yearly</div>
+                <div class="big-number" id="yearly">$0.00</div>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <strong>Disclaimer:</strong> This calculator is for illustrative and entertainment purposes only. Results are hypothetical and do not represent actual ETF performance. Past performance is no guarantee of future results. Weekly dividend ETFs often use option strategies that can lead to price decay and loss of principal. Always do your own research and consult a financial advisor. WeeklyETFs.com is not a registered investment advisor.
+        </div>
+
+        <div class="seo-keywords">
+            Popular searches: YieldMax ETF calculator • Roundhill WeeklyPay calculator • weekly dividend income calculator • high yield ETF calculator • Defiance ETF income • GraniteShares yield calculator • weekly payout ETF estimator
+        </div>
+
+        <div class="back">
+            <a href="/">Back to ETF List</a> • <a href="/blog.html">Blog</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    © 2025 WeeklyETFs.com • Not financial advice • 
+    <a href="/">Home</a> • 
+    <a href="/weekly-dividend-calculator.html">Calculator</a>
+</footer>
+
+<script>
+    const investInput = document.getElementById('investment');
+    const yieldInput = document.getElementById('yield');
+    const weeklyEl = document.getElementById('weekly');
+    const monthlyEl = document.getElementById('monthly');
+    const yearlyEl = document.getElementById('yearly');
+
+    function formatCurrency(num) {
+        return '$' + num.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
+
+    function cleanNumber(str) {
+        return parseFloat(str.replace(/[$,%]/g, '')) || 0;
+    }
+
+    function calculate() {
+        const amount = cleanNumber(investInput.value);
+        const yieldPercent = cleanNumber(yieldInput.value);
+
+        const yearly = amount * (yieldPercent / 100);
+        const monthly = yearly / 12;
+        const weekly = yearly / 52;
+
+        weeklyEl.textContent = formatCurrency(weekly);
+        monthlyEl.textContent = formatCurrency(monthly);
+        yearlyEl.textContent = formatCurrency(yearly);
+    }
+
+    // Format inputs nicely on blur
+    investInput.addEventListener('blur', () => {
+        let val = cleanNumber(investInput.value);
+        if (val > 0) investInput.value = formatCurrency(val);
+    });
+
+    yieldInput.addEventListener('blur', () => {
+        let val = cleanNumber(yieldInput.value);
+        if (val > 0) yieldInput.value = val.toFixed(1) + '%';
+    });
+
+    // Re-calculate on any input
+    investInput.addEventListener('input', calculate);
+    yieldInput.addEventListener('input', calculate);
+
+    // Initial calculation
+    calculate();
+</script>
+
+</body>
+</html>
