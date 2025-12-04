@@ -12,7 +12,7 @@
     <meta property="og:url" content="https://weeklyetfs.com">
     <meta name="twitter:card" content="summary_large_image">
 
-    <!-- FAVICONS – full modern set (everything you uploaded) -->
+    <!-- FAVICONS – full modern set -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -35,25 +35,47 @@
         header{background:var(--navy);padding:15px 20px;color:#fff;text-align:center;width:100%;box-shadow:0 2px 5px rgba(0,0,0,.3);background-image:url('https://www.transparenttextures.com/patterns/noise.png');background-blend-mode:overlay;cursor:pointer}
         .logo{font-size:clamp(22px,6vw,36px);font-weight:900}
 
-        /* Top disclaimer – now 1pt smaller */
+        /* NARROWER LAYOUT – exactly like TopDividendETFs.com */
+        .content{
+            width:94%;
+            max-width:1100px;           /* ← this is the key line */
+            margin:0 auto;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+        }
+        #filters{
+            max-width:1100px;           /* ← keeps filters tight too */
+            margin:10px auto 20px;
+            display:flex;
+            flex-wrap:wrap;
+            gap:12px;
+            justify-content:center;
+            align-items:center;
+        }
         .top-disclaimer{
-            max-width:960px;
+            max-width:840px;            /* ← tighter disclaimer (was 960px) */
             margin:20px auto 15px;
             padding:0 15px;
             text-align:center;
-            font-size:0.94em;     /* ← reduced from 1.02em → exactly 1pt smaller */
+            font-size:0.94em;
             line-height:1.8;
             color:#222;
         }
         .top-disclaimer strong{color:#c62828;font-weight:900;}
         .top-disclaimer .highlight{background:#fff8e1;padding:2px 6px;border-radius:4px;font-weight:900;color:#d32f2f;}
 
-        .content{width:94%;max-width:1700px;display:flex;flex-direction:column;align-items:center}
-        #filters{width:94%;max-width:1700px;margin:10px auto 20px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center}
-        #resetFilters{padding:8px 16px;background:var(--navy);color:#fff;border-radius:6px;cursor:pointer;font-weight:bold;border:none;font-size:0.95em}
-        #resetFilters:hover{background:#00162b}
-        select, input{padding:8px 12px;border-radius:6px;border:1px solid #ccc;font-size:0.95em}
-        #etfTable{width:100%;border-collapse:collapse;background:#fff;border:3px solid var(--navy);border-radius:8px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.2)}
+        #etfTable{
+            width:100%;
+            max-width:100%;             /* ← prevents table from stretching too wide */
+            margin:0 auto;
+            border-collapse:collapse;
+            background:#fff;
+            border:3px solid var(--navy);
+            border-radius:8px;
+            overflow:hidden;
+            box-shadow:0 4px 15px rgba(0,0,0,.2);
+        }
         th{background:var(--navy);color:#fff;padding:10px 4px;font-size:.9em;cursor:pointer;white-space:nowrap;position:relative}
         td{padding:8px 4px;font-size:.95em;text-align:center}
         tr:nth-child(even){background:#f9f9f9}
@@ -73,6 +95,10 @@
         .sort-asc::after,.sort-desc::after{content:" ";position:absolute;right:8px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent}
         .sort-asc::after{border-bottom:7px solid #fff}
         .sort-desc::after{border-top:7px solid #fff}
+
+        #resetFilters{padding:8px 16px;background:var(--navy);color:#fff;border-radius:6px;cursor:pointer;font-weight:bold;border:none;font-size:0.95em}
+        #resetFilters:hover{background:#00162b}
+        select, input{padding:8px 12px;border-radius:6px;border:1px solid #ccc;font-size:0.95em}
 
         .disclaimer{font-size:.9em;color:#666;margin:20px auto;max-width:900px;line-height:1.5;text-align:center}
         .back-to-top{display:block;margin:12px auto 0;padding:7px 14px;background:var(--navy);color:#fff;font-weight:700;font-size:0.82em;border-radius:6px;text-decoration:none;box-shadow:0 3px 8px rgba(0,0,0,.2);transition:all .2s;cursor:pointer}
