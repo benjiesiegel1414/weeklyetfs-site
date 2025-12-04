@@ -7,13 +7,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
-    <title>Weekly ETFs 2025 | WeeklyETFs.com</title>
-    <meta name="description" content="Top 100+ Weekly Dividend ETFs Dividend Yield, Price Decay, Total Return – updated daily.">
-    <meta property="og:title" content="Weekly ETFs 2025 – Live Yields, Decay & Returns">
-    <meta property="og:description" content="150+ weekly dividend ETFs – live data with filters.">
+
+    <!-- EXACTLY WHAT YOU WANT NOW -->
+    <title>Top 100+ Weekly Dividend ETFs</title>
+    <meta name="description" content="Analyze the Top weekly dividend ETFs &amp; High Yield ETFs for passive income. See all the best weekly dividend ETFs in one place. Discover dividend yields, ETF funds, to help you on your journey">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Top 100+ Weekly Dividend ETFs">
+    <meta property="og:description" content="Analyze the Top weekly dividend ETFs &amp; High Yield ETFs for passive income. See all the best weekly dividend ETFs in one place. Discover dividend yields, ETF funds, to help you on your journey">
     <meta property="og:image" content="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/social-preview.png">
     <meta property="og:url" content="https://weeklyetfs.com">
+    
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Top 100+ Weekly Dividend ETFs">
+    <meta name="twitter:description" content="Analyze the Top weekly dividend ETFs &amp; High Yield ETFs for passive income. See all the best weekly dividend ETFs in one place. Discover dividend yields, ETF funds, to help you on your journey">
 
     <!-- FAVICONS -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -44,10 +52,9 @@
         }
         body{font-family:'Lato',Arial,sans-serif;background:#f4f4f4;color:#333;display:flex;flex-direction:column;align-items:center;min-height:100vh}
         
-        /* TIGHTER NAVY HEADER – wraps closely around the logo */
         header{
             background:var(--navy);
-            padding:8px 20px;                    /* Reduced from 14px → 8px top/bottom */
+            padding:8px 20px;
             text-align:center;
             width:100%;
             box-shadow:0 2px 5px rgba(0,0,0,.3);
@@ -70,6 +77,29 @@
             .banner-img{
                 max-width: 440px;
             }
+        }
+
+        /* CLEANER, ~30% SMALLER H1 */
+        .main-h1 {
+            text-align: center;
+            margin: 24px auto 8px;
+            padding: 0 15px;
+            max-width: 1100px;
+        }
+        .main-h1 h1 {
+            font-size: 1.55em;     /* ~30% smaller than before */
+            margin: 0;
+            color: var(--navy);
+            line-height: 1.3;
+            font-weight: 900;
+        }
+        .main-h1 span {
+            display: block;
+            font-size: 0.78em;
+            color: var(--red);
+            font-weight: 900;
+            margin-top: 6px;
+            opacity: 0.9;
         }
 
         .content{
@@ -165,19 +195,25 @@
 </head>
 <body>
 <div class="content">
-    <!-- Tight navy header with your perfect-sized logo -->
     <header onclick="location.reload()">
         <img src="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/Weeklyftps%203.png" 
              alt="WeeklyETFs.com Logo" 
              class="banner-img">
     </header>
 
+    <!-- CLEAN & SMALLER H1 -->
+    <div class="main-h1">
+        <h1>Top 100+ Weekly Dividend ETFs
+            <span>Best Weekly Payers Ranked by Yield – Updated Daily</span>
+        </h1>
+    </div>
+
     <div class="top-disclaimer">
         This list features around 100 Top Weekly Dividend ETFs in the stock market<br>
         <strong>The ONLY accurate Weekly ETF list updated daily 100% FREE!</strong><br><br>
-        <strong>Dividend yield:</strong> All information is sourced from public data & are as accurate as possible, yet market data can change dramatically!<br>
+        <strong>Dividend yield:</strong> All information is sourced from public data &amp; are as accurate as possible, yet market data can change dramatically!<br>
         <strong>Price Decay:</strong> Is based on if the ETF has decreased in price or not since inception. Price decay references share price only.<br>
-        <strong>Total Return:</strong> Total return measures performance including capital appreciation & dividend income since inception<br>
+        <strong>Total Return:</strong> Total return measures performance including capital appreciation &amp; dividend income since inception<br>
         This data is as accurate as possible but market data can change quickly, so always do your own Due diligence!<br>
         <span class="highlight">Nothing is a Buy or Sell Signal!</span><br>
         <strong>*WeeklyETFs.com is for entertainment purposes ONLY!</strong>
@@ -216,7 +252,8 @@
     </table>
 
     <p class="disclaimer">
-        Disclaimer: WeeklyETFs.com is for educational purposes only. ETF data and dividend information may be inaccurate or outdated. Investing carries risk, including loss of principal. We are not financial advisors & this is NOT Financial Advice. Always consult a licensed financial advisor before making investment decisions.
+        Disclaimer: WeeklyETFs.com is for educational purposes only. ETF data and dividend information may be inaccurate or outdated. Investing carries risk, including loss of principal. We are not financial advisors &amp; this is NOT Financial Advice. Always consult a licensed financial advisor before making investment decisions.
+   : Disclaimer: WeeklyETFs.com is for educational purposes only. ETF data and dividend information may be inaccurate or outdated. Investing carries risk, including loss of principal. We are not financial advisors &amp; this is NOT Financial Advice. Always consult a licensed financial advisor before making investment decisions.
     </p>
 
     <button class="back-to-top" onclick="location.reload()">Back To Top</button>
@@ -240,7 +277,7 @@
 </div>
 
 <script>
-// JavaScript 100% unchanged – everything still works perfectly
+// JavaScript completely unchanged
 const CACHE_KEY = 'weeklyetfs_data';
 const CACHE_TIME = 10000;
 
