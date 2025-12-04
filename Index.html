@@ -1,1 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- BASIC METADATA -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="WeeklyETFs.com">
+    <title>Weekly ETFs 2025 | WeeklyETFs.com</title>
+    <meta name="description" content="Live tracker of 150+ weekly-paying ETFs – Dividend Yield, Price Decay, Total Return – updated daily.">
+    <meta name="keywords" content="weekly etfs, weekly dividend etfs, yieldmax, graniteshares, covered call etfs">
 
+    <!-- OPEN GRAPH / TWITTER -->
+    <meta property="og:title" content="Weekly ETFs 2025 – Live Yields, Decay & Returns">
+    <meta property="og:description" content="150+ weekly dividend ETFs – live Dividend Yield, Price Decay, and Total Return. Updated daily.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/social-preview.png">
+    <meta property="og:url" content="https://weeklyetfs.com">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Weekly ETFs 2025 – Live Yields & Total Return">
+    <meta name="twitter:description" content="150+ weekly-paying ETFs – live data, updated daily">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/social-preview.png">
+
+    <!-- FAVICON -->
+    <link rel="icon" href="favicon.ico">
+
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root{--green:#2E5D54;--red:#e74c3c}
+        body{font-family:'Lato',Arial,sans-serif;margin:0;background:#f4f4f4;color:#333;display:flex;flex-direction:column;align-items:center;min-height:100vh}
+        header{background:#1A3C34;padding:15px 20px;color:#fff;text-align:center;width:100%;box-shadow:0 2px 5px rgba(0,0,0,.2);background-image:url('https://www.transparenttextures.com/patterns/noise.png');background-blend-mode:overlay;cursor:pointer}
+        .logo{font-size:clamp(22px,6vw,36px);font-weight:900}
+        h1{color:#1A3C34;margin:15px 0 10px;font-weight:900;font-size:1.5em}
+        .intro-text{max-width:900px;margin:0 auto 10px;line-height:1.6;text-align:center;color:#444}
+        .content{width:94%;max-width:1700px;display:flex;flex-direction:column;align-items:center}
+        #filters{width:94%;max-width:1700px;margin:10px auto;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+        #resetFilters{padding:6px 12px;background:var(--green);color:#fff;border-radius:4px;cursor:pointer;font-weight:bold}
+        #etfTable{width:100%;border-collapse:collapse;background:#fff;border:3px solid var(--green);border-radius:8px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.2)}
+        th{background:var(--green);color:#fff;padding:10px 4px;font-size:.9em;cursor:pointer;white-space:nowrap}
+        td{padding:8px 4px;font-size:.95em;text-align:center}
+        tr:nth-child(even){background:#f9f9f9}
+        tr:hover{background:#dff5eb}
+        .symbol{font-weight:900;font-size:1.2em;color:#1A3C34}
+        .yield{font-weight:bold;color:var(--green);font-size:1.1em}
+        .decay{color:#e74c3c;font-weight:bold}
+        .return{color:#27ae60;font-weight:bold}
+        @media(min-width:769px){
+            th,td{padding:14px 8px;font-size:1.05em}
+            .col-yield{width:12%}.col-decay{width:12%}.col-return{width:12%}
+        }
+        @media(max-width:768px){
+            th{display:none}
+            tr{display:flex;flex-direction:column;background:#fff;border-radius:6px;margin:8px 0;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+            td{display:flex;justify-content:space-between;padding:4px 0;font-size:.9em}
+            td:before{content:attr(data-label);font-weight:bold;color:#1A3C34;min-width:110px}
+        }
+        .sort-asc::after{content:' Up Arrow'} .sort-desc::after{content:' Down Arrow'}
+        .disclaimer{font-size:.9em;color:#666;margin:20px auto;max-width:900px;line-height:1.4;text-align:center}
+        .footer{font-size:.9em;color:#666;margin:20px auto 10px;padding-top:10px;border-top:1px solid #ddd;max-width:900px;text-align:center}
+        .footer a{color:#1A3C34;text-decoration:none}
+        .share-buttons{margin:18px auto 8px;display:flex;gap:14px;justify-content:center}
+        .share-btn{display:flex;align-items:center;gap:6px;padding:7px 11px;border-radius:6px;font-weight:700;font-size:0.82em;color:#fff;text-decoration:none;box-shadow:0 3px 8px rgba(0,0,0,.2);transition:all .2s}
+        .share-btn:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.3)}
+        .fb{background:#1877F2}.x{background:#000}
+        .share-btn svg{width:15px;height:15px;fill:currentColor}
+        .back-to-top{display:block;margin:12px auto 0;padding:7px 14px;background:var(--green);color:#fff;font-weight:700;font-size:0.82em;border-radius:6px;text-decoration:none;box-shadow:0 3px 8px rgba(0,0,0,.2);transition:all .2s;cursor:pointer}
+        .back-to-top:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.3)}
+        .loading{text-align:center;padding:40px;font-size:1.3em;color:#555}
+    </style>
+</head>
+<body>
+<div class="content">
+    <header onclick="location.reload()"><div class="logo">WeeklyETFs.com</div></header>
+
+    <h1>Top Weekly-Paying ETFs 2025</h1>
+    <p class="intro-text">
+        Live tracker of <strong>150+ weekly dividend ETFs</strong> – Dividend Yield, Price Decay, and Total Return.<br>
+        <span style="font-weight:900;font-size:1.2em;display:block;margin-top:6px;">
+            Updated Every Single Day • 100% FREE • Not Financial Advice
+        </span>
+    </p>
+
+    <div id="filters">
+        <button id="resetFilters">Reset Filters</button>
+        <input type="text" id="searchFilter" placeholder="Search Ticker or Name">
+    </div>
+
+    <div class="loading" id="loading">Loading latest weekly ETF data…</div>
+
+    <table id="etfTable" style="display:none">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Symbol</th>
+                <th onclick="sortTable(1)">Name</th>
+                <th onclick="sortTable(2)" class="sort-desc">Dividend Yield</th>
+                <th onclick="sortTable(3)">Price Decay</th>
+                <th onclick="sortTable(4)">Total Return</th>
+            </tr>
+        </thead>
+        <tbody id="etfBody"></tbody>
+    </table>
+
+    <p class="disclaimer">
+        Disclaimer: WeeklyETFs.com is for informational purposes only. Data is pulled live from public sources and may contain errors. Investing involves risk. Not financial advice.
+    </p>
+
+    <!-- Share Buttons – exact same as TopDividendETFs.com -->
+    <div class="share-buttons">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fweeklyetfs.com" target="_blank" class="share-btn fb" onclick="window.open(this.href,'','width=570,height=350');return false;">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Share
+        </a>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fweeklyetfs.com&text=150%2B%20Weekly%20ETFs%20Live%20Tracker%20%E2%80%93%20Yields%2C%20Decay%20%26%20Returns" target="_blank" class="share-btn x" onclick="window.open(this.href,'','width=570,height=350');return false;">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Post
+        </a>
+    </div>
+
+    <button class="back-to-top" onclick="location.reload()">Back To Top</button>
+
+    <footer class="footer">
+        <p>
+            <a href="privacy.html">Privacy</a> • 
+            <a href="faq.html">FAQ</a> • 
+            Contact: <a href="mailto:hello@weeklyetfs.com">hello@weeklyetfs.com</a>
+        </p>
+        <p>WeeklyETFs.com © 2025 • Made by the Devoted Dividend team</p>
+    </footer>
+</div>
+
+<script>
+// Your Google Sheet – already published
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1P00pQ6hNvYolxzrKYIuxC-AH1xFBpMtsn-NwC17W4vQazk3ql69ZmSmW8J-jp7OaUmKLV5v2KPI3/pub?gid=0&single=true&output=csv';
+
+let allRows = [];
+
+fetch(CSV_URL + '&t=' + Date.now())
+  .then(r => r.text())
+  .then(csv => {
+    const lines = csv.split('\n');
+    const tbody = document.getElementById('etfBody');
+    tbody.innerHTML = '';
+
+    for (let i = 1; i < lines.length; i++) {
+      const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
+      if (!cols[0]) continue;
+
+      const tr = document.createElement('tr');
+      const labels = ['Symbol','Name','Dividend Yield','Price Decay','Total Return'];
+
+      labels.forEach((label, j) => {
+        const td = document.createElement('td');
+        td.setAttribute('data-label', label);
+        if (j === 0) td.className = 'symbol';
+        if (j === 2) td.className = 'yield';
+        if (j === 3) td.className = 'decay';
+        if (j === 4) td.className = 'return';
+        td.textContent = cols[j] || '-';
+        tr.appendChild(td);
+      });
+
+      tbody.appendChild(tr);
+      allRows.push(tr);
+    }
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('etfTable').style.display = 'table';
+    sortTable(2, 'desc'); // default: highest yield first
+  });
+
+// Sorting
+let currentSort = {col: 2, dir: 'desc'};
+function sortTable(col, forceDir) {
+  const dir = forceDir || (currentSort.col === col && currentSort.dir === 'asc' ? 'desc' : 'asc');
+  currentSort = {col, dir};
+  document.querySelectorAll('th').forEach((th,i) => th.className = i===col ? `sort-${dir}` : '');
+
+  allRows.sort((a,b) => {
+    let A = a.cells[col].textContent.trim().replace(/[%$,BM+-]/g,'');
+    let B = b.cells[col].textContent.trim().replace(/[%$,BM+-]/g,'');
+    const num = !isNaN(A) && A !== '';
+    A = num ? parseFloat(A) : A.toLowerCase();
+    B = num ? parseFloat(B) : B.toLowerCase();
+    return dir === 'asc' ? (A > B ? 1 : -1) : (A < B ? 1 : -1);
+  });
+
+  const tbody = document.getElementById('etfBody');
+  allRows.forEach(r => tbody.appendChild(r));
+}
+
+// Search
+document.getElementById('searchFilter').oninput = () => {
+  const term = document.getElementById('searchFilter').value.toLowerCase();
+  allRows.forEach(tr => {
+    tr.style.display = tr.textContent.toLowerCase().includes(term) ? '' : 'none';
+  });
+};
+
+document.getElementById('resetFilters').onclick = () => location.reload();
+</script>
+</body>
+</html>
