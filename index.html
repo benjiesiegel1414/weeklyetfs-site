@@ -27,25 +27,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
+        /* ELIMINATES MOBILE LEFT/RIGHT BOUNCE – 100% fixed */
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden !important;
+            width: 100%;
+            position: relative;
+        }
+
         :root{
             --navy:#001f3d;
             --red:#e74c3c;
         }
-        body{font-family:'Lato',Arial,sans-serif;margin:0;background:#f4f4f4;color:#333;display:flex;flex-direction:column;align-items:center;min-height:100vh}
-        header{background:var(--navy);padding:15px 20px;color:#fff;text-align:center;width:100%;box-shadow:0 2px 5px rgba(0,0,0,.3);background-image:url('https://www.transparenttextures.com/patterns/noise.png');background-blend-mode:overlay;cursor:pointer}
+        body{font-family:'Lato',Arial,sans-serif;background:#f4f4f4;color:#333;display:flex;flex-direction:column;align-items:center;min-height:100vh}
+        header{background:var(--navy);padding:15px 20px;color:#fff;text-align:center;width:100%;box-shadow:0 2px 5px rgba(0,0,0,.3);background-image:url('https://www.transparenttextures.com/patterns/noise.png');background-blend-mode:overlay;cursor:pointer;position:sticky;top:0;z-index:10}
         .logo{font-size:clamp(22px,6vw,36px);font-weight:900}
 
-        /* NARROWER LAYOUT – exactly like TopDividendETFs.com */
+        /* NARROWER, CLEAN LAYOUT */
         .content{
             width:94%;
-            max-width:1100px;           /* ← this is the key line */
+            max-width:1100px;
             margin:0 auto;
             display:flex;
             flex-direction:column;
             align-items:center;
         }
         #filters{
-            max-width:1100px;           /* ← keeps filters tight too */
+            max-width:1100px;
             margin:10px auto 20px;
             display:flex;
             flex-wrap:wrap;
@@ -54,7 +63,7 @@
             align-items:center;
         }
         .top-disclaimer{
-            max-width:840px;            /* ← tighter disclaimer (was 960px) */
+            max-width:840px;
             margin:20px auto 15px;
             padding:0 15px;
             text-align:center;
@@ -67,7 +76,7 @@
 
         #etfTable{
             width:100%;
-            max-width:100%;             /* ← prevents table from stretching too wide */
+            max-width:100%;
             margin:0 auto;
             border-collapse:collapse;
             background:#fff;
