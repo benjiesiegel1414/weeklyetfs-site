@@ -35,6 +35,7 @@
     <meta name="twitter:description" content="Analyze the Top weekly dividend ETFs &amp; High Yield ETFs for passive income. See all the best weekly dividend ETFs in one place." />
     <meta name="twitter:image" content="https://weeklyetfs.com/social-card.png" />
     <meta name="twitter:image:alt" content="WeeklyETFs.com - Top 100+ Weekly Dividend ETFs" />
+
     <!-- FAVICONS -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -128,8 +129,8 @@
         </select>
         <select id="decayFilter">
             <option value="">Price Decay: All</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
         </select>
     </div>
 
@@ -176,7 +177,6 @@
 </div>
 
 <script>
-// JavaScript 100% unchanged
 const CACHE_KEY = 'weeklyetfs_data';
 const CACHE_TIME = 10000;
 
@@ -206,6 +206,7 @@ function renderTable(csv) {
     const lines = csv.split('\n');
     const tbody = document.getElementById('etfBody');
     tbody.innerHTML = '';
+    allRows = [];
 
     for (let i = 1; i < lines.length; i++) {
         const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
@@ -237,23 +238,38 @@ function renderTable(csv) {
 
     document.getElementById('loading').style.display = 'none';
     document.getElementById('etfTable').style.display = 'table';
-    sortTable(2, 'desc');
-    applyFilters();
+    sortTable(2, 'desc');  // Initial sort by Yield
 }
 
 let currentSort = {col: 2, dir: 'desc'};
+
 function sortTable(col, forceDir) {
     const dir = forceDir || (currentSort.col === col && currentSort.dir === 'asc' ? 'desc' : 'asc');
     currentSort = {col, dir};
     document.querySelectorAll('th').forEach((th,i) => th.className = i===col ? `sort-${dir}` : '');
 
-    allRows.sort((a,b) => {
-        let A = a.cells[col].textContent.trim().replace(/[%$,BM+-]/g,'');
-        let B = b.cells[col].textContent.trim().replace(/[%$,BM+-]/g,'');
-        const num = !isNaN(A) && A !== '';
-        A = num ? parseFloat(A) : A.toLowerCase();
-        B = num ? parseFloat(B) : B.toLowerCase();
-        return dir === 'asc' ? (A > B ? 1 : -1) : (A < B ? 1 : -1);
+    allRows.sort((a, b) => {
+        let A = a.cells[col].textContent.trim();
+        let B = b.cells[col].textContent.trim();
+
+        // Numeric columns: Yield (2) and Total Return (4)
+        if (col === 2 || col === 4) {
+            const parseNum = (str) => {
+                if (!str || str === '-' || str === 'N/A') return null;
+                return parseFloat(str.replace(/[%,+]/g, '')) || null;
+            };
+            const numA = parseNum(A);
+            const numB = parseNum(B);
+
+            if (numA === null && numB === null) return 0;
+            if (numA === null) return 1;
+            if (numB === null) return -1;
+
+            return dir === 'asc' ? (numA - numB) : (numB - numA);
+        }
+
+        // Text columns
+        return dir === 'asc' ? A.localeCompare(B) : B.localeCompare(A);
     });
 
     const tbody = document.getElementById('etfBody');
@@ -272,16 +288,15 @@ function applyFilters() {
         const name = cells[1].textContent.toLowerCase();
         const yieldText = cells[2].textContent.replace('%','').trim();
         const yield = parseFloat(yieldText) || 0;
-        const decay = cells[3].textContent.trim();
+        const decay = cells[3].textContent.trim().toLowerCase();
 
         let show = true;
-
         if (search && !ticker.includes(search) && !name.includes(search)) show = false;
         if (yieldRange) {
             const [min, max] = yieldRange.split('-').map(Number);
             if (yield < min || (max && yield >= max)) show = false;
         }
-        if (decayFilter && decay.toLowerCase() !== decayFilter) show = false;
+        if (decayFilter && decay !== decayFilter) show = false;
 
         tr.style.display = show ? '' : 'none';
     });
