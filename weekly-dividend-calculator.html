@@ -7,7 +7,7 @@
     <title>Weekly Dividend Calculator – YieldMax, Roundhill & More</title>
     <meta name="description" content="Free weekly dividend ETF calculator – see weekly, monthly & yearly income from YieldMax, Roundhill, Defiance, GraniteShares and other high-yield weekly payers.">
     
-    <!-- Open Graph (for Facebook, LinkedIn, etc.) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Weekly Dividend Calculator – YieldMax, Roundhill & More">
     <meta property="og:description" content="Instantly calculate weekly income from any investment and yield. Perfect for YieldMax, Roundhill WeeklyPay, and other weekly dividend ETFs.">
     <meta property="og:image" content="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/twitter.png">
@@ -36,6 +36,7 @@
         label{display:block;font-weight:900;font-size:1.05em;margin-bottom:6px;color:var(--navy)}
         input{width:100%;padding:14px 12px;font-size:1.4em;border:2px solid #ddd;border-radius:10px;text-align:center;box-sizing:border-box}
         input:focus{border-color:var(--navy);outline:none}
+        .ticker-status{font-size:0.9em;margin-top:6px;color:#555;min-height:1.2em}
         .results{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:25px 0;background:#f8fff8;border:3px solid var(--green);border-radius:12px;padding:16px;overflow:hidden}
         .result-item{font-size:0.95em}
         .label-small{font-size:0.8em;color:#444;text-transform:uppercase;letter-spacing:0.5px}
@@ -63,6 +64,12 @@
     <div class="calculator">
         <h1>Weekly Dividend Calculator - Free & Instant</h1>
         <div class="subtitle">Calculate exact weekly, monthly, or yearly dividend income for any Weekly Dividend ETF</div>
+
+        <div class="input-group">
+            <label for="ticker">Ticker Symbol </label>
+            <input type="text" id="ticker" placeholder="e.g. MSTY, ULTY, TSLY" value="" style="text-transform: uppercase;">
+            <div id="tickerStatus" class="ticker-status"></div>
+        </div>
 
         <div class="input-group">
             <label for="investment">Investment Amount</label>
@@ -112,12 +119,59 @@
 <script>
     const investInput = document.getElementById('investment');
     const yieldInput = document.getElementById('yield');
+    const tickerInput = document.getElementById('ticker');
+    const tickerStatus = document.getElementById('tickerStatus');
     const weeklyEl = document.getElementById('weekly');
     const monthlyEl = document.getElementById('monthly');
     const yearlyEl = document.getElementById('yearly');
 
+    let tickerYields = {};
+
+    const CACHE_KEY = 'weeklyetfs_yields';
+    const CACHE_TIME = 3600000; // 1 hour
+
+    async function loadYieldsFromSource() {
+        const cached = localStorage.getItem(CACHE_KEY);
+        const timestamp = localStorage.getItem(CACHE_KEY + '_time');
+        const now = Date.now();
+
+        if (cached && timestamp && (now - timestamp < CACHE_TIME)) {
+            tickerYields = JSON.parse(cached);
+            tickerStatus.textContent = 'Yields loaded from cache ✓';
+            return;
+        }
+
+        try {
+            const res = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT1P00pQ6hNvYolxzrKYIuxC-AH1xFBpMtsn-NwC17W4vQazk3ql69ZmSmW8J-jp7OaUmKLV5v2KPI3/pub?gid=0&single=true&output=csv&t=' + now);
+            if (!res.ok) throw new Error('Fetch failed');
+            const csv = await res.text();
+
+            const lines = csv.split('\n');
+            tickerYields = {};
+
+            for (let i = 1; i < lines.length; i++) {
+                const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
+                if (!cols[0]) continue;
+                const symbol = cols[0].toUpperCase();
+                const yieldStr = cols[2] || '';
+                const yieldNum = parseFloat(yieldStr.replace('%', '').trim());
+                if (!isNaN(yieldNum)) {
+                    tickerYields[symbol] = yieldNum;
+                }
+            }
+
+            localStorage.setItem(CACHE_KEY, JSON.stringify(tickerYields));
+            localStorage.setItem(CACHE_KEY + '_time', now);
+            tickerStatus.textContent = 'Latest yields loaded from WeeklyETFs.com ✓ (' + Object.keys(tickerYields).length + ' ETFs)';
+        } catch (e) {
+            tickerStatus.textContent = 'Could not load live data – enter yield manually';
+            console.error('CSV fetch error:', e);
+        }
+    }
+
     function formatCurrency(num) {
-        return '$' + num.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        // Show whole numbers when no cents, otherwise show 2 decimals
+        return '$' + num.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 2});
     }
 
     function cleanNumber(str) {
@@ -137,22 +191,59 @@
         yearlyEl.textContent = formatCurrency(yearly);
     }
 
-    // Format inputs nicely on blur
-    investInput.addEventListener('blur', () => {
-        let val = cleanNumber(investInput.value);
-        if (val > 0) investInput.value = formatCurrency(val);
+    // Auto-capitalize ticker as user types
+    tickerInput.addEventListener('input', () => {
+        const start = tickerInput.selectionStart;
+        const end = tickerInput.selectionEnd;
+        tickerInput.value = tickerInput.value.toUpperCase();
+        tickerInput.setSelectionRange(start, end);
     });
 
+    function updateYieldFromTicker() {
+        const ticker = tickerInput.value.trim().toUpperCase();
+        if (ticker && tickerYields[ticker]) {
+            const y = tickerYields[ticker];
+            yieldInput.value = y.toFixed(1) + '%';
+            tickerStatus.textContent = ticker + ' yield loaded: ' + y.toFixed(1) + '%';
+            calculate();
+        } else if (ticker) {
+            tickerStatus.textContent = 'Ticker not found – enter yield manually';
+        } else {
+            tickerStatus.textContent = '';
+        }
+    }
+
+    tickerInput.addEventListener('blur', updateYieldFromTicker);
+    tickerInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            tickerInput.blur();
+        }
+    });
+
+    // Format investment on blur (whole dollars preferred)
+    investInput.addEventListener('blur', () => {
+        let val = cleanNumber(investInput.value);
+        if (val > 0) {
+            // Round to nearest whole dollar for display if fractional part is very small
+            val = Math.round(val);
+            investInput.value = formatCurrency(val);
+        }
+    });
+
+    // Format yield if manually changed
     yieldInput.addEventListener('blur', () => {
         let val = cleanNumber(yieldInput.value);
         if (val > 0) yieldInput.value = val.toFixed(1) + '%';
     });
 
-    // Re-calculate on any input
     investInput.addEventListener('input', calculate);
     yieldInput.addEventListener('input', calculate);
 
-    // Initial calculation
+    // Load data and initial calc
+    loadYieldsFromSource().then(() => {
+        calculate();
+    });
+
     calculate();
 </script>
 
