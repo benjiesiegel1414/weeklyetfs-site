@@ -7,6 +7,9 @@
     <title>Weekly Dividend Calculator – YieldMax, Roundhill & More</title>
     <meta name="description" content="Free weekly dividend ETF calculator – see weekly, monthly & yearly income from YieldMax, Roundhill, Defiance, GraniteShares and other high-yield weekly payers.">
     
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- Open Graph -->
     <meta property="og:title" content="Weekly Dividend Calculator – YieldMax, Roundhill & More">
     <meta property="og:description" content="Instantly calculate weekly income from any investment and yield. Perfect for YieldMax, Roundhill WeeklyPay, and other weekly dividend ETFs.">
@@ -41,16 +44,25 @@
         .result-item{font-size:0.95em}
         .label-small{font-size:0.8em;color:#444;text-transform:uppercase;letter-spacing:0.5px}
         .big-number{font-size:1.6em;font-weight:900;color:var(--green);margin:4px 0}
+        .chart-container{margin:30px auto;max-width:100%;height:320px;background:#f9f9f9;border-radius:12px;padding:15px;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
         .disclaimer{max-width:800px;margin:30px auto;font-size:0.88em;color:#555;line-height:1.6;background:#fff;padding:18px;border-radius:10px;border-left:4px solid var(--red)}
         .seo-keywords{font-size:0.82em;color:#777;margin-top:20px}
         .back{margin:30px 0;font-size:1em}
-        footer{padding:25px;background:#fff;text-align:center;border-top:1px solid #ddd;font-size:0.88em}
+        
+        /* Footer styles copied from homepage */
+        .footer{margin-top:40px;padding:25px;background:#fff;width:100%;text-align:center;font-size:0.9em;color:#555;border-top:1px solid #ddd}
+        .footer a{color:var(--navy);text-decoration:none;margin:0 12px;font-weight:700}
+        .footer a:hover{text-decoration:underline}
+        .footer .tagline{font-size:1.3em;font-weight:900;color:var(--navy);margin:20px 0}
+        .footer .tagline a{color:var(--navy);text-decoration:none}
+        
         @media(max-width:640px){
             h1{font-size:1.7em}
             .results{grid-template-columns:1fr;padding:12px;gap:8px}
             .big-number{font-size:1.4em}
             input{font-size:1.3em;padding:12px}
             .calculator{padding:25px 15px}
+            .chart-container{height:280px}
         }
     </style>
 </head>
@@ -63,10 +75,10 @@
 <div class="content">
     <div class="calculator">
         <h1>Weekly Dividend Calculator - Free & Instant</h1>
-        <div class="subtitle">Calculate exact weekly, monthly, or yearly dividend income for any Weekly Dividend ETF</div>
+        <div class="subtitle">Calculate weekly income!</div>
 
         <div class="input-group">
-            <label for="ticker">Ticker Symbol </label>
+            <label for="ticker">Ticker Symbol</label>
             <input type="text" id="ticker" placeholder="e.g. MSTY, ULTY, TSLY" value="" style="text-transform: uppercase;">
             <div id="tickerStatus" class="ticker-status"></div>
         </div>
@@ -96,6 +108,11 @@
             </div>
         </div>
 
+        <!-- Chart: Total income over 1 year -->
+        <div class="chart-container">
+            <canvas id="incomeChart"></canvas>
+        </div>
+
         <div class="disclaimer">
             <strong>Disclaimer:</strong> This calculator is for illustrative and entertainment purposes only. Results are hypothetical and do not represent actual ETF performance. Past performance is no guarantee of future results. Weekly dividend ETFs often use option strategies that can lead to price decay and loss of principal. Always do your own research and consult a financial advisor. WeeklyETFs.com is not a registered investment advisor.
         </div>
@@ -107,14 +124,29 @@
         <div class="back">
             <a href="/">Back to ETF List</a> • <a href="/blog.html">Blog</a>
         </div>
+
+        <!-- Footer - identical to homepage -->
+        <footer class="footer">
+            <p>
+                <a href="terms.html">Terms of Use</a> | 
+                <a href="privacy.html">Privacy Policy</a> | 
+                <a href="faq.html">FAQ</a> | 
+                <a href="/blog.html">Blog</a> | 
+                <a href="/weekly-dividend-calculator.html">Weekly Dividend Calculator</a> | 
+                <a href="https://topdividendetfs.com/" target="_blank" rel="noopener">Top Dividend ETFs</a><br><br>
+                Contact email: <a href="mailto:Business@TopDividendETFs.com">Business@TopDividendETFs.com</a>
+            </p>
+            <div class="tagline">
+                <a href="https://dividendempire2000.gumroad.com/l/DividendTracker?layout=profile" target="_blank" 
+                   style="display:inline-block;background:#2E5D54;color:#ffffff !important;font-weight:900;font-size:0.78em;padding:5px 12px;border-radius:5px;text-decoration:none;transition:all .2s ease;margin:20px 0;box-shadow:0 2px 6px rgba(0,0,0,.15);"
+                   onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 5px 12px rgba(0,0,0,.25)'"
+                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,.15)'">
+                   Best Weekly Dividend Tracker!
+                </a>
+            </div>
+        </footer>
     </div>
 </div>
-
-<footer>
-    © 2025 WeeklyETFs.com • Not financial advice • 
-    <a href="/">Home</a> • 
-    <a href="/weekly-dividend-calculator.html">Calculator</a>
-</footer>
 
 <script>
     const investInput = document.getElementById('investment');
@@ -126,6 +158,7 @@
     const yearlyEl = document.getElementById('yearly');
 
     let tickerYields = {};
+    let incomeChart = null;
 
     const CACHE_KEY = 'weeklyetfs_yields';
     const CACHE_TIME = 3600000; // 1 hour
@@ -162,20 +195,96 @@
 
             localStorage.setItem(CACHE_KEY, JSON.stringify(tickerYields));
             localStorage.setItem(CACHE_KEY + '_time', now);
-            tickerStatus.textContent = 'Latest yields loaded from WeeklyETFs.com ✓ (' + Object.keys(tickerYields).length + ' ETFs)';
+            tickerStatus.textContent = 'Latest yields loaded ✓ (' + Object.keys(tickerYields).length + ' ETFs)';
         } catch (e) {
-            tickerStatus.textContent = 'Could not load live data – enter yield manually';
+            tickerStatus.textContent = 'Could not load live data – manual yield entry';
             console.error('CSV fetch error:', e);
         }
     }
 
     function formatCurrency(num) {
-        // Show whole numbers when no cents, otherwise show 2 decimals
         return '$' + num.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 2});
     }
 
     function cleanNumber(str) {
         return parseFloat(str.replace(/[$,%]/g, '')) || 0;
+    }
+
+    function updateIncomeChart() {
+        const principal = cleanNumber(investInput.value);
+        const annualYield = cleanNumber(yieldInput.value) / 100;
+
+        if (principal <= 0 || annualYield <= 0) {
+            if (incomeChart) incomeChart.destroy();
+            return;
+        }
+
+        const weeklyIncome = (principal * annualYield) / 52;
+
+        const labels = [];
+        const cumulativeIncome = [];
+        let totalSaved = 0;
+
+        for (let week = 1; week <= 52; week++) {
+            totalSaved += weeklyIncome;
+            if (week % 4 === 0 || week === 52) {
+                const month = Math.round(week / 4);
+                labels.push(`Month ${month}`);
+                cumulativeIncome.push(Math.round(totalSaved));
+            }
+        }
+
+        const ctx = document.getElementById('incomeChart').getContext('2d');
+
+        if (incomeChart) incomeChart.destroy();
+
+        incomeChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Cumulative weekly Income',
+                    data: cumulativeIncome,
+                    borderColor: '#27ae60',
+                    backgroundColor: 'rgba(39, 174, 96, 0.18)',
+                    fill: true,
+                    tension: 0,
+                    pointBackgroundColor: '#27ae60',
+                    pointBorderColor: '#fff',
+                    pointRadius: 5,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top', labels: { font: { size: 14 } } },
+                    title: {
+                        display: true,
+                        text: 'Total Income Over 1 Year (based on current weekly payout)',
+                        font: { size: 16, weight: 'bold' },
+                        padding: { top: 10, bottom: 20 }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time'
+                        }
+                    }
+                }
+            }
+        });
     }
 
     function calculate() {
@@ -189,9 +298,10 @@
         weeklyEl.textContent = formatCurrency(weekly);
         monthlyEl.textContent = formatCurrency(monthly);
         yearlyEl.textContent = formatCurrency(yearly);
+
+        updateIncomeChart();
     }
 
-    // Auto-capitalize ticker as user types
     tickerInput.addEventListener('input', () => {
         const start = tickerInput.selectionStart;
         const end = tickerInput.selectionEnd;
@@ -204,10 +314,10 @@
         if (ticker && tickerYields[ticker]) {
             const y = tickerYields[ticker];
             yieldInput.value = y.toFixed(1) + '%';
-            tickerStatus.textContent = ticker + ' yield loaded: ' + y.toFixed(1) + '%';
+            tickerStatus.textContent = ticker + ' yield: ' + y.toFixed(1) + '%';
             calculate();
         } else if (ticker) {
-            tickerStatus.textContent = 'Ticker not found – enter yield manually';
+            tickerStatus.textContent = 'Ticker not found – manual yield';
         } else {
             tickerStatus.textContent = '';
         }
@@ -215,22 +325,17 @@
 
     tickerInput.addEventListener('blur', updateYieldFromTicker);
     tickerInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            tickerInput.blur();
-        }
+        if (e.key === 'Enter') tickerInput.blur();
     });
 
-    // Format investment on blur (whole dollars preferred)
     investInput.addEventListener('blur', () => {
         let val = cleanNumber(investInput.value);
         if (val > 0) {
-            // Round to nearest whole dollar for display if fractional part is very small
             val = Math.round(val);
             investInput.value = formatCurrency(val);
         }
     });
 
-    // Format yield if manually changed
     yieldInput.addEventListener('blur', () => {
         let val = cleanNumber(yieldInput.value);
         if (val > 0) yieldInput.value = val.toFixed(1) + '%';
@@ -239,7 +344,6 @@
     investInput.addEventListener('input', calculate);
     yieldInput.addEventListener('input', calculate);
 
-    // Load data and initial calc
     loadYieldsFromSource().then(() => {
         calculate();
     });
