@@ -10,18 +10,16 @@
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Open Graph -->
+    <!-- Open Graph / Twitter meta tags -->
     <meta property="og:title" content="Weekly Dividend Calculator – YieldMax, Roundhill & More">
     <meta property="og:description" content="Instantly calculate weekly income from any investment and yield. Perfect for YieldMax, Roundhill WeeklyPay, and other weekly dividend ETFs.">
     <meta property="og:image" content="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/twitter.png">
     <meta property="og:url" content="https://weeklyetfs.com/weekly-dividend-calculator.html">
 
-    <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Weekly Dividend Calculator – YieldMax, Roundhill & More">
     <meta name="twitter:description" content="Free instant calculator: See weekly, monthly & yearly income from high-yield weekly dividend ETFs like YieldMax, Roundhill WeeklyPay, Defiance, GraniteShares. Enter amount & yield for results!">
     <meta name="twitter:image" content="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/twitter.png">
-    <meta name="twitter:image:alt" content="Weekly Dividend Calculator tool – input investment amount and expected yield to see income projections for weekly payout ETFs">
     <meta name="twitter:site" content="@TopDividendETFs">
     <meta name="twitter:creator" content="@TopDividendETFs">
 
@@ -29,7 +27,7 @@
     <style>
         :root{--navy:#001f3d;--red:#e74c3c;--green:#27ae60}
         body{font-family:'Lato',sans-serif;background:#f4f4f4;color:#333;margin:0;padding:0;line-height:1.6}
-        header{background:var(--navy);padding:10px 20px;text-align:center;position:sticky;top:0;z-index:10;cursor:pointer}
+        header{background:var(--navy);padding:10px 20px;text-align:center;top:0;z-index:10;cursor:pointer}
         .banner-img{max-width:420px;width:80%;height:auto;margin:0 auto;display:block}
         .content{max-width:900px;margin:20px auto;padding:15px}
         .calculator{background:#fff;padding:30px 25px;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.12);text-align:center}
@@ -37,30 +35,32 @@
         .subtitle{color:var(--red);font-weight:900;font-size:1.1em;margin:8px 0 20px}
         .input-group{margin:18px 0;text-align:left;max-width:420px;margin-left:auto;margin-right:auto}
         label{display:block;font-weight:900;font-size:1.05em;margin-bottom:6px;color:var(--navy)}
-        input{width:100%;padding:14px 12px;font-size:1.4em;border:2px solid #ddd;border-radius:10px;text-align:center;box-sizing:border-box}
+        input{width:100%;padding:9px 10px;font-size:1.1em;border:2px solid #ddd;border-radius:8px;text-align:center;box-sizing:border-box}
         input:focus{border-color:var(--navy);outline:none}
         .ticker-status{font-size:0.9em;margin-top:6px;color:#555;min-height:1.2em}
         .results{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:25px 0;background:#f8fff8;border:3px solid var(--green);border-radius:12px;padding:16px;overflow:hidden}
         .result-item{font-size:0.95em}
         .label-small{font-size:0.8em;color:#444;text-transform:uppercase;letter-spacing:0.5px}
         .big-number{font-size:1.6em;font-weight:900;color:var(--green);margin:4px 0}
-        .chart-container{margin:30px auto;max-width:100%;height:320px;background:#f9f9f9;border-radius:12px;padding:15px;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+        .chart-container{margin:30px auto;max-width:100%;height:320px;background:#f9f9f9;border-radius:12px;padding:15px;box-shadow:0 4px 12px rgba(0,0,0,0.1);position:relative}
+        button#calcButton{margin-top:20px;padding:14px 28px;font-size:1.3em;background:var(--green);color:white;border:none;border-radius:10px;cursor:pointer;font-weight:bold;box-shadow:0 3px 8px rgba(0,0,0,0.15)}
+        button#calcButton:hover{background:#1e8449}
         .disclaimer{max-width:800px;margin:30px auto;font-size:0.88em;color:#555;line-height:1.6;background:#fff;padding:18px;border-radius:10px;border-left:4px solid var(--red)}
         .seo-keywords{font-size:0.82em;color:#777;margin-top:20px}
         .back{margin:30px 0;font-size:1em}
-        
-        /* Footer styles copied from homepage */
+
+        /* Footer styles from homepage */
         .footer{margin-top:40px;padding:25px;background:#fff;width:100%;text-align:center;font-size:0.9em;color:#555;border-top:1px solid #ddd}
         .footer a{color:var(--navy);text-decoration:none;margin:0 12px;font-weight:700}
         .footer a:hover{text-decoration:underline}
         .footer .tagline{font-size:1.3em;font-weight:900;color:var(--navy);margin:20px 0}
         .footer .tagline a{color:var(--navy);text-decoration:none}
-        
+
         @media(max-width:640px){
             h1{font-size:1.7em}
             .results{grid-template-columns:1fr;padding:12px;gap:8px}
             .big-number{font-size:1.4em}
-            input{font-size:1.3em;padding:12px}
+            input{font-size:1em;padding:7px 8px}
             .calculator{padding:25px 15px}
             .chart-container{height:280px}
         }
@@ -93,6 +93,8 @@
             <input type="text" id="yield" value="18%">
         </div>
 
+        <button id="calcButton">Calculate</button>
+
         <div class="results">
             <div class="result-item">
                 <div class="label-small">Weekly</div>
@@ -108,7 +110,6 @@
             </div>
         </div>
 
-        <!-- Chart: Total income over 1 year -->
         <div class="chart-container">
             <canvas id="incomeChart"></canvas>
         </div>
@@ -125,7 +126,7 @@
             <a href="/">Back to ETF List</a> • <a href="/blog.html">Blog</a>
         </div>
 
-        <!-- Footer - identical to homepage -->
+        <!-- Homepage footer -->
         <footer class="footer">
             <p>
                 <a href="terms.html">Terms of Use</a> | 
@@ -156,6 +157,7 @@
     const weeklyEl = document.getElementById('weekly');
     const monthlyEl = document.getElementById('monthly');
     const yearlyEl = document.getElementById('yearly');
+    const calcButton = document.getElementById('calcButton');
 
     let tickerYields = {};
     let incomeChart = null;
@@ -213,6 +215,7 @@
     function updateIncomeChart() {
         const principal = cleanNumber(investInput.value);
         const annualYield = cleanNumber(yieldInput.value) / 100;
+        const ticker = tickerInput.value.trim().toUpperCase() || 'Ticker';
 
         if (principal <= 0 || annualYield <= 0) {
             if (incomeChart) incomeChart.destroy();
@@ -246,7 +249,7 @@
                     label: 'Cumulative weekly Income',
                     data: cumulativeIncome,
                     borderColor: '#27ae60',
-                    backgroundColor: 'rgba(39, 174, 96, 0.18)',
+                    backgroundColor: '#27ae60',
                     fill: true,
                     tension: 0,
                     pointBackgroundColor: '#27ae60',
@@ -262,9 +265,10 @@
                     legend: { position: 'top', labels: { font: { size: 14 } } },
                     title: {
                         display: true,
-                        text: 'Total Income Over 1 Year (based on current weekly payout)',
-                        font: { size: 16, weight: 'bold' },
-                        padding: { top: 10, bottom: 20 }
+                        text: `Total ${ticker} Income Over 1 Year (based on current weekly payout)`,
+                        font: { size: 20, weight: '600', family: 'Times' },  
+                        color: '#001f3d',
+                        padding: { top: 15, bottom: 30 }
                     }
                 },
                 scales: {
@@ -283,7 +287,47 @@
                         }
                     }
                 }
-            }
+            },
+            plugins: [{
+                id: 'watermark',
+                afterDraw(chart) {
+                    const ctx = chart.ctx;
+                    ctx.save();
+
+                    const img = new Image();
+                    img.src = 'https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/Weeklyftps%203.png';
+
+                    img.onload = () => {
+                        const imgWidth = 160;
+                        const imgHeight = 40;
+                        const x = chart.chartArea.right - imgWidth - 20;
+                        const y = chart.chartArea.bottom - imgHeight - 10;
+
+                        ctx.strokeStyle = 'rgba(0,0,0,0.4)';
+                        ctx.lineWidth = 2;
+                        ctx.strokeRect(x - 2, y - 2, imgWidth + 4, imgHeight + 4);
+
+                        ctx.globalAlpha = 1.0;
+                        ctx.drawImage(img, x, y, imgWidth, imgHeight);
+                        ctx.restore();
+                    };
+
+                    if (img.complete) {
+                        const imgWidth = 160;
+                        const imgHeight = 40;
+                        const x = chart.chartArea.right - imgWidth - 20;
+                        const y = chart.chartArea.bottom - imgHeight - 10;
+
+                        ctx.strokeStyle = 'rgba(0,0,0,0.4)';
+                        ctx.lineWidth = 2;
+                        ctx.strokeRect(x - 2, y - 2, imgWidth + 4, imgHeight + 4);
+
+                        ctx.globalAlpha = 1.0;
+                        ctx.drawImage(img, x, y, imgWidth, imgHeight);
+                        ctx.restore();
+                    }
+                }
+            }]
         });
     }
 
@@ -307,26 +351,30 @@
         const end = tickerInput.selectionEnd;
         tickerInput.value = tickerInput.value.toUpperCase();
         tickerInput.setSelectionRange(start, end);
-    });
 
-    function updateYieldFromTicker() {
         const ticker = tickerInput.value.trim().toUpperCase();
-        if (ticker && tickerYields[ticker]) {
-            const y = tickerYields[ticker];
-            yieldInput.value = y.toFixed(1) + '%';
-            tickerStatus.textContent = ticker + ' yield: ' + y.toFixed(1) + '%';
-            calculate();
-        } else if (ticker) {
-            tickerStatus.textContent = 'Ticker not found – manual yield';
+        if (ticker.length >= 3) {
+            if (tickerYields[ticker]) {
+                const y = tickerYields[ticker];
+                yieldInput.value = y.toFixed(1) + '%';
+                tickerStatus.textContent = ticker + ' yield loaded: ' + y.toFixed(1) + '%';
+                calculate();
+            } else {
+                tickerStatus.textContent = 'Ticker not found – enter yield manually';
+            }
         } else {
             tickerStatus.textContent = '';
         }
-    }
-
-    tickerInput.addEventListener('blur', updateYieldFromTicker);
-    tickerInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') tickerInput.blur();
     });
+
+    tickerInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            tickerInput.blur();
+            calculate();
+        }
+    });
+
+    calcButton.addEventListener('click', calculate);
 
     investInput.addEventListener('blur', () => {
         let val = cleanNumber(investInput.value);
