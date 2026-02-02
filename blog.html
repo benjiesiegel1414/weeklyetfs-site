@@ -46,6 +46,19 @@
         }
         .footer-banner-wrapper {
             margin: 20px 0 30px;
+            text-align: center;
+        }
+        /* Resize footer ad to ~50% size */
+        .footer-banner-wrapper img {
+            max-width: 485px; /* 970px original → ~50% */
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        @media (max-width: 600px) {
+            .footer-banner-wrapper img {
+                max-width: 100%; /* Full width on very small screens */
+            }
         }
     </style>
 </head>
@@ -128,7 +141,7 @@
 </div>
 
 <footer class="footer">
-    <!-- Banner placed right above the disclaimer / links -->
+    <!-- Banner placed right above the disclaimer / links – now resized -->
     <div class="footer-banner-wrapper banner">
         <a href="https://graniteshares.com/institutional/us/en-us/etfs/ybty/?utm_source=Weekly+ETFs&utm_medium=Weekly+ETFs+Ads&utm_campaign=GS-Weekly+ETFs+Ads-January-2026&utm_content=GS-YieldBOOST-WeeklyETFs-Ad-YBTY-970x90">
             <img src="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/ybty-970x90-2.png" alt="GraniteShares YieldBOOST YBTY ETF - Sponsored Ad">
