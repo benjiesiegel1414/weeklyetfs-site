@@ -109,6 +109,27 @@
         .footer-banner-wrapper {
             margin: 20px 0 30px;
         }
+
+        /* New button style */
+        #highestReturnsBtn {
+            display: block;
+            margin: 15px auto 20px auto;
+            padding: 12px 28px;
+            background: var(--navy);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.05em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,.2);
+            transition: all .2s;
+        }
+        #highestReturnsBtn:hover {
+            background: #00162b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,.3);
+        }
     </style>
 </head>
 <body>
@@ -141,6 +162,10 @@
     </a>
     <small style="color:#666; font-size:0.78em; font-weight:600;">Sponsored By</small>
 </div>
+
+    <!-- New button added here: right under the sponsored banner and above the filters -->
+    <button id="highestReturnsBtn">Highest Total Returns 📈</button>
+
 <style>
 @keyframes subtle-green-pulse {
   0%, 100% {
@@ -357,6 +382,11 @@ document.getElementById('searchFilter').oninput = applyFilters;
 document.getElementById('yieldRangeFilter').onchange = applyFilters;
 document.getElementById('decayFilter').onchange = applyFilters;
 document.getElementById('resetFilters').onclick = () => location.reload();
+
+// New functionality: Highest Total Returns button
+document.getElementById('highestReturnsBtn').onclick = function() {
+    sortTable(4, 'desc');  // Sort by Total Return column (index 4) descending (highest first)
+};
 
 loadData();
 </script>
