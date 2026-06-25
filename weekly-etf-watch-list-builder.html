@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swipe Weekly ETFs • WeeklyETFs.com</title>
+<meta name="description" content="Tinder-style swiping for Weekly Dividend ETFs. Swipe Yes or No and discover your next high-yield weekly income ETF.">
+
+<meta property="og:title" content="Swipe Weekly Dividend ETFs • WeeklyETFs.com">
+<meta property="og:description" content="Swipe Yes or No on the best weekly dividend ETFs. Build your watchlist for free.">
+<meta property="og:url" content="https://weeklyetfs.com/swipe">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Swipe Weekly Dividend ETFs • WeeklyETFs.com">
+<meta name="twitter:description" content="Swipe Yes or No on the best weekly dividend ETFs. Build your watchlist for free.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- WeeklyETFs GA -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EG30PW49ZN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EG30PW49ZN');
+</script>
+
+<style>
+:root {
+  --navy:#001f3d; --navy-mid:#003366; --navy-light:#0a4a7c;
+  --red:#e74c3c; --green:#27ae60; --gold:#f39c12;
+  --slate:#f4f4f4; --white:#ffffff;
+  --text:#222222; --muted:#666666;
+  --mono:'DM Mono',monospace; --sans:'Lato',Arial,sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:var(--sans); background:var(--slate); color:var(--text); overflow-x:hidden; }
+
+/* HEADER */
+.site-header { background:var(--navy); height:60px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; position:sticky; top:0; z-index:200; box-shadow:0 2px 8px rgba(0,0,0,.3); }
+.header-logo { color:white; font-weight:900; font-size:17px; text-decoration:none; letter-spacing:-0.3px; }
+.saved-btn { background:rgba(255,255,255,.15); color:white; border:none; padding:8px 18px; border-radius:999px; font-weight:700; font-size:13px; cursor:pointer; font-family:var(--sans); }
+.saved-btn:hover { background:rgba(255,255,255,.25); }
+
+/* TOP BAR */
+.top-bar { background:var(--navy-mid); padding:14px 20px; text-align:center; color:white; border-bottom:3px solid var(--red); }
+.top-bar p { font-size:15px; font-weight:700; opacity:.9; }
+
+/* PRO BUTTON */
+.pro-wrap { text-align:center; margin:10px 0 14px; }
+.pro-btn { display:inline-block; padding:10px 28px; background:var(--red); color:white; border:none; border-radius:999px; font-weight:900; font-size:15px; cursor:pointer; font-family:var(--sans); box-shadow:0 4px 14px rgba(231,76,60,.35); text-decoration:none; }
+.pro-btn:hover { background:#c0392b; transform:translateY(-1px); }
+
+/* CONTROLS */
+.controls-row { max-width:520px; margin:0 auto; padding:0 20px; display:flex; justify-content:space-between; align-items:center; font-size:13px; margin-bottom:8px; }
+.ctrl-btn { padding:6px 16px; background:white; border:2px solid var(--navy); color:var(--navy); border-radius:999px; font-weight:700; font-size:12px; cursor:pointer; font-family:var(--sans); }
+.ctrl-btn:hover { background:var(--navy); color:white; }
+
+/* SWIPE CONTAINER */
+.swipe-container { max-width:520px; margin:0 auto 4px; padding:0 20px; position:relative; min-height:520px; }
+.etf-card { position:absolute; inset:0; background:white; border-radius:24px; overflow:hidden; box-shadow:0 20px 60px -10px rgba(0,31,61,.22); display:flex; flex-direction:column; transition:all .42s cubic-bezier(0.34,1.56,0.64,1); border:3px solid var(--navy); }
+.etf-card.swipe-left  { transform:translateX(-460px) rotate(-25deg) !important; opacity:0; }
+.etf-card.swipe-right { transform:translateX(460px)  rotate( 25deg) !important; opacity:0; }
+
+/* CARD SECTIONS */
+.card-header { height:160px; background:linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); color:white; padding:0 26px 18px; display:flex; align-items:flex-end; position:relative; }
+.card-header::after { content:''; position:absolute; inset:0; background:url('https://www.transparenttextures.com/patterns/noise.png'); opacity:.04; pointer-events:none; }
+.ticker-big { font-size:clamp(48px,11vw,68px); font-weight:900; font-family:var(--mono); letter-spacing:-4px; line-height:1; }
+.etf-name { font-size:17px; font-weight:700; margin-top:5px; opacity:.92; line-height:1.3; }
+
+.main-focus { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:14px; background:white; }
+.focus-box { background:#f0f4ff; border-radius:14px; padding:14px 10px; text-align:center; border:2px solid var(--navy); }
+.focus-box.yield { border-color:var(--green); background:#f0fdf4; }
+.focus-val { font-size:28px; font-weight:900; font-family:var(--mono); line-height:1; color:var(--navy); }
+.focus-box.yield .focus-val { color:var(--green); }
+.focus-label { font-size:10px; font-weight:900; color:var(--muted); text-transform:uppercase; letter-spacing:.7px; margin-top:4px; }
+
+.stats-bar { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; padding:12px 18px; background:white; border-bottom:1px solid #e2e8f0; }
+.stat-box { text-align:center; }
+.stat-val { font-size:15px; font-weight:700; font-family:var(--mono); color:var(--navy); }
+.stat-val.positive { color:var(--green); }
+.stat-val.negative { color:var(--red); }
+.stat-lbl { font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; }
+
+.card-info { flex:1; overflow:auto; padding:14px 18px 8px; background:#fafafa; }
+.info-row { display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px solid #e8ecf0; }
+.info-row:last-child { border-bottom:none; }
+.info-label { color:var(--muted); font-size:13px; }
+.info-value { font-weight:700; font-family:var(--mono); font-size:13px; color:var(--navy); }
+.info-value.positive { color:var(--green); }
+.info-value.negative { color:var(--red); }
+
+/* ACTION BUTTONS */
+.actions { display:flex; justify-content:center; gap:40px; padding:10px 20px 20px; max-width:520px; margin:0 auto; }
+.action-btn { width:72px; height:72px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; box-shadow:0 8px 28px rgba(0,0,0,.18); transition:all .2s; border:4px solid white; cursor:pointer; }
+#noBtn  { background:white; color:var(--red); }
+#yesBtn { background:var(--green); color:white; }
+#noBtn:hover  { transform:scale(1.1); box-shadow:0 12px 36px rgba(231,76,60,.3); }
+#yesBtn:hover { transform:scale(1.1); box-shadow:0 12px 36px rgba(39,174,96,.35); }
+
+/* PROGRESS */
+.progress-wrap { max-width:520px; margin:0 auto 6px; padding:0 20px; }
+.progress-bar { height:6px; background:#d1d5db; border-radius:999px; overflow:hidden; }
+.progress-fill { height:100%; background:linear-gradient(90deg, var(--navy), var(--navy-light)); width:0%; transition:width .5s ease; }
+
+/* OFFER MODAL */
+#offerModal { position:fixed; inset:0; background:rgba(0,0,0,.75); display:none; align-items:center; justify-content:center; z-index:700; }
+#offerContent { background:white; max-width:400px; width:92%; border-radius:20px; padding:30px 26px; text-align:center; border-top:4px solid var(--red); }
+#offerContent h2 { font-size:20px; font-weight:900; color:var(--navy); margin-bottom:12px; }
+#offerContent p { font-size:14px; color:var(--muted); line-height:1.6; margin-bottom:24px; }
+.offer-btns { display:flex; gap:10px; }
+.offer-btns button { flex:1; padding:14px; border:none; border-radius:12px; font-weight:900; font-size:15px; cursor:pointer; font-family:var(--sans); }
+.offer-yes { background:var(--navy); color:white; }
+.offer-yes:hover { background:var(--navy-mid); }
+.offer-no  { background:#e2e8f0; color:var(--text); }
+
+/* SAVED PANEL */
+#savedPanel { position:fixed; bottom:20px; right:20px; background:white; border-radius:18px; box-shadow:0 16px 50px -8px rgba(0,0,0,.28); width:330px; max-height:540px; overflow:hidden; z-index:500; display:none; border:2px solid var(--navy); }
+.saved-panel-head { padding:14px 20px; background:var(--navy); color:white; display:flex; justify-content:space-between; align-items:center; font-weight:900; }
+.saved-panel-head span:last-child { cursor:pointer; font-size:22px; }
+#savedList { max-height:430px; overflow:auto; }
+
+/* DETAIL MODAL */
+#detailModal { position:fixed; inset:0; background:rgba(0,0,0,.75); display:none; align-items:center; justify-content:center; z-index:600; }
+#detailInner { background:white; width:94%; max-width:500px; border-radius:20px; max-height:92vh; overflow:auto; border:3px solid var(--navy); }
+.detail-head { padding:22px 26px; background:var(--navy); color:white; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; }
+.detail-ticker { font-size:30px; font-family:var(--mono); font-weight:900; }
+.detail-close { font-size:28px; cursor:pointer; }
+#detailBody { padding:26px; }
+
+/* SPONSOR */
+.sponsor-wrap { text-align:center; padding:10px 20px 0; }
+.sponsor-wrap a img { max-width:100%; border-radius:8px; }
+.sponsor-wrap small { display:block; font-size:11px; color:var(--muted); font-weight:700; margin-top:3px; }
+
+footer { text-align:center; padding:40px 20px; color:var(--muted); font-size:12px; border-top:1px solid #e2e8f0; margin-top:20px; }
+footer a { color:var(--navy); text-decoration:none; font-weight:700; margin:0 6px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="https://weeklyetfs.com" class="header-logo">WeeklyETFs.com</a>
+  <button class="saved-btn" onclick="showSaved()">❤️ Saved (<span id="savedCount">0</span>)</button>
+</header>
+
+<div class="top-bar">
+  <p>Swipe to discover your next high-yield weekly dividend ETF!</p>
+</div>
+
+<div class="pro-wrap">
+  <a class="pro-btn" href="https://weeklyetfs.com" target="_blank">See Full Weekly ETF Rankings →</a>
+</div>
+
+<div class="controls-row">
+  <div>Remaining: <strong id="remaining">—</strong></div>
+  <div style="display:flex;gap:8px">
+    <button class="ctrl-btn" onclick="newCard()">New Card</button>
+    <button class="ctrl-btn" onclick="shuffleDeck()">🔀 Shuffle</button>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<div class="swipe-container" id="swipeContainer"></div>
+
+<div class="actions">
+  <button id="noBtn"  class="action-btn" onclick="swipeLeft()">✕</button>
+  <button id="yesBtn" class="action-btn" onclick="swipeRight()">❤️</button>
+</div>
+
+<div class="sponsor-wrap">
+  <a href="https://vegasharesetfs.com/ODTE" target="_blank" rel="noopener">
+    <img src="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/ODTE%20ad%20728x90px.png" alt="ODTE Advertisement">
+  </a>
+  <small>Sponsored</small>
+</div>
+
+<!-- OFFER MODAL -->
+<div id="offerModal">
+  <div id="offerContent">
+    <h2 id="offerTitle"></h2>
+    <p id="offerText"></p>
+    <div class="offer-btns">
+      <button class="offer-yes" onclick="goToSite()">Take Me There →</button>
+      <button class="offer-no"  onclick="closeOffer()">Keep Swiping</button>
+    </div>
+  </div>
+</div>
+
+<!-- SAVED PANEL -->
+<div id="savedPanel">
+  <div class="saved-panel-head">
+    <span>❤️ My Watchlist</span>
+    <span onclick="hideSaved()">✕</span>
+  </div>
+  <div id="savedList"></div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div id="detailModal">
+  <div id="detailInner">
+    <div class="detail-head">
+      <div class="detail-ticker" id="detailTicker"></div>
+      <span class="detail-close" onclick="closeDetail()">✕</span>
+    </div>
+    <div id="detailBody"></div>
+  </div>
+</div>
+
+<footer>
+  <a href="https://weeklyetfs.com">WeeklyETFs.com</a> |
+  <a href="https://weeklyetfs.com/terms.html">Terms</a> |
+  <a href="https://weeklyetfs.com/privacy.html">Privacy</a> |
+  <a href="https://weeklyetfs.com/faq.html">FAQ</a> |
+  <a href="https://topdividendetfs.com/" target="_blank">Top Dividend ETFs</a><br><br>
+  Data updated daily • Not financial advice • NOT a buy or sell signal!<br>
+  WeeklyETFs.com is for entertainment purposes ONLY.
+</footer>
+
+<script>
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1P00pQ6hNvYolxzrKYIuxC-AH1xFBpMtsn-NwC17W4vQazk3ql69ZmSmW8J-jp7OaUmKLV5v2KPI3/pub?gid=0&single=true&output=csv';
+
+let allETFs = [];
+let deck = [];
+let currentIndex = 0;
+let savedETFs = [];
+let totalSwipes = 0;
+
+function parseNum(str) {
+  if (!str || str === '-' || str === 'N/A') return null;
+  return parseFloat(str.replace(/[%,+$]/g, '')) || null;
+}
+
+function returnClass(val) {
+  if (!val || val === '-') return '';
+  const n = parseNum(val);
+  if (n === null) return '';
+  return n >= 0 ? 'positive' : 'negative';
+}
+
+async function loadETFs() {
+  try {
+    const res = await fetch(CSV_URL + '&t=' + Date.now());
+    const text = await res.text();
+    const lines = text.trim().split('\n');
+    allETFs = [];
+    for (let i = 1; i < lines.length; i++) {
+      const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
+      if (cols.length < 3 || !cols[0]) continue;
+      allETFs.push({
+        symbol: cols[0].toUpperCase(),
+        name: cols[1] || '',
+        yieldStr: cols[2] || '—',
+        decay: cols[3] || '—',
+        totalReturn: cols[4] || '—'
+      });
+    }
+    resetDeck();
+  } catch(e) {
+    document.getElementById('swipeContainer').innerHTML = '<div style="padding:60px 20px;text-align:center;color:#666;font-size:16px;background:white;border-radius:24px;margin:0 20px">⚠️ Could not load ETF data. Please refresh.</div>';
+  }
+}
+
+function resetDeck() {
+  deck = [...allETFs].sort(() => Math.random() - 0.5);
+  currentIndex = 0;
+  renderCard();
+}
+
+function shuffleDeck() {
+  deck = [...allETFs].sort(() => Math.random() - 0.5);
+  currentIndex = 0;
+  renderCard();
+}
+
+function renderCard() {
+  const container = document.getElementById('swipeContainer');
+  container.innerHTML = '';
+
+  if (currentIndex >= deck.length) {
+    container.innerHTML = `
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:white;border-radius:24px;border:3px solid #001f3d;text-align:center;padding:40px">
+        <div style="font-size:52px;margin-bottom:16px">🎉</div>
+        <h2 style="font-size:28px;color:#001f3d;margin-bottom:12px">All done!</h2>
+        <p style="color:#666;margin-bottom:28px">You've seen the whole deck. Shuffle for a fresh round.</p>
+        <button onclick="shuffleDeck()" style="padding:14px 36px;background:#001f3d;color:white;border:none;border-radius:999px;font-size:16px;font-weight:900;cursor:pointer;font-family:'Lato',sans-serif">🔀 New Deck</button>
+      </div>`;
+    return;
+  }
+
+  const etf = deck[currentIndex];
+  const retClass = returnClass(etf.totalReturn);
+  const decayIsNo = (etf.decay || '').toLowerCase() === 'no';
+  const decayClass = decayIsNo ? 'positive' : 'negative';
+
+  container.innerHTML = `
+    <div class="etf-card" id="mainCard" ondblclick="showDetail('${etf.symbol}')">
+      <div class="card-header">
+        <div>
+          <div class="ticker-big">${etf.symbol}</div>
+          <div class="etf-name">${etf.name || 'Weekly Dividend ETF'}</div>
+        </div>
+      </div>
+
+      <div class="main-focus">
+        <div class="focus-box yield">
+          <div class="focus-val">${etf.yieldStr}</div>
+          <div class="focus-label">Dividend Yield</div>
+        </div>
+        <div class="focus-box">
+          <div class="focus-val ${retClass}">${etf.totalReturn || '—'}</div>
+          <div class="focus-label">Total Return</div>
+        </div>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat-box">
+          <div class="stat-val ${decayClass}">${decayIsNo ? '✓ None' : etf.decay || '—'}</div>
+          <div class="stat-lbl">Price Decay</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">Weekly</div>
+          <div class="stat-lbl">Pay Freq</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val ${retClass}">${etf.totalReturn || '—'}</div>
+          <div class="stat-lbl">Tot. Return</div>
+        </div>
+      </div>
+
+      <div class="card-info">
+        <div class="info-row">
+          <span class="info-label">Ticker</span>
+          <span class="info-value">${etf.symbol}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Dividend Yield</span>
+          <span class="info-value" style="color:#27ae60">${etf.yieldStr}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Price Decay</span>
+          <span class="info-value ${decayClass}">${etf.decay || '—'}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Total Return</span>
+          <span class="info-value ${retClass}">${etf.totalReturn || '—'}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Pay Frequency</span>
+          <span class="info-value">Weekly</span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('remaining').textContent = deck.length - currentIndex;
+  updateProgress();
+}
+
+function updateProgress() {
+  const pct = deck.length ? Math.round((currentIndex / deck.length) * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+// ===== SWIPE =====
+function swipeLeft() {
+  const card = document.getElementById('mainCard');
+  if (!card) return;
+  card.classList.add('swipe-left');
+  setTimeout(() => { currentIndex++; totalSwipes++; renderCard(); trackPageview(); checkOffer(); }, 400);
+}
+
+function swipeRight() {
+  const card = document.getElementById('mainCard');
+  if (!card) return;
+  const etf = deck[currentIndex];
+  if (etf && !savedETFs.some(e => e.symbol === etf.symbol)) {
+    savedETFs.push(etf);
+    document.getElementById('savedCount').textContent = savedETFs.length;
+  }
+  card.classList.add('swipe-right');
+  setTimeout(() => { currentIndex++; totalSwipes++; renderCard(); trackPageview(); checkOffer(); }, 400);
+}
+
+// ===== GA =====
+function trackPageview() {
+  const symbol = deck[currentIndex] ? deck[currentIndex].symbol : 'Done';
+  const url = window.location.origin + (window.location.pathname || '/swipe') + '?etf=' + symbol + '&t=' + Date.now();
+  history.pushState({ symbol }, '', url);
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'page_view', { page_location: url, page_title: 'Swipe ETFs • ' + symbol });
+  }
+}
+
+// ===== OFFER MODAL =====
+const OFFERS = [
+  { title: 'Want More Weekly ETFs?', text: 'Explore 100+ weekly dividend ETFs ranked by yield — updated daily, 100% free on WeeklyETFs.com.' },
+  { title: 'Building a Watchlist? 💼', text: 'Check out the full ranked list of the best weekly dividend ETFs. Filter by yield, decay, and total return.' },
+  { title: 'Looking for Higher Yields? 🔥', text: 'The full WeeklyETFs.com database has 100+ ETFs with live daily data. Go deeper on any ticker.' }
+];
+
+function checkOffer() {
+  if (totalSwipes > 0 && totalSwipes % 5 === 0) {
+    setTimeout(showOffer, 700);
+  }
+}
+
+function showOffer() {
+  const offer = OFFERS[Math.floor(totalSwipes / 5 - 1) % OFFERS.length];
+  document.getElementById('offerTitle').textContent = offer.title;
+  document.getElementById('offerText').textContent  = offer.text;
+  document.getElementById('offerModal').style.display = 'flex';
+}
+
+function closeOffer() { document.getElementById('offerModal').style.display = 'none'; }
+
+function goToSite() {
+  window.open('https://weeklyetfs.com', '_blank');
+  closeOffer();
+}
+
+// ===== SAVED PANEL =====
+function showSaved() {
+  const list = document.getElementById('savedList');
+  list.innerHTML = '';
+  if (!savedETFs.length) {
+    list.innerHTML = '<div style="padding:50px 20px;text-align:center;color:#666">No saves yet.<br>Swipe right ❤️ on ETFs you like!</div>';
+  } else {
+    savedETFs.forEach((etf, i) => {
+      const div = document.createElement('div');
+      div.style.cssText = 'padding:13px 18px;border-bottom:1px solid #e2e8f0;cursor:pointer;display:flex;align-items:center;justify-content:space-between;';
+      div.innerHTML = `
+        <div onclick="showDetail('${etf.symbol}')">
+          <strong style="font-size:16px;color:#001f3d;font-family:'DM Mono',monospace">${etf.symbol}</strong>
+          <span style="font-size:13px;color:#27ae60;font-weight:700;margin-left:8px">${etf.yieldStr}</span>
+          <div style="font-size:12px;color:#666;margin-top:2px">${(etf.name||'').slice(0,34)}</div>
+        </div>
+        <span onclick="removeSaved(${i},event)" style="color:#e74c3c;font-size:20px;padding:4px 8px;cursor:pointer">✕</span>
+      `;
+      list.appendChild(div);
+    });
+  }
+  document.getElementById('savedPanel').style.display = 'block';
+}
+
+function hideSaved() { document.getElementById('savedPanel').style.display = 'none'; }
+
+function removeSaved(idx, e) {
+  e.stopPropagation();
+  savedETFs.splice(idx, 1);
+  document.getElementById('savedCount').textContent = savedETFs.length;
+  showSaved();
+}
+
+// ===== DETAIL MODAL =====
+function showDetail(symbol) {
+  const etf = allETFs.find(e => e.symbol === symbol);
+  if (!etf) return;
+  const retClass = returnClass(etf.totalReturn);
+  const decayIsNo = (etf.decay || '').toLowerCase() === 'no';
+  const decayClass = decayIsNo ? 'positive' : 'negative';
+
+  document.getElementById('detailTicker').innerHTML = `${etf.symbol} <span style="font-size:16px;opacity:.75">${etf.yieldStr}</span>`;
+
+  document.getElementById('detailBody').innerHTML = `
+    <h2 style="font-size:20px;margin-bottom:18px;color:#001f3d">${etf.name || etf.symbol}</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px">
+      <div style="background:#f0fdf4;padding:18px;border-radius:14px;text-align:center;border:2px solid #27ae60">
+        <div style="font-size:38px;font-weight:900;color:#27ae60;font-family:'DM Mono',monospace">${etf.yieldStr}</div>
+        <div style="font-size:11px;color:#27ae60;font-weight:700;text-transform:uppercase;margin-top:4px">Dividend Yield</div>
+      </div>
+      <div style="background:#f0f4ff;padding:18px;border-radius:14px;text-align:center;border:2px solid #001f3d">
+        <div style="font-size:38px;font-weight:900;font-family:'DM Mono',monospace" class="${retClass}">${etf.totalReturn || '—'}</div>
+        <div style="font-size:11px;color:#666;font-weight:700;text-transform:uppercase;margin-top:4px">Total Return</div>
+      </div>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:14px;padding:18px;margin-bottom:20px">
+      <div class="info-row"><span class="info-label">Ticker</span><span class="info-value">${etf.symbol}</span></div>
+      <div class="info-row"><span class="info-label">Dividend Yield</span><span class="info-value" style="color:#27ae60">${etf.yieldStr}</span></div>
+      <div class="info-row"><span class="info-label">Price Decay</span><span class="info-value ${decayClass}">${etf.decay || '—'}</span></div>
+      <div class="info-row"><span class="info-label">Total Return</span><span class="info-value ${retClass}">${etf.totalReturn || '—'}</span></div>
+      <div class="info-row"><span class="info-label">Pay Frequency</span><span class="info-value">Weekly</span></div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button onclick="saveFromDetail('${etf.symbol}');closeDetail()" style="flex:1;padding:16px;background:#27ae60;color:white;border:none;border-radius:12px;font-weight:900;font-size:15px;cursor:pointer;font-family:'Lato',sans-serif">❤️ Save to Watchlist</button>
+      <button onclick="closeDetail()" style="flex:1;padding:16px;background:#e2e8f0;color:#222;border:none;border-radius:12px;font-weight:900;font-size:15px;cursor:pointer;font-family:'Lato',sans-serif">Close</button>
+    </div>
+  `;
+  document.getElementById('detailModal').style.display = 'flex';
+}
+
+function closeDetail() { document.getElementById('detailModal').style.display = 'none'; }
+
+function saveFromDetail(symbol) {
+  const etf = allETFs.find(e => e.symbol === symbol);
+  if (etf && !savedETFs.some(e => e.symbol === symbol)) {
+    savedETFs.push(etf);
+    document.getElementById('savedCount').textContent = savedETFs.length;
+  }
+}
+
+// ===== KEYBOARD + TOUCH =====
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft')  swipeLeft();
+  if (e.key === 'ArrowRight') swipeRight();
+});
+
+let touchX = 0;
+document.addEventListener('touchstart', e => { touchX = e.changedTouches[0].screenX; });
+document.addEventListener('touchend',   e => {
+  const diff = e.changedTouches[0].screenX - touchX;
+  if (diff < -80) swipeLeft();
+  if (diff > 80)  swipeRight();
+});
+
+function newCard() { location.reload(); }
+
+window.onload = loadETFs;
+</script>
+</body>
+</html>
