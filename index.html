@@ -59,6 +59,50 @@
         header{background:var(--navy);padding:8px 20px;text-align:center;width:100%;box-shadow:0 2px 5px rgba(0,0,0,.3);background-image:url('https://www.transparenttextures.com/patterns/noise.png');background-blend-mode:overlay;cursor:pointer;position:sticky;top:0;z-index:10}
         .banner-img{max-width:440px;width:82%;height:auto;display:block;margin:0 auto}
         @media(min-width:768px){.banner-img{max-width:440px}}
+
+        /* ═══════════════════════════════════════════════════
+           SITE NETWORK BAR — subtle strip linking sister sites
+        ════════════════════════════════════════════════════ */
+        .site-network-bar{
+            width:100%;
+            background:#fff;
+            border-bottom:1px solid #ddd;
+            padding:8px 0;
+        }
+        .site-network-track{
+            max-width:1100px;
+            margin:0 auto;
+            padding:0 15px 0 15px;
+            display:flex;
+            align-items:center;
+            gap:8px;
+            overflow-x:auto;
+            white-space:nowrap;
+            -ms-overflow-style:none;
+            scrollbar-width:none;
+        }
+        .site-network-track::after{
+            content:"";
+            flex:0 0 4px;
+        }
+        .site-network-track::-webkit-scrollbar{display:none;}
+        .site-network-label{
+            font-size:0.68em; text-transform:uppercase; letter-spacing:0.5px;
+            color:#999; font-weight:900; flex-shrink:0; margin-right:2px;
+        }
+        .site-pill{
+            display:inline-flex; align-items:center; gap:6px;
+            padding:5px 12px; border-radius:999px;
+            border:1px solid var(--navy); background:#fff; color:var(--navy);
+            font-size:0.8em; font-weight:700; text-decoration:none;
+            flex-shrink:0; transition:background .15s ease, color .15s ease;
+        }
+        .site-pill:hover{background:var(--navy); color:#fff;}
+        .site-pill .pill-emoji{font-size:0.95em; line-height:1;}
+        .site-pill.current{
+            background:var(--navy); color:#fff; cursor:default;
+        }
+
         .main-h1{text-align:center;margin:24px auto 8px;padding:0 15px;max-width:1100px}
         .main-h1 h1{font-size:1.55em;margin:0;color:var(--navy);line-height:1.3;font-weight:900}
         .main-h1 span{display:block;font-size:0.78em;color:var(--red);font-weight:900;margin-top:6px;opacity:0.9}
@@ -72,6 +116,7 @@
         td{padding:8px 4px;font-size:.95em;text-align:center}
         tr:nth-child(even){background:#f9f9f9}
         tr:hover{background:#e6f0ff}
+        tbody tr{cursor:pointer;}
         .symbol{font-weight:900;font-size:1.2em;color:var(--navy)}
         .yield{font-weight:bold;color:var(--navy);font-size:1.1em}
         .decay{font-weight:bold;color:#000 !important}
@@ -133,10 +178,37 @@
     </style>
 </head>
 <body>
-<div class="content">
     <header onclick="location.reload()">
         <img src="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/Weeklyftps%203.png" alt="WeeklyETFs.com Logo" class="banner-img">
     </header>
+
+    <!-- SITE NETWORK BAR -->
+    <div class="site-network-bar">
+        <div class="site-network-track">
+            <span class="site-network-label">Our Sites:</span>
+
+            <a href="https://topdividendetfs.com/" class="site-pill" title="Top 100 Dividend ETFs ranked by yield & performance">
+                <span class="pill-emoji">💵</span> TopDividendETFs.com
+            </a>
+            <span class="site-pill current" title="You're here">
+                <span class="pill-emoji">📅</span> WeeklyETFs.com
+            </span>
+            <a href="https://monthlyetfs.com/" class="site-pill" title="Best monthly paying dividend ETFs">
+                <span class="pill-emoji">🗓️</span> MonthlyETFs.com
+            </a>
+            <a href="https://growthetfs.com/" class="site-pill" title="High growth dividend & growth ETFs">
+                <span class="pill-emoji">📈</span> GrowthETFs.com
+            </a>
+            <a href="https://topspaceetfs.com/" class="site-pill" title="Best space & aerospace ETFs ranked">
+                <span class="pill-emoji">🚀</span> TopSpaceETFs.com
+            </a>
+            <a href="https://etftotalreturns.com/" class="site-pill" title="Total return analysis & performance metrics for ETFs">
+                <span class="pill-emoji">📊</span> ETFTotalReturns.com
+            </a>
+        </div>
+    </div>
+
+<div class="content">
 
     <div class="main-h1">
         <h1>Top 100+ Weekly Dividend ETFs
@@ -290,6 +362,11 @@ function renderTable(csv) {
 
         const tr = document.createElement('tr');
         const labels = ['Symbol','ETF Name','Dividend Yield','Price Decay','Total Return'];
+        const symbolForLink = cols[0];
+        tr.addEventListener('click', () => {
+            window.location.href = 'etf.html?symbol=' + encodeURIComponent(symbolForLink);
+        });
+        tr.title = 'View full scorecard for ' + symbolForLink;
 
         labels.forEach((label, j) => {
             const td = document.createElement('td');
