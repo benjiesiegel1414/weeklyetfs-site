@@ -35,6 +35,7 @@
 
     <style>
         html, body{margin:0;padding:0;overflow-x:hidden !important;width:100%;position:relative}
+        *, *::before, *::after{box-sizing:border-box;}
         :root{--navy:#001f3d;--red:#e74c3c;--green:#27ae60;--gold:#c98a11}
         body{font-family:'Lato',Arial,sans-serif;background:#f4f4f4;color:#333;display:flex;flex-direction:column;align-items:center;min-height:100vh}
         a{color:inherit;}
@@ -117,25 +118,35 @@
 
         /* RETURN CHART — diverging bar, green/red */
         .return-chart-panel{
-            width:94%; max-width:1000px; margin:8px auto 28px;
+            width:94%; max-width:700px; margin:8px auto 28px;
             background:#fff; border-radius:14px; border:3px solid var(--navy);
-            padding:24px 26px; box-shadow:0 4px 15px rgba(0,0,0,.1);
+            padding:20px 22px; box-shadow:0 4px 15px rgba(0,0,0,.1);
+            box-sizing:border-box;
         }
-        .return-chart-title{font-size:0.95em; font-weight:900; color:var(--navy); margin-bottom:16px; text-transform:uppercase; letter-spacing:0.5px;}
+        .return-chart-title{font-size:0.9em; font-weight:900; color:var(--navy); margin-bottom:14px; text-transform:uppercase; letter-spacing:0.5px; text-align:center;}
         .return-chart-track{
-            position:relative; height:34px; background:#eef1f4; border-radius:8px; overflow:hidden;
+            position:relative; height:26px; background:#eef1f4; border-radius:7px; overflow:hidden;
+            box-sizing:border-box; width:100%;
         }
         .return-chart-zero{
             position:absolute; top:0; bottom:0; left:50%; width:2px; background:#c7ccd1;
         }
         .return-chart-bar{
-            position:absolute; top:3px; bottom:3px; border-radius:6px;
-            display:flex; align-items:center; font-weight:900; font-size:0.85em; color:#fff;
-            transition:width .4s ease;
+            position:absolute; top:2px; bottom:2px; border-radius:5px;
+            display:flex; align-items:center; font-weight:900; font-size:0.72em; color:#fff;
+            transition:width .4s ease; overflow:hidden; white-space:nowrap;
         }
-        .return-chart-bar.positive{background:var(--green); left:50%; padding-left:10px; justify-content:flex-start;}
-        .return-chart-bar.negative{background:var(--red); right:50%; padding-right:10px; justify-content:flex-end;}
-        .return-chart-scale{display:flex; justify-content:space-between; font-size:0.72em; color:#aaa; margin-top:8px;}
+        .return-chart-bar.positive{background:var(--green); left:50%; padding-left:8px; justify-content:flex-start;}
+        .return-chart-bar.negative{background:var(--red); right:50%; padding-right:8px; justify-content:flex-end;}
+        .return-chart-scale{display:flex; justify-content:space-between; font-size:0.68em; color:#aaa; margin-top:6px;}
+        @media(max-width:480px){
+            .return-chart-panel{padding:16px 16px;}
+            .return-chart-track{height:20px;}
+            .return-chart-bar{font-size:0.62em;}
+            .detail-panel{padding:18px 18px;}
+            .hero-stat-card{padding:20px 16px;}
+            .hero-stat-value{font-size:2.1em;}
+        }
 
         /* DETAIL PANEL */
         .detail-panel{
@@ -240,9 +251,9 @@
                     <div class="return-chart-bar" id="returnBar"></div>
                 </div>
                 <div class="return-chart-scale">
-                    <span>-50%</span>
+                    <span>-100%</span>
                     <span>0%</span>
-                    <span>+50%</span>
+                    <span>+100%</span>
                 </div>
             </div>
 
@@ -362,10 +373,10 @@ async function loadScorecard() {
     heroReturn.textContent = returnVal;
     document.getElementById('returnSub').textContent = isPositive ? 'Positive since inception' : 'Negative since inception';
 
-    // Diverging bar chart: clamp magnitude to +/-50% scale for display
+    // Diverging bar chart: clamp magnitude to +/-100% scale for display
     const bar = document.getElementById('returnBar');
-    const magnitude = returnNum === null ? 0 : Math.min(Math.abs(returnNum), 50);
-    const widthPct = (magnitude / 50) * 50;
+    const magnitude = returnNum === null ? 0 : Math.min(Math.abs(returnNum), 100);
+    const widthPct = (magnitude / 100) * 50;
     bar.classList.add(isPositive ? 'positive' : 'negative');
     bar.style.width = widthPct + '%';
     bar.textContent = returnNum === null ? '' : (isPositive ? '▲ ' : '▼ ') + returnVal;
