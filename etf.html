@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9929351005136304"
+     crossorigin="anonymous"></script>
+    <meta name="google-site-verification" content="XmPDmAe5OeTWMAVQVs3PENLebSFlRYF-04j1-QogGLU" />
+    <meta name="msvalidate.01" content="C66A48BDFAA2F813D992F39A8BBB3EF1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+
+    <title id="pageTitle">ETF Scorecard | WeeklyETFs.com</title>
+    <meta id="pageDescription" name="description" content="Full scorecard for this weekly dividend ETF — dividend yield, total return, and price decay, updated daily.">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EG30PW49ZN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      // Base config fires with no automatic pageview. We send a manual one below
+      // once we know which ticker this is, so each ETF logs as its own page
+      // in GA4 (e.g. /etf/QQQI) instead of everything sharing /etf.html.
+      gtag('config', 'G-EG30PW49ZN', { send_page_view: false });
+    </script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#001f3d">
+    <meta name="theme-color" content="#ffffff">
+
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        html, body{margin:0;padding:0;overflow-x:hidden !important;width:100%;position:relative}
+        :root{--navy:#001f3d;--red:#e74c3c;--green:#27ae60;--gold:#c98a11}
+        body{font-family:'Lato',Arial,sans-serif;background:#f4f4f4;color:#333;display:flex;flex-direction:column;align-items:center;min-height:100vh}
+        a{color:inherit;}
+        header{background:var(--navy);padding:8px 20px;text-align:center;width:100%;box-shadow:0 2px 5px rgba(0,0,0,.3);background-image:url('https://www.transparenttextures.com/patterns/noise.png');background-blend-mode:overlay;cursor:pointer;position:sticky;top:0;z-index:10}
+        .banner-img{max-width:440px;width:82%;height:auto;display:block;margin:0 auto}
+
+        .site-network-bar{width:100%;background:#fff;border-bottom:1px solid #ddd;padding:8px 0;}
+        .site-network-track{max-width:1100px;margin:0 auto;padding:0 15px;display:flex;align-items:center;gap:8px;overflow-x:auto;white-space:nowrap;-ms-overflow-style:none;scrollbar-width:none;}
+        .site-network-track::-webkit-scrollbar{display:none;}
+        .site-network-track::after{content:"";flex:0 0 4px;}
+        .site-network-label{font-size:0.68em;text-transform:uppercase;letter-spacing:0.5px;color:#999;font-weight:900;flex-shrink:0;margin-right:2px;}
+        .site-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px solid var(--navy);background:#fff;color:var(--navy);font-size:0.8em;font-weight:700;text-decoration:none;flex-shrink:0;transition:background .15s ease, color .15s ease;}
+        .site-pill:hover{background:var(--navy);color:#fff;}
+        .site-pill.current{background:var(--navy);color:#fff;cursor:default;}
+
+        .content{width:94%;max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
+
+        .back-link{align-self:flex-start;margin:20px 0 4px;font-weight:700;color:var(--navy);text-decoration:none;font-size:0.92em;}
+        .back-link:hover{text-decoration:underline;}
+
+        .loading-state, .error-state{padding:80px 20px;text-align:center;color:#666;width:100%;}
+        .spinner{width:36px;height:36px;border-radius:50%;border:3px solid #ddd;border-top-color:var(--navy);animation:spin .8s linear infinite;margin:0 auto 18px;}
+        @keyframes spin{to{transform:rotate(360deg);}}
+        .error-state h2{color:var(--navy);margin-bottom:10px;}
+        .error-state a{color:var(--navy);font-weight:900;}
+
+        #scorecard{width:100%;display:none;}
+
+        .score-hero{text-align:center;margin:24px auto 8px;padding:0 15px;}
+        .score-symbol-icon{
+            display:inline-flex; align-items:center; justify-content:center;
+            width:64px; height:64px; border-radius:14px; margin-bottom:14px;
+            background:var(--navy); color:#fff; font-weight:900; font-size:1rem; letter-spacing:-0.5px;
+        }
+        .score-hero h1{font-size:1.55em;margin:0;color:var(--navy);line-height:1.3;font-weight:900;}
+        .score-hero .symbol-tag{
+            display:inline-block; font-size:0.7em; color:#fff; background:var(--navy);
+            padding:2px 10px; border-radius:999px; margin-left:8px; vertical-align:middle; font-weight:900;
+        }
+        .score-hero p.sub{color:#666; font-size:0.95em; max-width:600px; margin:10px auto 0;}
+        .updated-note{
+            display:inline-flex; align-items:center; gap:6px; font-size:0.78em; color:#888;
+            border:1px solid #ddd; border-radius:999px; padding:5px 14px; margin-top:14px;
+        }
+        .updated-note .dot{width:6px;height:6px;border-radius:50%;background:var(--green);}
+
+        /* HERO STATS — Yield + Total Return, the marquee numbers */
+        .hero-stats{
+            display:grid; grid-template-columns:1fr 1fr; gap:16px;
+            width:94%; max-width:1000px; margin:28px auto 8px;
+        }
+        @media(max-width:640px){.hero-stats{grid-template-columns:1fr;}}
+        .hero-stat-card{
+            border-radius:14px; padding:26px 22px; text-align:center;
+            box-shadow:0 4px 15px rgba(0,0,0,.08); border:2px solid transparent;
+        }
+        .hero-stat-card.yield-card{
+            background:linear-gradient(155deg, #fff7e6, #fff);
+            border-color:#f0d090;
+        }
+        .hero-stat-card.return-card.positive{
+            background:linear-gradient(155deg, #eafaf0, #fff);
+            border-color:#a9e3bc;
+        }
+        .hero-stat-card.return-card.negative{
+            background:linear-gradient(155deg, #fdecea, #fff);
+            border-color:#f3b7b1;
+        }
+        .hero-stat-label{
+            font-size:0.78em; text-transform:uppercase; letter-spacing:1px;
+            color:#888; font-weight:900; margin-bottom:10px;
+        }
+        .hero-stat-value{
+            font-size:2.6em; font-weight:900; line-height:1;
+        }
+        .hero-stat-value.gold{color:var(--gold);}
+        .hero-stat-value.positive{color:var(--green);}
+        .hero-stat-value.negative{color:var(--red);}
+        .hero-stat-sub{font-size:0.8em; color:#999; margin-top:8px; font-weight:700;}
+
+        /* RETURN CHART — diverging bar, green/red */
+        .return-chart-panel{
+            width:94%; max-width:1000px; margin:8px auto 28px;
+            background:#fff; border-radius:14px; border:3px solid var(--navy);
+            padding:24px 26px; box-shadow:0 4px 15px rgba(0,0,0,.1);
+        }
+        .return-chart-title{font-size:0.95em; font-weight:900; color:var(--navy); margin-bottom:16px; text-transform:uppercase; letter-spacing:0.5px;}
+        .return-chart-track{
+            position:relative; height:34px; background:#eef1f4; border-radius:8px; overflow:hidden;
+        }
+        .return-chart-zero{
+            position:absolute; top:0; bottom:0; left:50%; width:2px; background:#c7ccd1;
+        }
+        .return-chart-bar{
+            position:absolute; top:3px; bottom:3px; border-radius:6px;
+            display:flex; align-items:center; font-weight:900; font-size:0.85em; color:#fff;
+            transition:width .4s ease;
+        }
+        .return-chart-bar.positive{background:var(--green); left:50%; padding-left:10px; justify-content:flex-start;}
+        .return-chart-bar.negative{background:var(--red); right:50%; padding-right:10px; justify-content:flex-end;}
+        .return-chart-scale{display:flex; justify-content:space-between; font-size:0.72em; color:#aaa; margin-top:8px;}
+
+        /* DETAIL PANEL */
+        .detail-panel{
+            width:94%; max-width:1000px; margin:0 auto 28px; background:#fff;
+            border-radius:14px; border:1px solid #ddd; padding:22px 26px;
+            box-shadow:0 2px 10px rgba(0,0,0,.06);
+        }
+        .detail-panel h2{font-size:1.1em; color:var(--navy); margin:0 0 14px;}
+        .detail-row{display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #eee; font-size:0.95em;}
+        .detail-row:last-child{border-bottom:none;}
+        .detail-row .label{color:#777;}
+        .detail-row .value{font-weight:900; color:var(--navy);}
+        .badge-yes{color:var(--red); font-weight:900;}
+        .badge-no{color:var(--green); font-weight:900;}
+
+        .cta-row{display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin:20px auto 30px;}
+        .cta-btn{
+            display:inline-block; padding:11px 24px; border-radius:8px; font-weight:900; font-size:0.92em;
+            text-decoration:none; box-shadow:0 3px 10px rgba(0,0,0,.15); transition:all .2s;
+        }
+        .cta-btn.primary{background:var(--navy); color:#fff;}
+        .cta-btn.primary:hover{background:#00162b; transform:translateY(-2px);}
+        .cta-btn.ghost{background:#fff; color:var(--navy); border:1px solid var(--navy);}
+        .cta-btn.ghost:hover{background:#f4f4f4;}
+
+        .disclaimer{font-size:.85em; color:#666; margin:10px auto 40px; max-width:900px; line-height:1.5; text-align:center; padding:0 15px;}
+
+        .footer{margin-top:20px;padding:25px;background:#fff;width:100%;text-align:center;font-size:0.9em;color:#555;border-top:1px solid #ddd}
+        .footer a{color:var(--navy);text-decoration:none;margin:0 12px;font-weight:700}
+        .footer a:hover{text-decoration:underline}
+    </style>
+</head>
+<body>
+    <header onclick="location.href='/'">
+        <img src="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/Weeklyftps%203.png" alt="WeeklyETFs.com Logo" class="banner-img">
+    </header>
+
+    <div class="site-network-bar">
+        <div class="site-network-track">
+            <span class="site-network-label">Our Sites:</span>
+            <a href="https://topdividendetfs.com/" class="site-pill" title="Top 100 Dividend ETFs ranked by yield & performance">
+                <span>💵</span> TopDividendETFs.com
+            </a>
+            <span class="site-pill current" title="You're here">
+                <span>📅</span> WeeklyETFs.com
+            </span>
+            <a href="https://monthlyetfs.com/" class="site-pill" title="Best monthly paying dividend ETFs">
+                <span>🗓️</span> MonthlyETFs.com
+            </a>
+            <a href="https://growthetfs.com/" class="site-pill" title="High growth dividend & growth ETFs">
+                <span>📈</span> GrowthETFs.com
+            </a>
+            <a href="https://topspaceetfs.com/" class="site-pill" title="Best space & aerospace ETFs ranked">
+                <span>🚀</span> TopSpaceETFs.com
+            </a>
+            <a href="https://etftotalreturns.com/" class="site-pill" title="Total return analysis & performance metrics for ETFs">
+                <span>📊</span> ETFTotalReturns.com
+            </a>
+        </div>
+    </div>
+
+    <div class="content">
+        <a href="/" class="back-link">← Back to All Rankings</a>
+
+        <div class="loading-state" id="loadingState">
+            <div class="spinner"></div>
+            <div>Loading scorecard…</div>
+        </div>
+
+        <div class="error-state" id="errorState" style="display:none;">
+            <h2>ETF Not Found</h2>
+            <p>We couldn't find a ticker matching that symbol in our rankings.</p>
+            <p><a href="/">← View All Weekly ETFs</a></p>
+        </div>
+
+        <div id="scorecard">
+
+            <div class="score-hero">
+                <div class="score-symbol-icon" id="tickerIcon">—</div>
+                <h1 id="etfName">—<span class="symbol-tag" id="etfSymbolBadge"></span></h1>
+                <p class="sub" id="etfSub">Full scorecard for this weekly dividend ETF, pulled from our live rankings data.</p>
+                <div class="updated-note"><span class="dot"></span> Data Updated Daily</div>
+            </div>
+
+            <div class="hero-stats">
+                <div class="hero-stat-card yield-card">
+                    <div class="hero-stat-label">Dividend Yield</div>
+                    <div class="hero-stat-value gold" id="heroYield">—</div>
+                    <div class="hero-stat-sub">Weekly distribution rate</div>
+                </div>
+                <div class="hero-stat-card return-card" id="returnCard">
+                    <div class="hero-stat-label">Total Return</div>
+                    <div class="hero-stat-value" id="heroReturn">—</div>
+                    <div class="hero-stat-sub" id="returnSub">Since inception</div>
+                </div>
+            </div>
+
+            <div class="return-chart-panel">
+                <div class="return-chart-title">Total Return At A Glance</div>
+                <div class="return-chart-track">
+                    <div class="return-chart-zero"></div>
+                    <div class="return-chart-bar" id="returnBar"></div>
+                </div>
+                <div class="return-chart-scale">
+                    <span>-50%</span>
+                    <span>0%</span>
+                    <span>+50%</span>
+                </div>
+            </div>
+
+            <div class="detail-panel">
+                <h2>Fund Details</h2>
+                <div class="detail-row"><span class="label">Ticker Symbol</span><span class="value" id="detailSymbol">—</span></div>
+                <div class="detail-row"><span class="label">ETF Name</span><span class="value" id="detailName">—</span></div>
+                <div class="detail-row"><span class="label">Dividend Yield</span><span class="value" id="detailYield">—</span></div>
+                <div class="detail-row"><span class="label">Total Return</span><span class="value" id="detailReturn">—</span></div>
+                <div class="detail-row"><span class="label">Price Decay</span><span class="value" id="detailDecay">—</span></div>
+            </div>
+
+            <div class="cta-row">
+                <a href="/" class="cta-btn primary">← Compare All Weekly ETFs</a>
+                <a href="/blog.html" class="cta-btn ghost">Read the Blog →</a>
+            </div>
+
+            <p class="disclaimer">
+                Disclaimer: This scorecard is for educational purposes only. ETF data and dividend information may be inaccurate or outdated. Investing carries risk, including loss of principal. We are not financial advisors & this is NOT Financial Advice. Always consult a licensed financial advisor before making investment decisions.
+            </p>
+
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>
+            <a href="/terms.html">Terms of Use</a> |
+            <a href="/privacy.html">Privacy Policy</a> |
+            <a href="/faq.html">FAQ</a> |
+            <a href="/blog.html">Blog</a> |
+            <a href="/weekly-dividend-calculator.html">Weekly Dividend Calculator</a> |
+            <a href="https://topdividendetfs.com/" target="_blank" rel="noopener">Top Dividend ETFs</a>
+        </p>
+        <p>Want To Sponsor WeeklyETFs.com? Contact email: <a href="mailto:Business@TopDividendETFs.com">Business@TopDividendETFs.com</a></p>
+    </footer>
+
+<script>
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1P00pQ6hNvYolxzrKYIuxC-AH1xFBpMtsn-NwC17W4vQazk3ql69ZmSmW8J-jp7OaUmKLV5v2KPI3/pub?gid=0&single=true&output=csv';
+
+function getQueryParam(name) {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(name);
+}
+
+function parseReturnValue(str) {
+  if (!str || str === '-' || str.toUpperCase() === 'N/A') return null;
+  const num = parseFloat(str.replace(/[%,+]/g, ''));
+  return isNaN(num) ? null : num;
+}
+
+function trackScorecardPageview(symbol, name) {
+  const path = '/etf/' + encodeURIComponent(symbol);
+  const title = name + ' (' + symbol + ') — ETF Scorecard | WeeklyETFs.com';
+  document.title = title;
+  gtag('event', 'page_view', {
+    page_path: path,
+    page_title: title,
+    page_location: window.location.origin + path
+  });
+}
+
+async function loadScorecard() {
+  const symbol = (getQueryParam('symbol') || '').trim().toUpperCase();
+  const loadingEl = document.getElementById('loadingState');
+  const errorEl = document.getElementById('errorState');
+  const cardEl = document.getElementById('scorecard');
+
+  if (!symbol) {
+    loadingEl.style.display = 'none';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  try {
+    const res = await fetch(CSV_URL + '&t=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const csv = await res.text();
+    const lines = csv.split('\n');
+
+    let match = null;
+    for (let i = 1; i < lines.length; i++) {
+      const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
+      if (!cols[0]) continue;
+      if (cols[0].toUpperCase() === symbol) {
+        match = cols;
+        break;
+      }
+    }
+
+    if (!match) {
+      loadingEl.style.display = 'none';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    const sym       = match[0] || symbol;
+    const name      = match[1] || sym;
+    const yieldVal  = match[2] || '—';
+    const decay     = match[3] || '—';
+    const returnVal = match[4] || '—';
+
+    const returnNum = parseReturnValue(returnVal);
+    const isPositive = returnNum === null ? true : returnNum >= 0;
+
+    document.getElementById('tickerIcon').textContent = sym;
+    document.getElementById('etfName').childNodes[0].textContent = name + ' ';
+    document.getElementById('etfSymbolBadge').textContent = sym;
+    document.getElementById('etfSub').textContent =
+      'Full scorecard for ' + name + ' (' + sym + ') — dividend yield, total return, and price decay in one place.';
+
+    document.getElementById('heroYield').textContent = yieldVal;
+
+    const returnCard = document.getElementById('returnCard');
+    const heroReturn = document.getElementById('heroReturn');
+    returnCard.classList.add(isPositive ? 'positive' : 'negative');
+    heroReturn.classList.add(isPositive ? 'positive' : 'negative');
+    heroReturn.textContent = returnVal;
+    document.getElementById('returnSub').textContent = isPositive ? 'Positive since inception' : 'Negative since inception';
+
+    // Diverging bar chart: clamp magnitude to +/-50% scale for display
+    const bar = document.getElementById('returnBar');
+    const magnitude = returnNum === null ? 0 : Math.min(Math.abs(returnNum), 50);
+    const widthPct = (magnitude / 50) * 50;
+    bar.classList.add(isPositive ? 'positive' : 'negative');
+    bar.style.width = widthPct + '%';
+    bar.textContent = returnNum === null ? '' : (isPositive ? '▲ ' : '▼ ') + returnVal;
+
+    document.getElementById('detailSymbol').textContent = sym;
+    document.getElementById('detailName').textContent = name;
+    document.getElementById('detailYield').textContent = yieldVal;
+    document.getElementById('detailReturn').textContent = returnVal;
+
+    const decayEl = document.getElementById('detailDecay');
+    decayEl.textContent = decay;
+    decayEl.className = 'value ' + (decay.toLowerCase() === 'yes' ? 'badge-yes' : decay.toLowerCase() === 'no' ? 'badge-no' : '');
+
+    document.getElementById('pageTitle').textContent = name + ' (' + sym + ') — ETF Scorecard | WeeklyETFs.com';
+    document.getElementById('pageDescription').setAttribute('content',
+      name + ' (' + sym + ') scorecard: dividend yield ' + yieldVal + ', total return ' + returnVal + '. Updated daily.');
+
+    loadingEl.style.display = 'none';
+    cardEl.style.display = 'block';
+
+    trackScorecardPageview(sym, name);
+
+  } catch (err) {
+    console.error(err);
+    loadingEl.style.display = 'none';
+    errorEl.style.display = 'block';
+  }
+}
+
+loadScorecard();
+</script>
+</body>
+</html>
