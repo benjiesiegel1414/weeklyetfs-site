@@ -162,6 +162,67 @@
         .badge-yes{color:var(--red); font-weight:900;}
         .badge-no{color:var(--green); font-weight:900;}
 
+        /* PREV / NEXT ETF NAVIGATION */
+        .etf-nav{
+            display:flex; justify-content:space-between; align-items:stretch; gap:14px;
+            width:94%; max-width:1000px; margin:0 auto 24px;
+        }
+        .etf-nav-btn{
+            flex:1; display:none; text-decoration:none; border-radius:8px;
+            padding:14px 18px; box-shadow:0 2px 8px rgba(0,0,0,.12);
+            transition:transform .15s ease, box-shadow .15s ease;
+            font-family:'Lato',Arial,sans-serif; line-height:1.35;
+        }
+        .etf-nav-btn:hover{transform:translateY(-2px); box-shadow:0 4px 14px rgba(0,0,0,.18);}
+        .etf-nav-btn.prev{
+            background:#fff; border:3px solid var(--navy); color:var(--navy); text-align:left;
+        }
+        .etf-nav-btn.next{
+            background:var(--navy); border:3px solid var(--navy); color:#fff; text-align:right;
+            position:relative; overflow:hidden;
+            animation:navGlow 2s ease-in-out infinite;
+        }
+        /* Pulsing navy glow — draws the eye without looking gimmicky */
+        @keyframes navGlow{
+            0%, 100%{box-shadow:0 2px 8px rgba(0,0,0,.12), 0 0 0 0 rgba(0,31,61,.45);}
+            50%{box-shadow:0 2px 8px rgba(0,0,0,.12), 0 0 18px 4px rgba(0,31,61,.35);}
+        }
+        /* Shine sweep across the Next button every few seconds */
+        .etf-nav-btn.next::after{
+            content:""; position:absolute; top:0; left:-80%;
+            width:50%; height:100%;
+            background:linear-gradient(105deg, transparent 20%, rgba(255,255,255,.28) 50%, transparent 80%);
+            transform:skewX(-20deg);
+            animation:navShine 3.5s ease-in-out infinite;
+            pointer-events:none;
+        }
+        @keyframes navShine{
+            0%{left:-80%;}
+            45%{left:130%;}
+            100%{left:130%;}
+        }
+        /* Arrow nudges right on its own to suggest "keep going" */
+        .etf-nav-btn.next .etf-nav-label{position:relative; z-index:1;}
+        .etf-nav-btn.next .etf-nav-symbol, .etf-nav-btn.next .etf-nav-name{position:relative; z-index:1;}
+        .etf-nav-btn.next:hover{animation:none; box-shadow:0 4px 20px rgba(0,31,61,.5);}
+        @media (prefers-reduced-motion: reduce){
+            .etf-nav-btn.next{animation:none;}
+            .etf-nav-btn.next::after{animation:none; display:none;}
+        }
+        .etf-nav-label{
+            display:block; font-size:0.68em; text-transform:uppercase; letter-spacing:1px;
+            font-weight:900; opacity:0.65; margin-bottom:4px;
+        }
+        .etf-nav-symbol{display:block; font-weight:900; font-size:1.05em;}
+        .etf-nav-name{
+            display:block; font-weight:400; font-size:0.8em; opacity:0.8;
+            white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+        }
+        @media(max-width:520px){
+            .etf-nav{flex-direction:column;}
+            .etf-nav-btn.prev, .etf-nav-btn.next{text-align:center;}
+        }
+
         .cta-row{display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin:20px auto 30px;}
         .cta-btn{
             display:inline-block; padding:11px 24px; border-radius:8px; font-weight:900; font-size:0.92em;
@@ -266,6 +327,19 @@
                 <div class="detail-row"><span class="label">Price Decay</span><span class="value" id="detailDecay">—</span></div>
             </div>
 
+            <div class="etf-nav">
+                <a href="#" class="etf-nav-btn prev" id="prevEtfBtn">
+                    <span class="etf-nav-label">← Previous ETF</span>
+                    <span class="etf-nav-symbol" id="prevEtfSymbol">—</span>
+                    <span class="etf-nav-name" id="prevEtfName"></span>
+                </a>
+                <a href="#" class="etf-nav-btn next" id="nextEtfBtn">
+                    <span class="etf-nav-label">Next ETF →</span>
+                    <span class="etf-nav-symbol" id="nextEtfSymbol">—</span>
+                    <span class="etf-nav-name" id="nextEtfName"></span>
+                </a>
+            </div>
+
             <div class="cta-row">
                 <a href="/" class="cta-btn primary">← Compare All Weekly ETFs</a>
                 <a href="/blog.html" class="cta-btn ghost">Read the Blog →</a>
@@ -315,6 +389,36 @@ function trackScorecardPageview(symbol, name) {
   });
 }
 
+function setupEtfNav(allRows, currentIndex, currentSymbol) {
+  if (allRows.length < 2) return;
+
+  // Wrap around: last ETF's "Next" loops back to the first
+  const prev = allRows[(currentIndex - 1 + allRows.length) % allRows.length];
+  const next = allRows[(currentIndex + 1) % allRows.length];
+
+  const prevBtn = document.getElementById('prevEtfBtn');
+  const nextBtn = document.getElementById('nextEtfBtn');
+
+  prevBtn.href = 'etf.html?symbol=' + encodeURIComponent(prev.symbol);
+  document.getElementById('prevEtfSymbol').textContent = prev.symbol;
+  document.getElementById('prevEtfName').textContent = prev.name;
+  prevBtn.style.display = 'block';
+
+  nextBtn.href = 'etf.html?symbol=' + encodeURIComponent(next.symbol);
+  document.getElementById('nextEtfSymbol').textContent = next.symbol;
+  document.getElementById('nextEtfName').textContent = next.name;
+  nextBtn.style.display = 'block';
+
+  [prevBtn, nextBtn].forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      gtag('event', 'etf_nav_click', {
+        from_symbol: currentSymbol,
+        to_symbol: btn.querySelector('.etf-nav-symbol').textContent
+      });
+    });
+  });
+}
+
 async function loadScorecard() {
   const symbol = (getQueryParam('symbol') || '').trim().toUpperCase();
   const loadingEl = document.getElementById('loadingState');
@@ -333,13 +437,18 @@ async function loadScorecard() {
     const csv = await res.text();
     const lines = csv.split('\n');
 
+    // Build full list of rows (for prev/next nav) and find the current match
+    const allRows = [];
     let match = null;
+    let matchIndex = -1;
+
     for (let i = 1; i < lines.length; i++) {
       const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
       if (!cols[0]) continue;
-      if (cols[0].toUpperCase() === symbol) {
+      allRows.push({ symbol: cols[0], name: cols[1] || cols[0] });
+      if (cols[0].toUpperCase() === symbol && !match) {
         match = cols;
-        break;
+        matchIndex = allRows.length - 1;
       }
     }
 
@@ -393,6 +502,8 @@ async function loadScorecard() {
     document.getElementById('pageTitle').textContent = name + ' (' + sym + ') — ETF Scorecard | WeeklyETFs.com';
     document.getElementById('pageDescription').setAttribute('content',
       name + ' (' + sym + ') scorecard: dividend yield ' + yieldVal + ', total return ' + returnVal + '. Updated daily.');
+
+    setupEtfNav(allRows, matchIndex, sym);
 
     loadingEl.style.display = 'none';
     cardEl.style.display = 'block';
