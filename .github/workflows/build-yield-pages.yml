@@ -1,0 +1,37 @@
+name: Build Yield & Total Return Pages
+
+on:
+  schedule:
+    - cron: "20 11 * * *"   # daily ~6:20am Central, after your sheet refreshes
+  workflow_dispatch:
+  push:
+    paths:
+      - "generate-yield-pages.js"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate pages
+        run: node generate-yield-pages.js
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "yield-page-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add yield/ sitemap-yield.xml
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "Auto-update yield & total return pages [skip ci]"
+            git push
+          fi
