@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Much Does $10,000 in $BLOX Pay Per Week? (2026 Weekly Income Math)</title>
+    <meta name="description" content="How much weekly income does $10,000 in $BLOX generate? At a ~35% yield that's roughly $67 per week. See the full math, monthly and yearly totals, and calculate any amount free.">
+    <link rel="canonical" href="https://weeklyetfs.com/how-much-does-10000-in-blox-pay-weekly.html">
+    <meta property="og:title" content="How Much Does $10,000 in $BLOX Pay Per Week?">
+    <meta property="og:description" content="The full weekly income math on a $10,000 BLOX position, plus a free calculator for any amount.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://weeklyetfs.com/how-much-does-10000-in-blox-pay-weekly.html">
+    <meta property="og:site_name" content="WeeklyETFs.com">
+    <meta property="og:image" content="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/Weeklyftps%203.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@WeeklyETFs">
+    <meta name="twitter:title" content="How Much Does $10,000 in $BLOX Pay Per Week?">
+    <meta name="twitter:description" content="The full weekly income math on a $10,000 BLOX position. Free calculator inside.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/Weeklyftps%203.png">
+    <style>
+        :root{--navy:#001f3d;--red:#e74c3c;--green:#27ae60}
+        body{font-family:'Lato',sans-serif;background:#f4f4f4;color:#333;margin:0;padding:0;line-height:1.7}
+        header{background:var(--navy);padding:12px 20px;text-align:center;position:sticky;top:0;z-index:10;cursor:pointer}
+        .banner-img{max-width:440px;width:82%;height:auto;margin:0 auto;display:block}
+        .content{max-width:800px;margin:30px auto;background:#fff;padding:40px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.1)}
+        h1{color:var(--navy);text-align:center;font-size:2.1em;margin-bottom:10px}
+        h2{color:var(--navy);font-size:1.6em;margin:35px 0 15px}
+        strong{color:var(--navy)}
+        a{color:var(--navy);font-weight:700}
+        .answer-box{background:#f8fff8;border:3px solid var(--green);border-radius:12px;padding:20px;text-align:center;margin:25px 0}
+        .answer-box .big{font-size:2.2em;font-weight:900;color:var(--green);margin:5px 0}
+        .answer-box .sub{color:#555;font-size:0.95em}
+        table{width:100%;border-collapse:collapse;margin:20px 0}
+        th{background:var(--navy);color:#fff;padding:10px;text-align:left}
+        td{padding:10px;border-bottom:1px solid #eee}
+        tr:nth-child(even){background:#f9f9f9}
+        .cta-box{background:var(--navy);color:#fff;border-radius:10px;padding:22px;text-align:center;margin:30px 0}
+        .cta-box a{display:inline-block;background:var(--green);color:#fff;font-weight:900;text-decoration:none;border-radius:8px;padding:12px 22px;margin:8px 6px 0}
+        .cta-box a.alt{background:var(--red)}
+        .cta-box p{margin:0 0 6px;font-size:1.1em}
+        .warn{background:#fff8f6;border-left:4px solid var(--red);border-radius:8px;padding:14px 18px;margin:20px 0;font-size:0.95em}
+        .back{text-align:center;margin:40px 0;font-size:1.1em}
+        footer{padding:30px;background:#fff;text-align:center;border-top:1px solid #ddd;font-size:0.9em}
+        @media (max-width:600px){.content{padding:24px 16px;margin:16px 10px}h1{font-size:1.55em}}
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does $10,000 in BLOX pay per week?",
+          "acceptedAnswer": {"@type": "Answer", "text": "At an approximate 35% annualized distribution rate, a $10,000 position in BLOX would generate roughly $67 per week, about $292 per month, and about $3,500 per year before taxes. Distributions vary week to week and are not guaranteed."}
+        },
+        {
+          "@type": "Question",
+          "name": "Does BLOX pay dividends weekly?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Yes, BLOX (Nicholas Crypto Income ETF) pays distributions on a weekly schedule, generated from an options overlay on crypto industry stocks and bitcoin and ether exposure."}
+        },
+        {
+          "@type": "Question",
+          "name": "Is BLOX's yield guaranteed?",
+          "acceptedAnswer": {"@type": "Answer", "text": "No. BLOX's distributions change week to week based on options premiums and crypto market volatility. High yields carry risk, distributions may include return of capital, and total return can be negative even while weekly income is paid."}
+        }
+      ]
+    }
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EG30PW49ZN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EG30PW49ZN');
+</script>
+</head>
+<body>
+
+<header onclick="location.href='/'">
+    <img src="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/Weeklyftps%203.png" alt="WeeklyETFs.com" class="banner-img">
+</header>
+
+<div class="content">
+    <h1>How Much Does $10,000 in $BLOX Pay Per Week?</h1>
+    <p style="text-align:center;font-size:1.15em;color:#e74c3c;font-weight:bold;">The exact weekly income math on one of the most talked about crypto income ETFs paying every week</p>
+
+    <div class="answer-box">
+        <div class="sub">$10,000 in $BLOX at a ~35% annualized yield pays approximately</div>
+        <div class="big">~$67 / week</div>
+        <div class="sub">≈ $292/month · ≈ $3,500/year (before taxes, hypothetical, distributions vary weekly)</div>
+    </div>
+
+    <p>$BLOX, the Nicholas Crypto Income ETF, has quickly become one of the most searched weekly payers in the crypto income space. The fund holds crypto industry stocks along with bitcoin and ether exposure through underlying funds, then runs an options overlay on top, and it passes that options income to shareholders every single week. Since launching in June 2025 it has grown past $300 million in assets.</p>
+
+    <p>The math itself is straightforward. Take your investment amount, multiply by the annualized yield, then divide by 52 weeks. Want to run it with a different amount or today's exact yield? The free <a href="/weekly-dividend-calculator.html?ticker=BLOX&amp;amount=10000">Weekly Dividend Calculator</a> pulls $BLOX's current yield automatically and charts your income over a full year.</p>
+
+    <h2>$BLOX Weekly Income at Different Investment Amounts</h2>
+    <p>Here's what a ~35% annualized distribution rate works out to across common position sizes. All figures are hypothetical, before taxes, and based on the yield holding steady, which in reality it will not, since $BLOX's distributions move week to week with crypto volatility.</p>
+
+    <table>
+        <tr><th>Investment</th><th>Weekly</th><th>Monthly</th><th>Yearly</th></tr>
+        <tr><td>$1,000</td><td>~$7</td><td>~$29</td><td>~$350</td></tr>
+        <tr><td>$5,000</td><td>~$34</td><td>~$146</td><td>~$1,750</td></tr>
+        <tr><td><strong>$10,000</strong></td><td><strong>~$67</strong></td><td><strong>~$292</strong></td><td><strong>~$3,500</strong></td></tr>
+        <tr><td>$25,000</td><td>~$168</td><td>~$729</td><td>~$8,750</td></tr>
+        <tr><td>$50,000</td><td>~$337</td><td>~$1,458</td><td>~$17,500</td></tr>
+        <tr><td>$100,000</td><td>~$673</td><td>~$2,917</td><td>~$35,000</td></tr>
+    </table>
+
+    <div class="cta-box">
+        <p><strong>Run your own numbers with $BLOX's live yield, updated from our master database</strong></p>
+        <a href="/weekly-dividend-calculator.html?ticker=BLOX">🧮 Calculate My $BLOX Income</a>
+        <a href="/" class="alt">📊 See All 100+ Weekly ETFs</a>
+    </div>
+
+    <h2>The Catch: Why a 35% Yield Isn't Free Money</h2>
+    <p>A distribution rate that high comes from an options income strategy layered on crypto exposure, and that combination has real trade-offs every $BLOX holder should understand before buying a single share.</p>
+
+    <p><strong>Total return can lag the yield badly.</strong> Over the past year $BLOX posted a negative total return even with all its weekly distributions included. That's the crypto income trade in one sentence: the fund kept paying every week while the share price fell more than the income covered. The yield chart looks great in isolation while the position as a whole loses money.</p>
+
+    <p><strong>Distributions vary.</strong> The weekly payout is not fixed. It rises and falls with options premiums, which depend heavily on crypto market volatility. Some weeks pay far more than the average, some far less, and portions can be return of capital.</p>
+
+    <p><strong>Crypto concentration.</strong> The fund's holdings are crypto industry stocks plus bitcoin and ether exposure. When crypto draws down, both the share price and the options income environment move against you at the same time.</p>
+
+    <p>That's why the number that matters most is <strong>total return</strong>, share price change plus all distributions combined. You can compare $BLOX's total return against 100+ other weekly payers side by side in our <a href="/">full weekly ETF database</a>, updated daily and completely free.</p>
+
+    <h2>How $BLOX Compares to Other Weekly Payers</h2>
+    <p>$BLOX is the crypto income angle, but it's one flavor among many. Funds like $NVDY, $PLTY, and $GDXY offer single-stock or sector option income with their own yield and decay profiles, and some weekly payers like $GOOW have shown no price decay at all. If you're building a weekly income portfolio rather than betting on one theme, start with the <a href="/top-20-weekly-etfs-2026.html">Top 20 Weekly Dividend ETFs for 2026</a> to see the field, then plug your favorites into the <a href="/weekly-dividend-calculator.html">calculator</a> to compare income side by side.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>Does $BLOX really pay every week?</strong><br>Yes, $BLOX distributes on a weekly schedule, roughly 52 payments per year.</p>
+    <p><strong>Is the weekly payment always the same?</strong><br>No. Distributions vary based on the options premiums the fund collects, so weekly amounts fluctuate with crypto volatility.</p>
+    <p><strong>What happens to my $10,000 principal?</strong><br>It rises and falls with the fund's share price. Over the past year the fund's total return was negative even including distributions, so the income stream alone doesn't tell you whether the position made money.</p>
+    <p><strong>Does $BLOX hold bitcoin directly?</strong><br>No. The fund holds crypto industry stocks and gets bitcoin and ether exposure through underlying funds, with an options overlay generating the income. It does not invest directly in cryptocurrencies.</p>
+    <p><strong>Where can I see $BLOX's current yield?</strong><br>The <a href="/">WeeklyETFs.com master list</a> tracks $BLOX's live yield, price decay flag, and total return, updated daily and free.</p>
+
+    <div class="warn"><strong>Disclaimer:</strong> This page is for educational and entertainment purposes only and is NOT financial advice. All figures are hypothetical and based on approximate trailing yields that change constantly. $BLOX and similar high-yield weekly ETFs carry substantial risk, including price decay, variable distributions, return of capital, crypto market volatility, and loss of principal. Past performance does not guarantee future results. Always do your own research and consult a licensed financial advisor before investing.</div>
+
+    <div class="back"><a href="/blog.html">← All Blog Posts</a> | <a href="/">← Full ETF List</a> | <a href="/weekly-dividend-calculator.html">🧮 Calculator</a></div>
+</div>
+
+<footer>© 2026 WeeklyETFs.com • Not financial advice. Investing involves risk, including loss of principal. Past performance does not guarantee future results. Do your own research.</footer>
+</body>
+</html>
