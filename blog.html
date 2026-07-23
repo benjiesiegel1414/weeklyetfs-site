@@ -4,15 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
-    <title>Weekly ETFs Blog - High Yield Strategies & Updates</title>
-    <meta name="description" content="Latest articles on weekly dividend ETFs, high-yield strategies, weekly payouts, and passive income ideas.">
+    <title>Weekly Dividend ETF Blog: Rankings, Payouts & Income Guides (2026) | WeeklyETFs.com</title>
+    <meta name="description" content="Every guide to weekly dividend ETFs in one place: top 20 rankings, YieldMax and Roundhill breakdowns, income calculators, and payout strategies. Updated for 2026, free.">
+    <link rel="canonical" href="https://weeklyetfs.com/blog.html">
 
-    <meta property="og:title" content="Weekly ETFs Blog">
-    <meta property="og:description" content="Expert insights on weekly paying dividend ETFs and high-yield investing.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/social-preview.png">
+    <meta property="og:title" content="Weekly Dividend ETF Blog: Rankings, Payouts & Income Guides (2026)">
+    <meta property="og:description" content="Top 20 rankings, YieldMax and Roundhill breakdowns, income math, and payout strategies for weekly dividend ETFs. Free at WeeklyETFs.com.">
+    <meta property="og:type" content="website">
     <meta property="og:url" content="https://weeklyetfs.com/blog.html">
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EG30PW49ZN"></script>
+    <meta property="og:site_name" content="WeeklyETFs.com">
+    <meta property="og:image" content="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/social-preview.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@WeeklyETFs">
+    <meta name="twitter:title" content="Weekly Dividend ETF Blog: Rankings, Payouts & Income Guides (2026)">
+    <meta name="twitter:description" content="Top 20 rankings, YieldMax and Roundhill breakdowns, income math, and payout strategies for weekly dividend ETFs.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/social-preview.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "WeeklyETFs.com Blog",
+      "url": "https://weeklyetfs.com/blog.html",
+      "description": "Guides, rankings, and income strategies for weekly dividend ETFs, updated for 2026.",
+      "publisher": {"@type": "Organization", "name": "WeeklyETFs.com", "url": "https://weeklyetfs.com"}
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EG30PW49ZN"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -21,52 +41,51 @@
 </script>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root{--navy:#001f3d;--red:#e74c3c}
-        body{font-family:'Lato',Arial,sans-serif;background:#f4f4f4;color:#333;margin:0;padding:0}
-        header{background:var(--navy);padding:8px 20px;text-align:center;position:sticky;top:0;z-index:10;cursor:pointer}
-        .banner-img{max-width:440px;width:82%;height:auto;display:block;margin:0 auto}
-        .content{width:94%;max-width:1100px;margin:30px auto;padding:0 15px}
-        h1{text-align:center;color:var(--navy);font-size:2em;margin:20px 0}
-        .post-list{max-width:800px;margin:0 auto;background:#fff;padding:30px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.1)}
-        .post{margin-bottom:40px;padding-bottom:20px;border-bottom:1px solid #eee}
-        .post:last-child{border-bottom:none}
-        .post h2{font-size:1.6em;margin:0 0 10px}
+        :root{--navy:#001f3d;--red:#e74c3c;--green:#27ae60}
+        body{font-family:'Lato',sans-serif;background:#f4f4f4;color:#333;margin:0;padding:0;line-height:1.65}
+        header{background:var(--navy);padding:12px 20px;text-align:center;position:sticky;top:0;z-index:10;cursor:pointer}
+        .banner-img{max-width:440px;width:82%;height:auto;margin:0 auto;display:block}
+        .wrap{max-width:900px;margin:0 auto;padding:20px 15px}
+        h1{color:var(--navy);text-align:center;font-size:2.2em;margin:20px 0 6px}
+        .tagline{text-align:center;color:#555;font-size:1.05em;margin:0 0 22px}
+        .top-links{text-align:center;margin:0 0 26px}
+        .top-links a{display:inline-block;background:var(--navy);color:#fff;font-weight:900;text-decoration:none;border-radius:8px;padding:10px 18px;margin:5px 4px;font-size:0.95em}
+        .top-links a.green{background:var(--green)}
+        .top-links a.red{background:var(--red)}
+
+        .section-label{color:var(--navy);font-size:1.35em;font-weight:900;margin:30px 0 12px;border-bottom:3px solid var(--navy);padding-bottom:6px}
+
+        .post{background:#fff;border:1px solid #e3e8ef;border-left:5px solid var(--navy);border-radius:10px;padding:18px 22px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:box-shadow .15s ease}
+        .post:hover{box-shadow:0 5px 16px rgba(0,0,0,.12)}
+        .post.hot{border-left-color:var(--red)}
+        .post.new{border-left-color:var(--green)}
+        .post h2{margin:0 0 4px;font-size:1.25em;line-height:1.35}
         .post h2 a{color:var(--navy);text-decoration:none}
-        .post h2 a:hover{text-decoration:underline}
-        .post-date{color:#666;font-size:0.9em;margin-bottom:10px}
-        .post-excerpt{line-height:1.7;color:#444}
-        .back-home{display:block;text-align:center;margin:40px 0;font-size:1.1em}
-        .footer{margin-top:60px;padding:25px;background:#fff;width:100%;text-align:center;font-size:0.9em;color:#555;border-top:1px solid #ddd}
-        .footer a{color:var(--navy);text-decoration:none;margin:0 12px;font-weight:700}
-        .footer a:hover{text-decoration:underline}
-        .footer .tagline{font-size:1.3em;font-weight:900;color:var(--navy);margin:20px 0}
-        .footer .tagline a{color:var(--navy);text-decoration:none}
-        .banner {
-            width: 100%;
-            text-align: center;
-            margin: 25px 0 15px;
-        }
-        .banner img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-        }
-        .footer-banner-wrapper {
-            margin: 20px 0 30px;
-            text-align: center;
-        }
-        /* Resize footer ad to ~50% size */
-        .footer-banner-wrapper img {
-            max-width: 485px; /* 970px original → ~50% */
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-        @media (max-width: 600px) {
-            .footer-banner-wrapper img {
-                max-width: 100%; /* Full width on very small screens */
-            }
-        }
+        .post h2 a:hover{color:var(--green)}
+        .post .date{font-size:0.82em;color:#888;margin-bottom:6px}
+        .post p{margin:0;font-size:0.97em;color:#444}
+        .badge{display:inline-block;font-size:0.7em;font-weight:900;color:#fff;border-radius:5px;padding:2px 8px;margin-left:8px;vertical-align:middle;letter-spacing:.5px}
+        .badge.new{background:var(--green)}
+        .badge.hot{background:var(--red)}
+
+        .cta-box{background:var(--navy);color:#fff;border-radius:10px;padding:22px;text-align:center;margin:30px 0}
+        .cta-box p{margin:0 0 6px;font-size:1.1em}
+        .cta-box a{display:inline-block;background:var(--green);color:#fff;font-weight:900;text-decoration:none;border-radius:8px;padding:12px 22px;margin:8px 6px 0}
+        .cta-box a.alt{background:var(--red)}
+
+        .sponsor{text-align:center;margin:30px 0 8px}
+        .sponsor img{max-width:100%;height:auto;border-radius:8px}
+        .sponsor .label{font-size:0.8em;color:#888;margin-top:4px}
+
+        .back{text-align:center;margin:34px 0;font-size:1.1em}
+        .back a{color:var(--navy);font-weight:700}
+
+        footer{padding:30px;background:#fff;text-align:center;border-top:1px solid #ddd;font-size:0.9em;color:#555}
+        footer a{color:var(--navy);text-decoration:none;margin:0 10px;font-weight:700}
+        footer a:hover{text-decoration:underline}
+        footer .tracker a{display:inline-block;background:#2E5D54;color:#fff !important;font-weight:900;font-size:0.85em;padding:6px 14px;border-radius:6px;text-decoration:none;margin-top:16px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+
+        @media (max-width:600px){h1{font-size:1.6em}.post{padding:14px 16px}.post h2{font-size:1.1em}}
     </style>
 </head>
 <body>
@@ -75,126 +94,179 @@
     <img src="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/Weeklyftps%203.png" alt="WeeklyETFs.com" class="banner-img">
 </header>
 
-<div class="content">
-    <h1>Weekly ETFs Blog</h1>
+<div class="wrap">
+    <h1>Weekly Dividend ETF Blog</h1>
+    <p class="tagline">Rankings, payout breakdowns, and income guides for 100+ weekly paying ETFs — updated for 2026</p>
 
-    <div class="post-list">
-
-        <div class="post">
-            <h2><a href="/weekly-dividend-etfs-lowest-price-decay.html">Weekly Dividend ETFs With No Price Decay (2026 List)</a></h2>
-            <div class="post-date">Published July 8, 2026</div>
-            <div class="post-excerpt">Live-updated ranking of the weekly-paying ETFs whose share price has held up best since inception — the rare weekly payers still delivering income every seven days without heavy NAV erosion. Includes decay data pulled straight from our live feed, why price decay quietly eats weekly income, and how to spot the funds least likely to grind your capital down.</div>
-        </div>
-
-        <div class="post">
-            <h2><a href="/weekly-vs-monthly-dividend-etfs.html">Weekly vs. Monthly Dividend ETFs: Which Pays More? (2026)</a></h2>
-            <div class="post-date">Published July 8, 2026</div>
-            <div class="post-excerpt">Weekly vs. monthly dividend ETFs compared head-to-head — payout frequency, average live yield, compounding speed, and which structure actually fits your income goals. Includes real-time yield data on both categories and a clear breakdown of the tradeoffs before you pick a payout schedule.</div>
-        </div>
-
-        <div class="post">
-            <h2><a href="/weekly-dividend-etfs-explained-how-they-work.html">Weekly Dividend ETFs Explained: How They Work in 2026</a></h2>
-            <div class="post-date">Published February 9, 2026</div>
-            <div class="post-excerpt">Weekly dividend ETFs explained: how weekly payout ETFs generate income through options or leverage, key differences from monthly payers, benefits like faster compounding, risks including NAV decay and variable distributions, and tips for getting started with high yield weekly income without major pitfalls.</div>
-        </div>
-
-        <div class="post">
-            <h2><a href="/roundhill-weeklypay-etfs-distributions-performance.html">Roundhill WeeklyPay ETFs: Latest February 2026 Distributions, Top Payers & Performance Update</a></h2>
-            <div class="post-date">Published February 9, 2026</div>
-            <div class="post-excerpt">Fresh February 2026 payouts for Roundhill WeeklyPay series (GOOW, NVDW, MSTW, WPAY, AMDW, COIW) with ex-date Feb 9 / pay Feb 10. See top payers, distribution rates (up to 59%), leverage mechanics, NAV decay risks, and smart ways to use them for weekly income without blowing up your portfolio.</div>
-        </div>
-
-        <div class="post">
-            <h2><a href="/weekly-etfs-10-top-performing-weekly-dividend-etfs-in-2026.html">Weekly ETFs: 10 Top Performing Weekly Dividend ETFs In 2026</a></h2>
-            <div class="post-date">Published February 2026</div>
-            <div class="post-excerpt">Weekly ETFs dominate 2026 searches with high yield weekly income ETFs paying every seven days. Ranked top 10 performers by total returns (up to 302%), featuring NVDY, PLTY, GOOW, and more from YieldMax and Roundhill. Includes yields, decay risks, benefits for weekly dividend investing strategies, and passive income tips.</div>
-        </div>
-
-        <div class="post">
-            <h2><a href="/100-highest-total-return-weekly-etfs.html">100 Highest Total Return Weekly ETFs 2026</a></h2>
-            <div class="post-date">Published January 2026</div>
-            <div class="post-excerpt">Ranked top 100 weekly paying ETFs by total return in 2026 — featuring massive performers from YieldMax, Roundhill, Defiance, and GraniteShares. Includes yields, decay risks, and insights for high total return weekly dividend strategies.</div>
-        </div>
-
-        <div class="post">
-            <h2><a href="/list-of-weekly-paying-etfs-2026.html">List of Weekly Paying ETFs 2026</a></h2>
-            <div class="post-date">Published January 2026</div>
-            <div class="post-excerpt">Comprehensive 2026 list of top weekly paying ETFs, including high yield weekly income options from YieldMax, Roundhill, and others. Features yields, price decay risks, total returns, and strategies for passive weekly dividend income.</div>
-        </div>
-
-        <div class="post">
-            <h2><a href="/best-weekly-payer.html">Best Weeklypay ETF 2026</a></h2>
-            <div class="post-date">Published January 2026</div>
-            <div class="post-excerpt">Why NVDY stands out as the top weeklypay ETF with ~300% total return since inception, massive weekly income from NVDA options, and comparisons to other high-yield weekly payers.</div>
-        </div>
-
-        <div class="post">
-            <h2><a href="/yieldmax-etfs-high-yield-weekly-2026.html">YieldMax ETFs: High Yield Weekly Income Options for 2026</a></h2>
-            <div class="post-date">Published January 2026</div>
-            <div class="post-excerpt">Deep dive into YieldMax ETFs for massive weekly payouts using option income strategies. Covers top funds like MSTY NVDY TSLY benefits risks and how they fit high yield weekly dividend investing in 2026.</div>
-        </div>
-
-        <div class="post">
-            <h2><a href="/top-20-weekly-etfs-2026.html">Top 20 Weekly ETFs to Buy in 2026</a></h2>
-            <div class="post-date">Published January 2026</div>
-            <div class="post-excerpt">Curated list of the top 20 high-yield weekly dividend ETFs for 2026, featuring YieldMax and Roundhill option income strategies for passive weekly income.</div>
-        </div>
-
-        <div class="post">
-            <h2><a href="/top-weekly-etf-providers-2026.html">Top Weekly ETF Fund Providers List 2026</a></h2>
-            <div class="post-date">Published December 2025</div>
-            <div class="post-excerpt">Roundhill, YieldMax, Defiance, GraniteShares — the best issuers for weekly paying ETFs right now.</div>
-        </div>
-
-        <div class="post">
-            <h2><a href="/weekly-dividend-etfs-52-payments.html">Weekly Dividend ETFs Pay You 52 Times Per Year!</a></h2>
-            <div class="post-date">Published December 2025</div>
-            <div class="post-excerpt">Here’s how weekly dividend ETFs work and why they’re perfect for steady cash flow and faster compounding.</div>
-        </div>
-
-        <div class="post">
-            <h2><a href="/weekly-dividend-etfs-basics.html">Weekly Dividend ETFs: All the Basics You Need To Know</a></h2>
-            <div class="post-date">Published December 2025</div>
-            <div class="post-excerpt">Complete beginner’s guide to weekly payout ETFs and building reliable weekly income.</div>
-        </div>
-
-        <div class="post">
-            <h2><a href="/weekly-dividend-etfs-definitions.html">Weekly Dividend ETFs: Definitions & Key Terms Explained</a></h2>
-            <div class="post-date">Published December 2025</div>
-            <div class="post-excerpt">Simple glossary of every term you’ll see in weekly ETF investing — covered calls, yield traps, NAV, and more.</div>
-        </div>
-
+    <div class="top-links">
+        <a href="/" class="green">📊 Full ETF Rankings</a>
+        <a href="/weekly-dividend-calculator.html">🧮 Income Calculator</a>
+        <a href="/top-20-weekly-etfs-2026.html" class="red">🏆 Top 20 for 2026</a>
     </div>
 
-    <div class="back-home">
-        <a href="/">← Back to Weekly ETFs List</a>
+    <div class="section-label">💰 Income Math & Calculators</div>
+
+    <div class="post new">
+        <h2><a href="/how-much-does-10000-in-blox-pay-weekly.html">How Much Does $10,000 in $BLOX Pay Per Week?</a><span class="badge new">NEW</span></h2>
+        <div class="date">Published July 2026</div>
+        <p>The exact weekly income math on the Nicholas Crypto Income ETF: what $1K to $100K pays at a ~35% yield, why the total return picture matters more, and a live calculator preloaded with $BLOX.</p>
     </div>
+
+    <div class="post new">
+        <h2><a href="/how-much-for-100-per-week-in-dividends.html">How Much Do You Need for $100/Week in Dividends?</a><span class="badge new">NEW</span></h2>
+        <div class="date">Published July 2026</div>
+        <p>From ~$6,900 at ultra-high yields to $130,000 with traditional payers — the full capital-required table at every yield level, plus the risk trade-off hiding inside it.</p>
+    </div>
+
+    <div class="post new">
+        <h2><a href="/500-per-month-from-weekly-dividend-etfs.html">How to Get $500/Month From Weekly Dividend ETFs</a><span class="badge new">NEW</span></h2>
+        <div class="date">Published July 2026</div>
+        <p>Three sample paths to a $500/month income stream that pays every week: capital-heavy and steady, the blended middle, and minimum-capital maximum-risk. Full math included.</p>
+    </div>
+
+    <div class="section-label">🏆 Rankings & Top Lists</div>
+
+    <div class="post hot">
+        <h2><a href="/top-20-weekly-etfs-2026.html">Top 20 Weekly Dividend ETFs for 2026 (Yields Up to 75%)</a><span class="badge hot">POPULAR</span></h2>
+        <div class="date">Published January 2026 · Updated July 2026</div>
+        <p>The definitive top 20 high-yield weekly payers from YieldMax and Roundhill, with yields, weekly schedules, and performance metrics on every fund.</p>
+    </div>
+
+    <div class="post">
+        <h2><a href="/top-20-highest-yield-weekly-etfs.html">Top 20 Highest Yielding Weekly ETFs (Live Rankings)</a></h2>
+        <div class="date">Published June 2026 · Auto-updated daily</div>
+        <p>The 20 highest-yielding weekly payers ranked live from the WeeklyETFs.com master database, refreshed as the data changes.</p>
+    </div>
+
+    <div class="post">
+        <h2><a href="/100-highest-total-return-weekly-etfs.html">100 Highest Total Return Weekly ETFs 2026</a></h2>
+        <div class="date">Published January 2026</div>
+        <p>The top 100 weekly paying ETFs ranked by total return — the truest performance measure — featuring YieldMax, Roundhill, Defiance, and GraniteShares funds.</p>
+    </div>
+
+    <div class="post">
+        <h2><a href="/weekly-etfs-10-top-performing-weekly-dividend-etfs-in-2026.html">10 Top Performing Weekly Dividend ETFs in 2026</a></h2>
+        <div class="date">Published February 2026</div>
+        <p>The top 10 weekly payers by total return (up to 302%), featuring $NVDY, $PLTY, $GOOW and more, with yields, decay flags, and income strategy notes.</p>
+    </div>
+
+    <div class="post">
+        <h2><a href="/top-10-highest-paying-weekly-dividend-etfs">Top 10 Highest Paying Weekly Dividend ETFs</a></h2>
+        <div class="date">Published 2026</div>
+        <p>The biggest weekly payouts on the market ranked by distribution rate, with the risk picture behind each headline yield.</p>
+    </div>
+
+    <div class="post">
+        <h2><a href="/25-highest-paying-weekly-dividend-etfs-2026.html">25 Highest Paying Weekly Dividend ETFs 2026</a></h2>
+        <div class="date">Published 2026</div>
+        <p>An expanded ranking of the 25 largest weekly distribution rates across every issuer we track.</p>
+    </div>
+
+    <div class="post">
+        <h2><a href="/list-of-weekly-paying-etfs-2026.html">List of Weekly Paying ETFs 2026</a></h2>
+        <div class="date">Published January 2026</div>
+        <p>The comprehensive 2026 directory of weekly paying ETFs with yields, price decay risks, total returns, and income strategies.</p>
+    </div>
+
+    <div class="post">
+        <h2><a href="/best-weekly-payer.html">Best WeeklyPay ETF 2026</a></h2>
+        <div class="date">Published January 2026</div>
+        <p>Why $NVDY stands out with a ~300% total return since inception, massive weekly income from NVDA options, and how it compares to other top payers.</p>
+    </div>
+
+    <div class="section-label">🏦 Issuer Deep Dives</div>
+
+    <div class="post">
+        <h2><a href="/yieldmax-etfs-high-yield-weekly-2026.html">YieldMax ETFs: High Yield Weekly Income Options for 2026</a></h2>
+        <div class="date">Published January 2026</div>
+        <p>Deep dive into the YieldMax lineup: how the option income strategies work, top funds, benefits, risks, and where they fit in a weekly income portfolio.</p>
+    </div>
+
+    <div class="post">
+        <h2><a href="/roundhill-weeklypay-etfs-distributions-performance.html">Roundhill WeeklyPay ETFs: Distributions, Top Payers & Performance</a></h2>
+        <div class="date">Published February 2026</div>
+        <p>The Roundhill WeeklyPay series ($GOOW, $NVDW, $MSTW, $WPAY and more) with distribution rates up to 59%, leverage mechanics, and NAV decay risks explained.</p>
+    </div>
+
+    <div class="post">
+        <h2><a href="/high-yield-roundhill-weekly-etfs-list-2026.html">High Yield Roundhill Weekly ETFs List 2026</a></h2>
+        <div class="date">Published 2026</div>
+        <p>Every high-yield Roundhill weekly payer in one list with current rates and performance context.</p>
+    </div>
+
+    <div class="post">
+        <h2><a href="/top-weekly-etf-providers-2026.html">Top Weekly ETF Fund Providers List 2026</a></h2>
+        <div class="date">Published December 2025</div>
+        <p>Roundhill, YieldMax, Defiance, GraniteShares — the issuers behind the weekly income boom and how their approaches differ.</p>
+    </div>
+
+    <div class="section-label">📚 Guides & Basics</div>
+
+    <div class="post">
+        <h2><a href="/weekly-dividend-etfs-explained-how-they-work.html">Weekly Dividend ETFs Explained: How They Work in 2026</a></h2>
+        <div class="date">Published February 2026</div>
+        <p>How weekly payout ETFs generate income through options or leverage, differences from monthly payers, faster compounding benefits, and the risks to watch.</p>
+    </div>
+
+    <div class="post">
+        <h2><a href="/weekly-dividend-etfs-basics.html">Weekly Dividend ETFs: All the Basics You Need To Know</a></h2>
+        <div class="date">Published December 2025</div>
+        <p>The complete beginner's guide to weekly payout ETFs and building a reliable weekly income stream from scratch.</p>
+    </div>
+
+    <div class="post">
+        <h2><a href="/weekly-dividend-etfs-52-payments.html">Weekly Dividend ETFs Pay You 52 Times Per Year!</a></h2>
+        <div class="date">Published December 2025</div>
+        <p>How the 52-payment cycle works and why weekly cash flow accelerates compounding versus monthly or quarterly payers.</p>
+    </div>
+
+    <div class="post">
+        <h2><a href="/weekly-dividend-etfs-definitions.html">Weekly Dividend ETFs: Definitions & Key Terms Explained</a></h2>
+        <div class="date">Published December 2025</div>
+        <p>A simple glossary of every term in weekly ETF investing — covered calls, yield traps, NAV erosion, return of capital, and more.</p>
+    </div>
+
+    <div class="post">
+        <h2><a href="/weekly-dividend-etfs-lowest-price-decay.html">Weekly Dividend ETFs With the Lowest Price Decay</a></h2>
+        <div class="date">Published 2026</div>
+        <p>The weekly payers that have best protected their share price, and why decay is the single most important risk to understand.</p>
+    </div>
+
+    <div class="post">
+        <h2><a href="/weekly-dividend-etfs-zero-nav-decay-2026.html">Weekly Dividend ETFs With Zero NAV Decay 2026</a></h2>
+        <div class="date">Published 2026</div>
+        <p>The short list of weekly payers showing no NAV erosion since inception — the rare combination of weekly income and principal preservation.</p>
+    </div>
+
+    <div class="cta-box">
+        <p><strong>Track all 100+ weekly dividend ETFs with live yields, price decay flags, and total returns — 100% FREE</strong></p>
+        <a href="/">📊 See the Full ETF Ranking</a>
+        <a href="/weekly-dividend-calculator.html" class="alt">💰 Weekly Dividend Calculator</a>
+    </div>
+
+    <div class="sponsor">
+        <a href="https://graniteshares.com/institutional/us/en-us/etfs/ybty/?utm_source=Weekly+ETFs&utm_medium=Weekly+ETFs+Ads&utm_campaign=GS-Weekly+ETFs+Ads-January-2026&utm_content=GS-YieldBOOST-WeeklyETFs-Ad-YBTY-970x90" target="_blank" rel="noopener sponsored">
+            <img src="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/ybty-970x90-2.png" alt="GraniteShares YieldBOOST YBTY ETF - Sponsored Ad">
+        </a>
+        <div class="label">Sponsored By</div>
+    </div>
+
+    <div class="back"><a href="/">← Back to Weekly ETFs List</a></div>
 </div>
 
-<footer class="footer">
-    <!-- Banner placed right above the disclaimer / links – now resized -->
-        </a>
-        <small style="color:#666; font-size:0.78em; font-weight:600;">Sponsored By</small>
-    </div>
-
+<footer>
     <p>
-        <a href="terms.html">Terms of Use</a> | 
-        <a href="privacy.html">Privacy Policy</a> | 
-        <a href="faq.html">FAQ</a> | 
-        <a href="/blog.html">Blog</a> | 
-        <a href="/weekly-dividend-calculator.html">Weekly Dividend Calculator</a> | 
-        <a href="https://topdividendetfs.com/" target="_blank" rel="noopener">Top Dividend ETFs</a><br><br>
-      <a href="https://topdividendtools.com/" target="_blank" rel="noopener">Top Dividend Tools 🛠️</a><br><br>
-
-        Contact email: <a href="mailto:Business@TopDividendETFs.com">Business@TopDividendETFs.com</a>
+        <a href="/terms.html">Terms of Use</a> |
+        <a href="/privacy.html">Privacy Policy</a> |
+        <a href="/faq.html">FAQ</a> |
+        <a href="/blog.html">Blog</a> |
+        <a href="/weekly-dividend-calculator.html">Weekly Dividend Calculator</a> |
+        <a href="https://topdividendetfs.com/" target="_blank" rel="noopener">Top Dividend ETFs</a>
     </p>
-    <div class="tagline">
-        <a href="https://dividendempire2000.gumroad.com/l/DividendTracker?layout=profile" target="_blank" 
-           style="display:inline-block;background:#2E5D54;color:#ffffff !important;font-weight:900;font-size:0.78em;padding:5px 12px;border-radius:5px;text-decoration:none;transition:all .2s ease;margin:20px 0;box-shadow:0 2px 6px rgba(0,0,0,.15);"
-           onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 5px 12px rgba(0,0,0,.25)'"
-           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,.15)'">
-           Best Weekly Dividend Tracker!
-        </a>
+    <p><a href="https://topdividendtools.com/" target="_blank" rel="noopener">Top Dividend Tools 🛠️</a></p>
+    <p>Contact email: <a href="mailto:Business@TopDividendETFs.com">Business@TopDividendETFs.com</a></p>
+    <div class="tracker">
+        <a href="https://dividendempire2000.gumroad.com/l/DividendTracker?layout=profile" target="_blank" rel="noopener">Best Weekly Dividend Tracker!</a>
     </div>
 </footer>
 
