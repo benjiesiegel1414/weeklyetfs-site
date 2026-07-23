@@ -6,7 +6,8 @@
     <meta name="robots" content="index, follow">
     <title>Weekly Dividend Calculator – YieldMax, Roundhill & More</title>
     <meta name="description" content="Free weekly dividend ETF calculator – see weekly, monthly & yearly income from YieldMax, Roundhill, Defiance, GraniteShares and other high-yield weekly payers.">
-    
+    <link rel="canonical" href="https://weeklyetfs.com/weekly-dividend-calculator.html">
+
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -22,6 +23,22 @@
     <meta name="twitter:image" content="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/twitter.png">
     <meta name="twitter:site" content="@TopDividendETFs">
     <meta name="twitter:creator" content="@TopDividendETFs">
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Weekly Dividend Calculator",
+      "url": "https://weeklyetfs.com/weekly-dividend-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+      "description": "Free weekly dividend ETF calculator showing weekly, monthly, and yearly income from YieldMax, Roundhill, and other high-yield weekly dividend ETFs.",
+      "publisher": {"@type": "Organization", "name": "WeeklyETFs.com", "url": "https://weeklyetfs.com"}
+    }
+    </script>
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EG30PW49ZN"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -55,6 +72,18 @@
         .seo-keywords{font-size:0.82em;color:#777;margin-top:20px}
         .back{margin:30px 0;font-size:1em}
 
+        /* Popular calculations section */
+        .popular-calcs{max-width:800px;margin:30px auto 10px;text-align:left;background:#f9fafc;border:1px solid #e3e8ef;border-left:4px solid var(--navy);border-radius:10px;padding:18px 22px}
+        .popular-calcs h2{color:var(--navy);font-size:1.25em;margin:0 0 10px;text-align:center}
+        .popular-calcs a{display:block;color:var(--navy);font-weight:700;text-decoration:none;padding:7px 0;border-bottom:1px solid #eee}
+        .popular-calcs a:last-child{border-bottom:none}
+        .popular-calcs a:hover{color:var(--green)}
+
+        @keyframes subtle-green-pulse{
+            0%,100%{box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+            50%{box-shadow:0 4px 18px rgba(39,174,96,0.35)}
+        }
+
         /* Footer styles from homepage */
         .footer{margin-top:40px;padding:25px;background:#fff;width:100%;text-align:center;font-size:0.9em;color:#555;border-top:1px solid #ddd}
         .footer a{color:var(--navy);text-decoration:none;margin:0 12px;font-weight:700}
@@ -85,18 +114,18 @@
 
         <div class="input-group">
             <label for="ticker">Ticker Symbol</label>
-            <input type="text" id="ticker" placeholder="e.g. MSTY, ULTY, TSLY" value="" style="text-transform: uppercase;">
-            <div id="tickerStatus" class="ticker-status"></div>
+            <input type="text" id="ticker" placeholder="e.g. MSTY, ULTY, TSLY" value="" style="text-transform: uppercase;" autocomplete="off">
+            <div id="tickerStatus" class="ticker-status" aria-live="polite"></div>
         </div>
 
         <div class="input-group">
             <label for="investment">Investment Amount</label>
-            <input type="text" id="investment" value="$10,000">
+            <input type="text" id="investment" value="$10,000" inputmode="decimal">
         </div>
 
         <div class="input-group">
             <label for="yield">Expected Annual Yield</label>
-            <input type="text" id="yield" value="18%">
+            <input type="text" id="yield" value="18%" inputmode="decimal">
         </div>
 
         <button id="calcButton">Calculate</button>
@@ -118,6 +147,15 @@
 
         <div class="chart-container">
             <canvas id="incomeChart"></canvas>
+        </div>
+
+        <!-- Popular calculations: internal links to calculator spin-off posts -->
+        <div class="popular-calcs">
+            <h2>💡 Popular Calculations</h2>
+            <a href="/how-much-does-10000-in-msty-pay-weekly.html">How Much Does $10,000 in $MSTY Pay Per Week? →</a>
+            <a href="/how-much-for-100-per-week-in-dividends.html">How Much Do You Need for $100/Week in Dividends? →</a>
+            <a href="/500-per-month-from-weekly-dividend-etfs.html">How to Get $500/Month From Weekly Dividend ETFs →</a>
+            <a href="/top-20-weekly-etfs-2026.html">Top 20 Weekly Dividend ETFs for 2026 (Yields Up to 75%) →</a>
         </div>
 
         <!-- NEW BUTTON: Return to homepage -->
@@ -228,6 +266,18 @@
         return parseFloat(str.replace(/[$,%]/g, '')) || 0;
     }
 
+    // Apply a ticker's yield from loaded data (used by input handler and URL prefill)
+    function applyTickerYield(ticker) {
+        if (tickerYields[ticker]) {
+            const y = tickerYields[ticker];
+            yieldInput.value = y.toFixed(1) + '%';
+            tickerStatus.textContent = ticker + ' yield loaded: ' + y.toFixed(1) + '%';
+            calculate();
+            return true;
+        }
+        return false;
+    }
+
     function updateIncomeChart() {
         const principal = cleanNumber(investInput.value);
         const annualYield = cleanNumber(yieldInput.value) / 100;
@@ -262,7 +312,7 @@
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Cumulative weekly Income',
+                    label: 'Cumulative Weekly Income',
                     data: cumulativeIncome,
                     borderColor: '#27ae60',
                     backgroundColor: '#27ae60',
@@ -282,7 +332,7 @@
                     title: {
                         display: true,
                         text: `Total ${ticker} Income Over 1 Year (based on current weekly payout)`,
-                        font: { size: 22, weight: '900', family: 'Times' },
+                        font: { size: 22, weight: '900', family: 'Lato' },
                         color: '#001f3d',
                         padding: { top: 15, bottom: 30 }
                     }
@@ -370,12 +420,7 @@
 
         const ticker = tickerInput.value.trim().toUpperCase();
         if (ticker.length >= 3) {
-            if (tickerYields[ticker]) {
-                const y = tickerYields[ticker];
-                yieldInput.value = y.toFixed(1) + '%';
-                tickerStatus.textContent = ticker + ' yield loaded: ' + y.toFixed(1) + '%';
-                calculate();
-            } else {
+            if (!applyTickerYield(ticker)) {
                 tickerStatus.textContent = 'Ticker not found – enter yield manually';
             }
         } else {
@@ -408,7 +453,31 @@
     investInput.addEventListener('input', calculate);
     yieldInput.addEventListener('input', calculate);
 
+    // URL parameter prefill: /weekly-dividend-calculator.html?ticker=MSTY&amount=10000&yield=75
+    // Lets blog posts and tweets deep link with values already filled in
+    function applyUrlParams() {
+        const params = new URLSearchParams(window.location.search);
+        const pTicker = (params.get('ticker') || '').toUpperCase().trim();
+        const pAmount = cleanNumber(params.get('amount') || '');
+        const pYield = cleanNumber(params.get('yield') || '');
+
+        if (pAmount > 0) investInput.value = formatCurrency(Math.round(pAmount));
+        if (pYield > 0) yieldInput.value = pYield.toFixed(1) + '%';
+        if (pTicker) {
+            tickerInput.value = pTicker;
+            // Try live yield first; fall back to URL yield or existing value
+            if (!applyTickerYield(pTicker) && pYield > 0) {
+                tickerStatus.textContent = pTicker + ' loaded from link';
+            }
+        }
+        calculate();
+    }
+
     loadYieldsFromSource().then(() => {
+        applyUrlParams();
+        // If user typed a ticker before data finished loading, apply it now
+        const typed = tickerInput.value.trim().toUpperCase();
+        if (typed.length >= 3) applyTickerYield(typed);
         calculate();
     });
 
