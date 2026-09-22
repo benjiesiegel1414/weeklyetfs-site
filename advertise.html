@@ -108,6 +108,46 @@
         border-radius:10px; padding:14px 16px; font-size:.98em; font-weight:700; color:var(--ink);
     }
     .offer-meta .pill strong{ display:block; margin-bottom:2px; }
+
+    /* ===== SLOT ALERT BOXES (very bold + pulsing) ===== */
+    .offer-meta .pill.slot-alert{
+        position:relative; flex:1 1 280px;
+        background:linear-gradient(135deg,var(--navy),var(--navy2));
+        border:4px solid var(--red); border-radius:14px;
+        padding:22px 22px 20px; color:#fff;
+        font-size:1.08em; font-weight:900; line-height:1.45;
+        box-shadow:0 0 0 0 rgba(231,76,60,.7), 0 10px 26px rgba(0,31,61,.25);
+        animation:slotPulse 1.6s ease-in-out infinite;
+    }
+    .offer-meta .pill.slot-alert.urgent{
+        background:linear-gradient(135deg,#e74c3c,#c0392b);
+        border-color:var(--navy);
+        box-shadow:0 0 0 0 rgba(0,31,61,.6), 0 10px 26px rgba(231,76,60,.3);
+        animation:slotPulseNavy 1.6s ease-in-out infinite; animation-delay:.8s;
+    }
+    .offer-meta .pill.slot-alert strong{
+        display:block; color:#fff; font-size:1.45em; font-weight:900;
+        text-transform:uppercase; letter-spacing:.3px; line-height:1.15; margin:0 0 8px;
+    }
+    .slot-tag{
+        display:inline-flex; align-items:center; gap:8px; margin-bottom:12px;
+        background:var(--red); color:#fff; border-radius:20px; padding:5px 13px;
+        font-size:.72em; font-weight:900; letter-spacing:1.4px; text-transform:uppercase;
+    }
+    .slot-alert.urgent .slot-tag{ background:var(--navy); }
+    .slot-dot{ width:9px; height:9px; border-radius:50%; background:#fff; animation:slotBlink .9s steps(2,start) infinite; }
+    @keyframes slotPulse{
+        0%,100%{ transform:scale(1); box-shadow:0 0 0 0 rgba(231,76,60,.7), 0 10px 26px rgba(0,31,61,.25); }
+        50%{ transform:scale(1.025); box-shadow:0 0 0 14px rgba(231,76,60,0), 0 14px 34px rgba(0,31,61,.35); }
+    }
+    @keyframes slotPulseNavy{
+        0%,100%{ transform:scale(1); box-shadow:0 0 0 0 rgba(0,31,61,.6), 0 10px 26px rgba(231,76,60,.3); }
+        50%{ transform:scale(1.025); box-shadow:0 0 0 14px rgba(0,31,61,0), 0 14px 34px rgba(231,76,60,.4); }
+    }
+    @keyframes slotBlink{ to{ visibility:hidden; } }
+    @media (prefers-reduced-motion: reduce){
+        .offer-meta .pill.slot-alert, .slot-dot{ animation:none; }
+    }
     .offer-note{ font-size:.95em; color:var(--muted); margin:16px 0 0; font-weight:700; }
 
     .included{ margin:0; padding-left:22px; color:var(--ink); font-size:1.05em; font-weight:600; }
@@ -263,8 +303,8 @@
             </div>
         </div>
         <div class="offer-meta">
-            <div class="pill"><strong>Pricing is per slot.</strong> Both slots are currently open &mdash; a single sponsor may take one or both.</div>
-            <div class="pill"><strong>First come, first served.</strong> These slots will be filled in the order sponsors commit &mdash; once they&rsquo;re gone, they&rsquo;re gone.</div>
+            <div class="pill slot-alert"><span class="slot-tag"><span class="slot-dot"></span>Both Slots Open Now</span><strong>Pricing is per slot.</strong> Both slots are currently open &mdash; a single sponsor may take one or both.</div>
+            <div class="pill slot-alert urgent"><span class="slot-tag"><span class="slot-dot"></span>Limited Availability</span><strong>First come, first served.</strong> These slots will be filled in the order sponsors commit &mdash; once they&rsquo;re gone, they&rsquo;re gone.</div>
         </div>
         <p class="offer-note">The 6-month term works out to <strong>$667/month</strong> versus <strong>$833/month</strong> on the 3-month &mdash; roughly a <strong>20% lower monthly rate</strong> for the longer commitment.</p>
     </section>
