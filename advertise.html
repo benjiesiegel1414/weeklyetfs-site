@@ -113,6 +113,61 @@
     .included{ margin:0; padding-left:22px; color:var(--ink); font-size:1.05em; font-weight:600; }
     .included li{ margin-bottom:8px; }
 
+    /* Partners / trusted-by grid (justETF style) */
+    .partners{ text-align:center; }
+    .hero-partners{ margin:0 0 24px; }
+    .partners .partners-sub{
+        margin:-8px 0 22px; color:var(--muted); font-size:1em; font-weight:700;
+    }
+    .partner-grid{
+        display:flex; flex-wrap:wrap; gap:14px; justify-content:center; align-items:stretch;
+    }
+    .partner-tile{
+        flex:1 1 150px; max-width:180px; min-height:76px;
+        border:1px solid var(--line); border-radius:10px; background:var(--bg);
+        display:flex; align-items:center; justify-content:center; padding:12px;
+        color:#aebccb; font-weight:900; font-size:.8em; text-transform:uppercase; letter-spacing:1px;
+    }
+    .partner-tile img{ max-width:100%; max-height:52px; object-fit:contain; filter:grayscale(100%); opacity:.85; }
+
+    /* Ticker board */
+    .ticker{
+        overflow:hidden;
+        background:linear-gradient(135deg,var(--navy),var(--navy2));
+        border-radius:12px; padding:18px 0; margin-top:4px;
+        border-top:3px solid var(--red); border-bottom:3px solid var(--red);
+        -webkit-mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent);
+        mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent);
+    }
+    .ticker-track{
+        display:inline-flex; white-space:nowrap; will-change:transform;
+        animation:tickerScroll 34s linear infinite;
+    }
+    .ticker:hover .ticker-track{ animation-play-state:paused; }
+    .ticker-item{
+        display:inline-flex; align-items:center; color:#fff;
+        font-weight:900; font-size:1.2em; letter-spacing:.3px; padding:0 30px;
+    }
+    .ticker-item::before{
+        content:"▲"; color:#2ecc71; font-size:.62em; margin-right:11px; transform:translateY(1px);
+    }
+    @keyframes tickerScroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    .ticker-caption{
+        margin:18px 0 7px; color:var(--muted); font-size:.8em; font-weight:900;
+        text-transform:uppercase; letter-spacing:1px;
+    }
+    .ticker.ticker-sites{
+        padding:11px 0; margin-top:0;
+        background:#fff; border:1px solid var(--line);
+        border-top:2px solid var(--navy); border-bottom:2px solid var(--navy);
+    }
+    .ticker-sites .ticker-track{ animation-duration:42s; animation-direction:reverse; }
+    .ticker-sites .ticker-item{ color:var(--navy); font-size:.9em; font-weight:900; padding:0 22px; }
+    .ticker-sites .ticker-item::before{
+        content:"●"; color:var(--red); font-size:.5em; margin-right:9px; transform:translateY(-2px);
+    }
+
     footer{ text-align:center; padding:16px 22px 0; color:var(--muted); font-size:.9em; font-weight:700; }
     footer .email{ color:var(--navy); font-weight:900; }
 
@@ -139,6 +194,14 @@
     <div class="traction">
         <div class="big">Barely <span class="hot">1 year old</span> &mdash; and already picking up <span class="hot">MASSIVE traction</span> in the weekly-dividend-ETF space.</div>
         <div class="sub">Traffic is trending sharply upward, with the biggest months on record coming in <strong style="color:#fff">right now</strong>.</div>
+    </div>
+
+    <div class="partners hero-partners">
+        <h2>Partners That Already Trust Our Network Including WeeklyETFs.com</h2>
+        <p class="partners-sub">A selection of issuers who have sponsored across our network.</p>
+        <div class="ticker">
+            <div class="ticker-track" id="tickerTrackHero"></div>
+        </div>
     </div>
 
     <section>
@@ -217,6 +280,18 @@
         </ul>
     </section>
 
+    <section class="partners">
+        <h2>Partners That Already Trust Our Network Including WeeklyETFs.com</h2>
+        <p class="partners-sub">A selection of issuers who have sponsored across our network.</p>
+        <div class="ticker">
+            <div class="ticker-track" id="tickerTrack"></div>
+        </div>
+        <p class="ticker-caption">Running across the Dividend Empire network</p>
+        <div class="ticker ticker-sites">
+            <div class="ticker-track" id="siteTrack"></div>
+        </div>
+    </section>
+
     <footer>
         Sponsorship inquiries &mdash; <span class="email">Business@TopDividendETFs.com</span>
     </footer>
@@ -243,6 +318,28 @@
             requestAnimationFrame(tick);
         });
     });
+</script>
+
+<script>
+    (function () {
+        /* ===== EDIT THESE LISTS ===== */
+        var partners = ["REX Shares", "VistaShares", "VegaShares", "IncomeShares", "Liquid Strategies", "Tuttle Capital"];
+        var sites = ["TopDividendETFs.com", "TopDividendETFsPRO.com", "WeeklyETFs.com", "MonthlyETFs.com", "GrowthETFs.com", "ETFTotalReturns.com", "TopDividendTools.com", "PhotonicsETFs.com"];
+        /* ============================ */
+        function fill(id, items) {
+            var track = document.getElementById(id);
+            if (!track || !items.length) return;
+            var oneSet = items.map(function (n) {
+                return '<span class="ticker-item">' + n + '</span>';
+            }).join('');
+            var reps = Math.max(1, Math.ceil(10 / items.length));
+            var unit = new Array(reps).fill(oneSet).join('');
+            track.innerHTML = unit + unit; /* duplicated for a seamless loop */
+        }
+        fill('tickerTrackHero', partners);
+        fill('tickerTrack', partners);
+        fill('siteTrack', sites);
+    })();
 </script>
 
 </body>
