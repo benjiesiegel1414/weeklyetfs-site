@@ -118,7 +118,7 @@ function parseCSV(text) {
   return out;
 }
 const num = s => { const v = parseFloat(String(s ?? '').replace(/[$,%\s]/g, '')); return isNaN(v) ? null : v; };
-const buildFund = c => ({ sym: (c[0] || '').toUpperCase().replace(/[^A-Z.]/g, ''), name: c[1] || '', yield: num(c[2]), decay: String(c[3] || '').trim().toUpperCase() });
+const buildFund = c => ({ sym: (c[0] || '').toUpperCase().replace(/[^A-Z.]/g, ''), name: c[1] || '', yield: num(c[2]), decay: String(c[3] || '').trim().toUpperCase(), tr: num(c[4]) });
 
 /* ================= HELPERS ================= */
 const usd0 = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
@@ -134,7 +134,31 @@ const weekly = (amt, f) => amt * f.yield / 100 / 52;
 const roundTo = (v, s) => Math.round(v / s) * s;
 
 /* ================= POST TYPES ================= */
-const KIND_LABEL = { lineup: 'Weekly paycheck lineup', h2h: 'Head to head', basket: 'Weekly basket', goal: 'Weekly goal' };
+const signed = v => (v > 0 ? '+' : '') + pct(v);
+const LISTS = {
+  topyield: { label: 'List: highest yield', sizes: [10, 8, 7, 5], filter: f => true, sort: (a, b) => b.yield - a.yield,
+    val: f => pct(f.yield), sub: f => f.tr != null ? `${signed(f.tr)} total return` : '', caveat: true,
+    title: n => `${n} highest yielding weekly ETFs right now`,
+    heads: n => [`🔥 The ${n} highest yielding weekly ETFs right now 👇`, `${n} weekly ETFs with the biggest yields today 👇`, `Top ${n} weekly payers by yield 👇`] },
+  toptr: { label: 'List: top total return', sizes: [10, 8, 7, 5], filter: f => f.tr != null, sort: (a, b) => b.tr - a.tr,
+    val: f => signed(f.tr), sub: f => `${pct(f.yield)} yield`, caveat: false,
+    title: n => `${n} top total return weekly ETFs`,
+    heads: n => [`📈 ${n} top total return weekly ETFs right now 👇`, `The ${n} best performing weekly ETFs by total return 👇`, `${n} weekly payers crushing it on total return 👇`] },
+  nodecay: { label: 'List: no price decay', sizes: [10, 8, 7, 5], filter: f => f.decay === 'NO', sort: (a, b) => b.yield - a.yield,
+    val: f => pct(f.yield), sub: f => f.tr != null ? `${signed(f.tr)} total return` : 'No price decay', caveat: true,
+    title: n => `${n} weekly ETFs with NO price decay`,
+    heads: n => [`✅ ${n} high yield weekly ETFs with NO price decay 👇`, `${n} weekly payers with zero price decay, ranked by yield 👇`, `Big weekly income, no price decay 👇\n\nTop ${n} right now`] },
+  yieldtr: { label: 'List: 20%+ yield and positive return', sizes: [8, 7, 5], filter: f => f.yield >= 20 && f.tr > 0, sort: (a, b) => b.tr - a.tr,
+    val: f => signed(f.tr), sub: f => `${pct(f.yield)} yield`, caveat: true,
+    title: n => `${n} weekly ETFs: 20%+ yield AND positive returns`,
+    heads: n => [`💰 ${n} weekly ETFs yielding 20%+ that are still UP on total return 👇`, `20%+ yields and positive total returns 👇\n\n${n} weekly ETFs doing both`] },
+  over30: { label: 'List: 30%+ yield club', sizes: [10, 8, 7, 5], filter: f => f.yield >= 30, sort: (a, b) => b.yield - a.yield,
+    val: f => pct(f.yield), sub: f => f.tr != null ? `${signed(f.tr)} total return` : '', caveat: true,
+    title: n => `The 30%+ yield club: ${n} weekly ETFs`,
+    heads: n => [`🚀 The 30%+ yield club 👇\n\n${n} weekly ETFs yielding over 30%`, `${n} weekly ETFs paying 30%+ right now 👇`] },
+};
+const isList = k => k in LISTS;
+const KIND_LABEL = { lineup: 'Weekly paycheck lineup', h2h: 'Head to head', basket: 'Weekly basket', goal: 'Weekly goal', ...Object.fromEntries(Object.entries(LISTS).map(([k, v]) => [k, v.label])) };
 const FUNDS_PER = { lineup: 5, h2h: 2, basket: 3, goal: 4 };
 const AMOUNTS = { lineup: [10000, 25000, 50000, 100000], h2h: [10000, 25000, 50000, 100000, 250000], basket: [30000, 60000, 90000, 150000, 300000], goal: [100, 250, 500, 1000] };
 const ASKS = ['Which one are you holding? 👇', 'Which would you pick? 👇', 'Drop your favorite weekly payer 👇', ''];
@@ -152,9 +176,22 @@ function chooseFunds(n, avoid = new Set()) {
   for (const f of shuffle(all)) { if (picked.length >= n) break; if (!picked.includes(f)) picked.push(f); }
   return picked.length === n ? picked : null;
 }
-const histKey = p => `${p.kind}_${p.funds.map(f => f.sym).sort().join('+')}_${p.amt}`;
+const histKey = p => isList(p.kind) ? `${p.kind}_${p.funds.map(f => f.sym).join('+')}` : `${p.kind}_${p.funds.map(f => f.sym).sort().join('+')}_${p.amt}`;
+const today = () => new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
+function listText(p) {
+  const L = LISTS[p.kind], n = p.funds.length;
+  const rows = p.funds.map((f, i) => `${i + 1}. $${f.sym} ${L.val(f)}`).join('\n');
+  const foot = pick(['Full list at WeeklyETFs.com', 'Track them all at WeeklyETFs.com', 'Every weekly ETF ranked at WeeklyETFs.com']);
+  const opts = [
+    `${pick(L.heads(n))}\n\n${rows}\n\n${foot}` + (L.caveat ? '\n\nYields change and aren\'t guaranteed' : ''),
+    `${pick(L.heads(n))}\n\n${rows}\n\n${foot}`,
+    `${pick(L.heads(n))}\n\n${rows}`,
+  ];
+  return opts.find(t => [...t].length <= 280) || opts[opts.length - 1];
+}
 function writeText(p) {
+  if (isList(p.kind)) return listText(p);
   const F = p.funds, amt = usd0.format(p.amt), ask = pick(ASKS), end = '\n\n' + CAVEAT + (ask ? '\n\n' + ask : '');
   if (p.kind === 'lineup') {
     const rows = [...F].sort((a, b) => weekly(p.amt, b) - weekly(p.amt, a)).map(f => `$${f.sym}: ${money(weekly(p.amt, f))}/week`).join('\n');
@@ -248,8 +285,49 @@ function drawImage(p) {
   return cv.toDataURL('image/png');
 }
 
+function drawList(p) {
+  const W = 1200, H = 675, S = 2, cv = document.createElement('canvas'); cv.width = W * S; cv.height = H * S;
+  const ctx = cv.getContext('2d'); ctx.scale(S, S);
+  const F = (w, s) => `${w} ${s}px Lato, Arial, sans-serif`, L = LISTS[p.kind], items = p.funds;
+  ctx.fillStyle = '#001f3d'; ctx.fillRect(0, 0, W, H);
+  const g = ctx.createRadialGradient(W, 0, 0, W, 0, 900); g.addColorStop(0, 'rgba(231,76,60,.22)'); g.addColorStop(1, 'rgba(231,76,60,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.fillStyle = '#e74c3c'; ctx.fillRect(0, 0, W, 8);
+  ctx.textAlign = 'left'; ctx.font = F(900, 24); ctx.fillStyle = '#fff'; ctx.fillText('Weekly', 56, 58);
+  const ww = ctx.measureText('Weekly').width; ctx.fillStyle = '#e74c3c'; ctx.fillText('ETFs', 56 + ww, 58);
+  const we = ctx.measureText('ETFs').width; ctx.fillStyle = '#fff'; ctx.fillText('.com', 56 + ww + we, 58);
+  ctx.textAlign = 'right'; ctx.fillStyle = '#9fb3c8'; ctx.font = F(700, 18); ctx.fillText(`Data as of ${today()}`, W - 56, 58);
+  ctx.textAlign = 'left'; ctx.fillStyle = '#fff'; let ts = 44; ctx.font = F(900, ts);
+  const title = L.title(items.length); while (ctx.measureText(title).width > W - 112 && ts > 28) { ts -= 2; ctx.font = F(900, ts); }
+  ctx.fillText(title, 56, 122);
+  const cols = items.length > 5 ? 2 : 1, perCol = Math.ceil(items.length / cols), top = 152, bottom = H - 36, gap = 10;
+  const colW = (W - 112 - (cols - 1) * 20) / cols, rh = Math.min(92, (bottom - top - gap * (perCol - 1)) / perCol);
+  items.forEach((f, i) => {
+    const col = Math.floor(i / perCol), row = i % perCol, x = 56 + col * (colW + 20), y = top + row * (rh + gap);
+    ctx.fillStyle = i === 0 ? 'rgba(231,76,60,.18)' : 'rgba(255,255,255,.06)'; roundRect(ctx, x, y, colW, rh, 12); ctx.fill();
+    const cr = Math.min(20, rh * .32), cx = x + 18 + cr, cy = y + rh / 2;
+    ctx.beginPath(); ctx.arc(cx, cy, cr, 0, Math.PI * 2); ctx.fillStyle = '#e74c3c'; ctx.fill();
+    ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.font = F(900, cr * 1.05); ctx.fillText(String(i + 1), cx, cy + cr * .37);
+    ctx.textAlign = 'left'; const tx = cx + cr + 16, sub = L.sub(f);
+    ctx.fillStyle = '#fff'; ctx.font = F(900, Math.min(30, rh * .38)); ctx.fillText(f.sym, tx, sub ? y + rh * .5 : cy + rh * .13);
+    if (sub) { ctx.fillStyle = '#9fb3c8'; ctx.font = F(700, Math.min(17, rh * .22)); ctx.fillText(sub, tx, y + rh * .8); }
+    ctx.textAlign = 'right'; ctx.fillStyle = '#fff'; ctx.font = F(900, Math.min(34, rh * .42)); ctx.fillText(L.val(f), x + colW - 18, cy + rh * .14);
+  });
+  return cv.toDataURL('image/png');
+}
+
 /* ================= GENERATE ================= */
+function makeList(kind, skipSize) {
+  const L = LISTS[kind], ranked = pool().filter(L.filter).sort(L.sort);
+  for (const size of shuffle(L.sizes.filter(n => n !== skipSize))) {
+    if (ranked.length < size) continue;
+    const p = { id: Math.random().toString(36).slice(2, 10), kind, funds: ranked.slice(0, size), amt: size };
+    if (state.history.has(histKey(p)) || state.drafts.some(d => d.id !== p.id && histKey(d) === histKey(p))) continue;
+    p.text = writeText(p); p.img = drawList(p); return p;
+  }
+  return null;
+}
 function makePost(kind, avoid) {
+  if (isList(kind)) return makeList(kind);
   for (let i = 0; i < 30; i++) {
     const funds = chooseFunds(FUNDS_PER[kind], avoid); if (!funds) return null;
     const p = { id: Math.random().toString(36).slice(2, 10), kind, funds, amt: pick(AMOUNTS[kind]) };
@@ -261,10 +339,14 @@ function makePost(kind, avoid) {
 async function generate() {
   const n = Math.max(1, Math.min(20, parseInt($('howMany').value, 10) || 5));
   try { await document.fonts.load('900 40px Lato'); await document.fonts.load('700 24px Lato'); } catch (e) {}
-  const kinds = shuffle(Object.keys(KIND_LABEL)), out = [];
-  state.drafts = [];
+  // About half lists, half the other formats, never the same list type twice in a batch
+  const lists = shuffle(Object.keys(LISTS)), others = shuffle(['lineup', 'h2h', 'basket', 'goal']), out = [];
+  state.drafts = []; let li = 0, oi = 0;
   for (let i = 0; i < n; i++) {
-    const p = makePost(kinds[i % kinds.length], new Set()); if (p) { out.push(p); state.drafts = out; }
+    let p = null;
+    if (i % 2 === 0) while (!p && li < lists.length) p = makePost(lists[li++]);
+    if (!p) p = makePost(others[oi++ % others.length], new Set());
+    if (p) { out.push(p); state.drafts = out; }
   }
   render();
 }
@@ -288,16 +370,17 @@ function render() {
       <div class="side">
         <div class="meta">
           <select data-act="kind" aria-label="Post type">${Object.entries(KIND_LABEL).map(([k, v]) => `<option value="${k}"${k === p.kind ? ' selected' : ''}>${v}</option>`).join('')}</select>
-          ${p.funds.map(f => `<span class="tag">$${esc(f.sym)} ${pct(f.yield)}</span>`).join('')}
+          ${isList(p.kind) ? `<span class="tag">${p.funds.length} funds</span>` : p.funds.map(f => `<span class="tag">$${esc(f.sym)} ${pct(f.yield)}</span>`).join('')}
           ${p.sent ? '<span class="tag sent">Sent to X</span>' : ''}
         </div>
         <textarea data-act="text" aria-label="Post text">${esc(p.text)}</textarea>
         <div class="row">
           <button class="btn small primary" data-act="manual">${p.sent ? 'Post it again' : 'Post it myself'}</button>
+          ${p.needsLink ? `<a class="btn small navy" href="${esc(xUrl(p))}" target="_blank" rel="noopener" style="text-decoration:none">Open X ↗</a>` : ''}
           <button class="btn small" data-act="saveimg">Save image</button>
           <button class="btn small" data-act="copytext">Copy text</button>
-          <button class="btn small" data-act="swap">New funds</button>
-          <button class="btn small" data-act="amount">New amount</button>
+          <button class="btn small" data-act="swap">${isList(p.kind) ? 'Change list size' : 'New funds'}</button>
+          ${isList(p.kind) ? '' : '<button class="btn small" data-act="amount">New amount</button>'}
           <button class="btn small" data-act="rewrite">Rewrite text</button>
           <button class="btn small danger" data-act="remove">Remove</button>
           <span class="chars${len > 280 ? ' over' : ''}">${len}/280</span>
@@ -306,7 +389,7 @@ function render() {
       </div></article>`;
   }).join('');
 }
-function redraw(p) { p.text = writeText(p); p.img = drawImage(p); }
+function redraw(p) { p.text = writeText(p); p.img = isList(p.kind) ? drawList(p) : drawImage(p); }
 $('drafts').addEventListener('click', e => {
   const btn = e.target.closest('button[data-act]'); if (!btn) return;
   const p = state.drafts.find(d => d.id === btn.closest('.post').dataset.id); if (!p) return;
@@ -315,6 +398,7 @@ $('drafts').addEventListener('click', e => {
   if (act === 'manual') return postManually(p);
   if (act === 'saveimg') return saveImage(p);
   if (act === 'copytext') return navigator.clipboard.writeText(p.text).then(() => toast('Text copied'), () => toast("Couldn't copy, select the text and copy it"));
+  if ((act === 'swap' || act === 'amount') && isList(p.kind)) { const np = makeList(p.kind, p.funds.length); if (!np) return toast('No other size left for this list today'); Object.assign(p, np, { id: p.id, sent: false }); return render(); }
   if (act === 'swap') { const f = chooseFunds(FUNDS_PER[p.kind]); if (!f) return toast('Not enough funds in the pool'); p.funds = f; redraw(p); }
   if (act === 'amount') { const opts = AMOUNTS[p.kind].filter(a => a !== p.amt); p.amt = pick(opts.length ? opts : AMOUNTS[p.kind]); redraw(p); }
   if (act === 'rewrite') p.text = writeText(p);
@@ -330,12 +414,14 @@ $('drafts').addEventListener('input', e => {
   if (e.target.dataset.act !== 'text') return;
   const card = e.target.closest('.post'), p = state.drafts.find(d => d.id === card.dataset.id); if (!p) return;
   p.text = e.target.value;
+  const link = card.querySelector('a.btn'); if (link) link.href = xUrl(p);
   const len = [...p.text].length, ch = card.querySelector('.chars'); ch.textContent = `${len}/280`; ch.classList.toggle('over', len > 280);
   card.querySelectorAll('.err-text').forEach(x => x.remove()); const l = lint(p.text); if (l) card.querySelector('.side').insertAdjacentHTML('beforeend', l);
 });
 
 /* ================= POST IT MYSELF ================= */
 function dataURLtoBlob(url) { const [h, d] = url.split(','), b = atob(d), a = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) a[i] = b.charCodeAt(i); return new Blob([a], { type: h.match(/:(.*?);/)[1] }); }
+const xUrl = p => 'https://x.com/intent/post?text=' + encodeURIComponent(p.text);
 function saveImage(p) { const a = document.createElement('a'); a.href = p.img; a.download = `weeklyetfs-${p.kind}.png`; document.body.appendChild(a); a.click(); a.remove(); }
 const isTouch = matchMedia('(pointer: coarse)').matches;
 function remember(p) { state.history.add(histKey(p)); try { localStorage.setItem(HIST_KEY, JSON.stringify([...state.history].slice(-3000))); } catch (e) {} }
@@ -347,10 +433,16 @@ function postManually(p) {
       .catch(e => { if (e.name !== 'AbortError') toast("Couldn't open the share sheet. Use Save image instead"); });
     return;
   }
-  const openX = () => window.open('https://x.com/intent/post?text=' + encodeURIComponent(p.text), '_blank', 'noopener');
+  // Some browsers (Safari especially) block X from opening automatically. If so, show an Open X link on the post.
+  const openX = () => { const w = window.open(xUrl(p), '_blank'); if (w) { try { w.opener = null; } catch (e) {} return true; } p.needsLink = true; return false; };
   let cp; try { cp = navigator.clipboard.write([new ClipboardItem({ 'image/png': Promise.resolve(blob) })]); } catch (e) { cp = Promise.reject(e); }
-  cp.then(() => { openX(); done(); toast('Image copied. Click in the X post box and press Cmd+V (Ctrl+V on Windows)', 9000); })
-    .catch(() => { saveImage(p); openX(); done(); toast('Image saved to your Downloads. Drag it into the X post box', 9000); });
+  cp.then(() => {
+    const opened = openX(); done();
+    toast(opened ? 'Image copied. Click in the X post box and press Cmd+V (Ctrl+V on Windows)' : 'Image copied. Now click Open X on this post, then paste the image with Cmd+V', 10000);
+  }).catch(() => {
+    saveImage(p); const opened = openX(); done();
+    toast(opened ? 'Image saved to your Downloads. Drag it into the X post box' : 'Image saved to Downloads. Click Open X on this post, then drag the image in', 10000);
+  });
 }
 
 /* ================= SETTINGS / BOOT ================= */
