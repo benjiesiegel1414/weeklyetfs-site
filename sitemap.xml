@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://weeklyetfs.com/</loc>
-    <lastmod>2025-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://weeklyetfs.com/privacy.html</loc>
-    <lastmod>2025-12-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://weeklyetfs.com/faq.html</loc>
-    <lastmod>2025-12-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://weeklyetfs.com/terms.html</loc>
-    <lastmod>2025-12-04</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <!-- ADD FUTURE BLOG POSTS HERE — one <url> block per post -->
-  <!-- Example:
-  <url>
-    <loc>https://weeklyetfs.com/blog/best-weekly-etfs-2025.html</loc>
-    <lastmod>2025-12-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  -->
-
+  <url><loc>https://weeklyetfs.com/</loc><lastmod>2026-09-27</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://weeklyetfs.com/100-highest-total-return-weekly-etfs.html</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/25-highest-paying-weekly-dividend-etfs-2026.html</loc><lastmod>2026-06-16</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/500-per-month-from-weekly-dividend-etfs.html</loc><lastmod>2026-07-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/best-weekly-payer.html</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/blog.html</loc><lastmod>2026-09-27</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://weeklyetfs.com/blox-etf-holdings.html</loc><lastmod>2026-07-20</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/faq.html</loc><lastmod>2025-12-04</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://weeklyetfs.com/high-yield-roundhill-weekly-etfs-list-2026.html</loc><lastmod>2026-08-09</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/how-much-does-10000-in-blox-pay-weekly.html</loc><lastmod>2026-07-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/how-much-for-100-per-week-in-dividends.html</loc><lastmod>2026-07-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/list-of-weekly-paying-etfs-2026.html</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/privacy.html</loc><lastmod>2025-12-04</lastmod><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://weeklyetfs.com/roundhill-weekly-etfs-2026.html</loc><lastmod>2026-08-09</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/roundhill-weeklypay-etfs-distributions-performance.html</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/safest-weekly-dividend-etfs-2026.html</loc><lastmod>2026-09-27</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/terms.html</loc><lastmod>2025-12-03</lastmod><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://weeklyetfs.com/top-10-highest-paying-weekly-dividend-etfs.html</loc><lastmod>2026-09-27</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/top-20-highest-yield-weekly-etfs.html</loc><lastmod>2026-09-27</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/top-20-weekly-etfs-2026.html</loc><lastmod>2026-07-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/top-weekly-etf-providers-2026.html</loc><lastmod>2025-12-04</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/top-weekly-etf-rankings.html</loc><lastmod>2026-08-06</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/weekly-dividend-calculator.html</loc><lastmod>2026-07-22</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://weeklyetfs.com/weekly-dividend-etfs-52-payments.html</loc><lastmod>2025-12-04</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/weekly-dividend-etfs-basics.html</loc><lastmod>2025-12-04</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/weekly-dividend-etfs-definitions.html</loc><lastmod>2025-12-04</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/weekly-dividend-etfs-explained-how-they-work.html</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/weekly-dividend-etfs-lowest-price-decay.html</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/weekly-dividend-etfs-zero-nav-decay-2026.html</loc><lastmod>2026-06-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/weekly-dividend-stocks.html</loc><lastmod>2026-09-27</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/weekly-etf-watch-list-builder.html</loc><lastmod>2026-09-27</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/weekly-etfs-10-top-performing-weekly-dividend-etfs-in-2026.html</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://weeklyetfs.com/yieldmax-etfs-high-yield-weekly-2026.html</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
 </urlset>
