@@ -43,6 +43,7 @@ nav.tabs button[aria-selected="true"] { color: var(--navy); border-bottom-color:
 .notice.err { background: var(--errbg); color: var(--err); }
 .post { display: grid; grid-template-columns: minmax(0, 520px) minmax(0, 1fr); gap: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 14px; }
 .post img { width: 100%; display: block; border-radius: 10px; aspect-ratio: 16 / 9; background: var(--navy); }
+.post img.sq { aspect-ratio: 1 / 1; }
 .side { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--ink-2); }
 .meta select, .meta input[type=time] { border: 1px solid var(--line); border-radius: 8px; padding: 4px 6px; background: var(--surface); }
@@ -101,6 +102,9 @@ dialog .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         <select id="days"><option>1</option><option>2</option><option>3</option><option>5</option><option selected>7</option><option>10</option><option>14</option><option>21</option><option>30</option></select>
       </label>
       <label>Posts per day <input id="howMany" type="number" min="1" max="10" value="4" style="width:64px"></label>
+      <label>10-ETF list post
+        <select id="listEvery"><option value="0">Off</option><option value="4">Every 4th</option><option value="6">Every 6th</option><option value="8">Every 8th</option><option value="10">Every 10th</option><option value="12">Every 12th</option></select>
+      </label>
       <button class="btn navy" id="genBtn" disabled>Generate posts</button>
       <span class="spacer"></span>
       <span class="cost" id="costNote"></span>
@@ -163,7 +167,7 @@ const CFG_KEY = 'wx2.cfg.v1', MANUAL_KEY = 'wx2.manual.v1';
 const POPULAR = 'MSTY, ULTY, YMAX, NVDY, CONY, TSLY, QDTE, XDTE, RDTE, CHPY, AMDW, GOOW, NVDW, PLTY, QQQY, YMAG, GPTY, BLOX, TOPW, ODTE';
 const safeJSON = s => { try { return JSON.parse(s); } catch (e) { return null; } };
 const readLS = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
-const DEFAULT_CFG = { token: '', owner: 'benjiesiegel1414', repo: 'weeklyetfs-x-poster', branch: 'main', start: '08:00', end: '21:00', fav: POPULAR, excl: '', max: 150, nodecay: false };
+const DEFAULT_CFG = { token: '', owner: 'benjiesiegel1414', repo: 'weeklyetfs-x-poster', branch: 'main', start: '08:00', end: '21:00', fav: POPULAR, excl: '', max: 150, nodecay: false, listEvery: 8 };
 let cfg = { ...DEFAULT_CFG, ...(safeJSON(readLS(CFG_KEY)) || {}) };
 const saveCfg = () => { try { localStorage.setItem(CFG_KEY, JSON.stringify(cfg)); } catch (e) {} };
 const $ = id => document.getElementById(id);
@@ -227,6 +231,7 @@ function paramsFor(kind) {
   return { amt: pick(AMOUNTS) };
 }
 function histKey(p) {
+  if (p.kind === 'list') { let h = 0; for (const c of [...p.params.syms].sort().join(',')) h = (h * 31 + c.charCodeAt(0)) >>> 0; return `LIST_list_${h.toString(36)}`; }
   const f = p.fund, k = p.kind;
   const param = k === 'goal' ? p.params.goal : k === 'tr' ? Math.round(f.tr) : k === 'growth' ? `${p.params.amt}-${Math.round(f.tr)}` : p.params.amt;
   return `${f.sym}_${k}_${param}`;
@@ -375,6 +380,95 @@ function drawImage(p) {
     bars: amountBars(p.params.amt, v => v * y / 52, money) });
 }
 
+
+/* =====================================================================
+   10-ETF LIST POSTS (no $ticker in the text, the list is in the image)
+   ===================================================================== */
+const LIST_THEMES = {
+  watch: { label: 'Worth watching', title: 'Top Weekly ETFs worth watching', w: 50 },
+  nodecay: { label: 'No price decay', title: 'Weekly ETFs with NO price decay', w: 30 },
+  tr: { label: 'Top total return', title: 'Top total return weekly ETFs', w: 20 },
+};
+const LIST_ASKS = ['Comment down below which ones you hold!', 'Comment down below which ones you hold!', 'Which ones do you hold? Comment below!', 'Comment down below which ones you own!'];
+const isList = p => p.kind === 'list';
+function listCandidates(theme) {
+  const base = pool().filter(f => f.name);
+  if (theme === 'nodecay') return base.filter(f => f.decay === 'NO');
+  if (theme === 'tr') return base.filter(f => f.tr != null && f.tr > 0).sort((a, b) => b.tr - a.tr).slice(0, 25);
+  return base;
+}
+function pickListFunds(theme, avoid) {
+  const fav = new Set(tickers(cfg.fav)), shuffle = a => a.map(v => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
+  let cands = listCandidates(theme);
+  if (cands.length < 10) return null;
+  const fresh = cands.filter(f => !avoid.has(f.sym));
+  if (fresh.length >= 10) cands = fresh;
+  // About 6 of the 10 come from the popular list when there are enough, the rest from everything else
+  const favs = shuffle(cands.filter(f => fav.has(f.sym))).slice(0, theme === 'tr' ? 10 : 6);
+  const rest = shuffle(cands.filter(f => !favs.includes(f)));
+  const out = [...favs, ...rest].slice(0, 10);
+  return out.sort((a, b) => theme === 'tr' ? b.tr - a.tr : b.yield - a.yield);
+}
+function pickTheme() {
+  const bag = Object.entries(LIST_THEMES).filter(([k]) => listCandidates(k).length >= 10);
+  let r = Math.random() * bag.reduce((s, [, t]) => s + t.w, 0);
+  for (const [k, t] of bag) { if ((r -= t.w) < 0) return k; }
+  return 'watch';
+}
+function listText(p) { return `${LIST_THEMES[p.params.theme].title} 👇\n\n${pick(LIST_ASKS)}`; }
+function makeListPost(theme, avoid = new Set()) {
+  theme = theme || pickTheme();
+  for (let i = 0; i < 10; i++) {
+    const funds = pickListFunds(theme, avoid); if (!funds) return null;
+    const syms = funds.map(f => f.sym);
+    const p = { id: Math.random().toString(36).slice(2, 10), kind: 'list', sym: 'LIST', fund: funds[0], funds, params: { theme, syms }, link: false };
+    if (state.history.has(histKey(p))) continue;
+    p.text = listText(p); p.img = drawList(p); return p;
+  }
+  return null;
+}
+function drawList(p) {
+  const W = 1200, H = 1200, S = 2, cv = document.createElement('canvas'); cv.width = W * S; cv.height = H * S;
+  const ctx = cv.getContext('2d'); ctx.scale(S, S);
+  const F = (w, s) => `${w} ${s}px Lato, Arial, sans-serif`, tr = p.params.theme === 'tr';
+  const fitFont = (text, w, size, max, min) => { ctx.font = F(w, size); while (ctx.measureText(text).width > max && size > min) { size -= 1; ctx.font = F(w, size); } return size; };
+  ctx.fillStyle = '#001f3d'; ctx.fillRect(0, 0, W, H);
+  const g = ctx.createRadialGradient(W, 0, 0, W, 0, 1100); g.addColorStop(0, 'rgba(231,76,60,.20)'); g.addColorStop(1, 'rgba(231,76,60,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.fillStyle = '#e74c3c'; ctx.fillRect(0, 0, W, 8);
+  // wordmark + date
+  ctx.textAlign = 'left'; ctx.font = F(900, 26); ctx.fillStyle = '#fff'; ctx.fillText('Weekly', 64, 70);
+  const ww = ctx.measureText('Weekly').width; ctx.fillStyle = '#e74c3c'; ctx.fillText('ETFs', 64 + ww, 70);
+  const we = ctx.measureText('ETFs').width; ctx.fillStyle = '#fff'; ctx.fillText('.com', 64 + ww + we, 70);
+  ctx.textAlign = 'right'; ctx.fillStyle = '#9fb3c8'; ctx.font = F(700, 18); ctx.fillText(`Data as of ${today()}`, W - 64, 68);
+  // title
+  ctx.textAlign = 'left'; ctx.fillStyle = '#fff'; fitFont(LIST_THEMES[p.params.theme].title, 900, 54, W - 128, 34); ctx.fillText(LIST_THEMES[p.params.theme].title, 64, 158);
+  // column heads
+  const top = 232, rowH = 88, colR = W - 64, colR2 = tr ? W - 250 : null;
+  ctx.font = F(700, 17); ctx.fillStyle = '#6f87a0';
+  ctx.fillText('ETF', 84, top - 14);
+  ctx.textAlign = 'right';
+  if (tr) { ctx.fillText('YIELD', colR2, top - 14); ctx.fillText('TOTAL RETURN', colR - 20, top - 14); }
+  else ctx.fillText('YIELD', colR - 20, top - 14);
+  const nameMax = (tr ? colR2 - 120 : colR - 190) - 250;
+  p.funds.forEach((f, i) => {
+    const y = top + i * rowH;
+    ctx.fillStyle = i % 2 ? 'rgba(255,255,255,.035)' : 'rgba(255,255,255,.075)';
+    roundRect(ctx, 64, y, W - 128, rowH - 10, 12); ctx.fill();
+    const mid = y + (rowH - 10) / 2 + 11;
+    ctx.textAlign = 'left'; ctx.fillStyle = '#ff6b5a'; fitFont('$' + f.sym, 900, 32, 150, 22); ctx.fillText('$' + f.sym, 84, mid);
+    const nm = f.name.replace(/[®™]/g, '').replace(/\s+/g, ' ').trim(); ctx.fillStyle = '#fff'; fitFont(nm, 700, 25, nameMax, 15); ctx.fillText(nm, 250, mid - 1);
+    ctx.textAlign = 'right';
+    if (tr) {
+      ctx.fillStyle = '#9fb3c8'; ctx.font = F(700, 28); ctx.fillText(pct(f.yield), colR2, mid);
+      ctx.fillStyle = '#fff'; ctx.font = F(900, 32); ctx.fillText(signed(f.tr), colR - 20, mid);
+    } else { ctx.fillStyle = '#fff'; ctx.font = F(900, 32); ctx.fillText(pct(f.yield), colR - 20, mid); }
+  });
+  ctx.textAlign = 'left'; ctx.fillStyle = '#6f87a0'; ctx.font = F(700, 17);
+  ctx.fillText(tr ? "Total return since launch, distributions included. Past returns don't guarantee future results" : "All pay weekly. Yields change and aren't guaranteed", 64, H - 40);
+  ctx.textAlign = 'right'; ctx.fillStyle = '#9fb3c8'; ctx.font = F(900, 18); ctx.fillText('weeklyetfs.com', W - 64, H - 40);
+  return cv.toDataURL('image/png');
+}
+
 /* =====================================================================
    GENERATE
    ===================================================================== */
@@ -425,7 +519,8 @@ async function generate() {
   const days = Math.max(1, Math.min(30, parseInt($('days').value, 10) || 1));
   const first = startDay();
   try { await document.fonts.load('900 40px Lato'); await document.fonts.load('700 24px Lato'); } catch (e) {}
-  const used = new Set(), out = [], kindsUsed = {};
+  const used = new Set(), out = [], kindsUsed = {}, listEvery = +$('listEvery').value || 0, listSyms = new Set();
+  cfg.listEvery = listEvery; saveCfg();
   let recent = [];   // funds used in the last couple of days, so the same fund doesn't show up day after day
   let skipped = 0;
   for (let d = 0; d < days; d++) {
@@ -436,6 +531,10 @@ async function generate() {
     const dayPosts = [];
     let tries = 0;
     while (dayPosts.length < perDay && tries++ < perDay * 30) {
+      if (listEvery && (out.length + dayPosts.length + 1) % listEvery === 0 && !dayPosts.some(isList)) {
+        const lp = makeListPost(null, listSyms);
+        if (lp && !used.has(histKey(lp))) { lp.at = times[dayPosts.length]; used.add(histKey(lp)); lp.funds.forEach(f => listSyms.add(f.sym)); dayPosts.push(lp); continue; }
+      }
       let fund = chooseFund(taken);
       if (!fund) { taken.clear(); dayPosts.forEach(p => taken.add(p.sym)); fund = chooseFund(taken); if (!fund) break; }
       let kind = pickKind(fund);
@@ -484,6 +583,30 @@ function renderDrafts() {
   state.drafts.sort((a, b) => a.at - b.at);
   box.innerHTML = state.drafts.map(p => {
     const f = p.fund, len = [...finalText(p)].length;
+    if (isList(p)) return `<article class="post" data-id="${p.id}">
+      <img class="sq" src="${p.img}" alt="10 weekly ETFs list image">
+      <div class="side">
+        <div class="meta">
+          <input type="datetime-local" value="${ymd(p.at)}T${hhmm(p.at)}" data-act="time" aria-label="Post date and time">
+          <span>${p.at.toLocaleDateString([], { weekday: 'short' })}</span>
+          <span class="tag pop">10 ETF list</span>
+          ${p.sent ? '<span class="tag sent">Sent to X</span>' : ''}
+          <select data-act="theme" aria-label="List type">${Object.entries(LIST_THEMES).map(([k, t]) => `<option value="${k}"${k === p.params.theme ? ' selected' : ''}${listCandidates(k).length >= 10 ? '' : ' disabled'}>${t.label}</option>`).join('')}</select>
+        </div>
+        <textarea data-act="text" aria-label="Post text">${esc(p.text)}</textarea>
+        <div class="row">
+          <button class="btn small primary" data-act="manual">${p.sent ? 'Post it again' : 'Post it myself'}</button>
+          ${p.needsLink ? `<a class="btn small navy" href="${esc(xUrl(p))}" target="_blank" rel="noopener">Open X ↗</a>` : ''}
+          <button class="btn small" data-act="saveimg">Save image</button>
+          <button class="btn small" data-act="copytext">Copy text</button>
+          <button class="btn small" data-act="swap">New funds</button>
+          <button class="btn small" data-act="rewrite">Rewrite text</button>
+          <button class="btn small danger" data-act="remove">Remove</button>
+          <span class="chars${len > 280 ? ' over' : ''}">${len}/280</span>
+        </div>
+        ${lintText(finalText(p))}
+      </div>
+    </article>`;
     return `<article class="post" data-id="${p.id}">
       <img src="${p.img}" alt="Image for ${esc(p.sym)} post">
       <div class="side">
@@ -523,6 +646,11 @@ $('drafts').addEventListener('click', e => {
   if (act === 'manual') return postManually(p);
   if (act === 'saveimg') return saveImage(p);
   if (act === 'copytext') return navigator.clipboard.writeText(finalText(p)).then(() => toast('Text copied'), () => toast("Couldn't copy, select the text and copy it"));
+  if (isList(p)) {
+    if (act === 'rewrite') p.text = listText(p);
+    if (act === 'swap') { const np = makeListPost(p.params.theme, new Set(p.params.syms)); if (!np) return toast('Not enough funds for another list'); replaceWith(p, np); }
+    return renderDrafts();
+  }
   if (act === 'swap') {
     const taken = new Set(state.drafts.map(d => d.sym));
     let np = null;
@@ -546,6 +674,7 @@ $('drafts').addEventListener('change', e => {
     replaceWith(p, np); renderDrafts();
   }
   if (act === 'link') { p.link = el.checked; renderDrafts(); }
+  if (act === 'theme') { const np = makeListPost(el.value); if (!np) { toast('Not enough funds for that list'); return renderDrafts(); } replaceWith(p, np); renderDrafts(); }
 });
 $('drafts').addEventListener('input', e => {
   const el = e.target; if (el.dataset.act !== 'text') return;
@@ -638,11 +767,11 @@ async function scheduleAll() {
   try {
     await loadHistory();
     const clash = state.drafts.filter(p => state.history.has(histKey(p)));
-    if (clash.length) throw new Error(`${clash.map(p => '$' + p.sym).join(', ')} already used those exact numbers. Hit New numbers first`);
+    if (clash.length) throw new Error(`${clash.map(p => isList(p) ? 'A 10 ETF list' : '$' + p.sym).join(', ')} already used those exact numbers. Hit ${clash.some(isList) ? 'New funds' : 'New numbers'} first`);
     const files = [];
     for (const p of state.drafts) {
       const base = fileBase(p);
-      const rec = { id: p.id, sym: p.sym, kind: p.kind, params: p.params, yield: p.fund.yield, tr: p.fund.tr, decay: p.fund.decay, images: 1, text: oneCashtag(finalText(p)), link: p.link, post_at: p.at.toISOString(), created_at: new Date().toISOString() };
+      const rec = { id: p.id, sym: p.sym, kind: p.kind, params: p.params, ...(isList(p) ? { syms: p.params.syms } : {}), yield: p.fund.yield, tr: p.fund.tr, decay: p.fund.decay, images: 1, text: oneCashtag(finalText(p)), link: p.link, post_at: p.at.toISOString(), created_at: new Date().toISOString() };
       files.push({ path: `queue/${base}.json`, b64: b64utf8(JSON.stringify(rec, null, 2)) });
       files.push({ path: `queue/${base}.png`, b64: p.img.split(',')[1] });
     }
@@ -669,9 +798,9 @@ async function renderList(dir, box, opts) {
     if (!files.length) { box.innerHTML = `<div class="empty">${opts.emptyText}</div>`; return; }
     const recs = await Promise.all(files.map(async f => ({ f, r: await readJSON(f.path) })));
     box.innerHTML = recs.map(({ f, r }) => `<article class="post" data-path="${esc(f.path)}">
-      ${opts.images ? `<img alt="Image for ${esc(r.sym)} post" data-img="${esc(f.path.replace(/\.json$/, '.png'))}">` : ''}
+      ${opts.images ? `<img${r.kind === 'list' ? ' class="sq"' : ''} alt="Image for ${esc(r.sym)} post" data-img="${esc(f.path.replace(/\.json$/, '.png'))}">` : ''}
       <div class="side">
-        <div class="meta"><span class="tag">$${esc(r.sym)}</span><span>${esc(KIND_LABEL[r.kind] || r.kind)}</span></div>
+        <div class="meta">${r.kind === 'list' ? `<span class="tag pop">10 ETF list</span><span>${esc((r.syms || []).join(', '))}</span>` : `<span class="tag">$${esc(r.sym)}</span><span>${esc(KIND_LABEL[r.kind] || r.kind)}</span>`}</div>
         <div class="status-line">${opts.line(r)}</div>
         <textarea readonly>${esc(r.text)}</textarea>
         ${r.error ? `<div class="err-text">${esc(r.error)}</div>` : ''}
@@ -746,6 +875,7 @@ function updateStatus() {
   $('dataStatus').textContent = `${state.funds.length} weekly ETFs loaded (${withTR} with total return), ${pool().length} in the posting pool`;
 }
 $('genBtn').addEventListener('click', generate);
+$('listEvery').value = String(cfg.listEvery ?? 8);
 { const t = new Date(), m = new Date(); m.setDate(m.getDate() + 1); $('startDate').min = ymd(t); $('startDate').value = ymd(m); }
 
 showSetup();
