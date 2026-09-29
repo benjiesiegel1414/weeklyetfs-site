@@ -102,8 +102,8 @@ dialog .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         <select id="days"><option>1</option><option>2</option><option>3</option><option>5</option><option selected>7</option><option>10</option><option>14</option><option>21</option><option>30</option></select>
       </label>
       <label>Posts per day <input id="howMany" type="number" min="1" max="10" value="4" style="width:64px"></label>
-      <label>10-ETF list post
-        <select id="listEvery"><option value="0">Off</option><option value="4">Every 4th</option><option value="6">Every 6th</option><option value="8">Every 8th</option><option value="10">Every 10th</option><option value="12">Every 12th</option></select>
+      <label>List posts
+        <select id="listEvery"><option value="0">Off</option><option value="2">Every 2nd</option><option value="3">Every 3rd</option><option value="4">Every 4th</option><option value="6">Every 6th</option><option value="8">Every 8th</option><option value="10">Every 10th</option><option value="12">Every 12th</option></select>
       </label>
       <button class="btn navy" id="genBtn" disabled>Generate posts</button>
       <span class="spacer"></span>
@@ -167,7 +167,7 @@ const CFG_KEY = 'wx2.cfg.v1', MANUAL_KEY = 'wx2.manual.v1';
 const POPULAR = 'MSTY, ULTY, YMAX, NVDY, CONY, TSLY, QDTE, XDTE, RDTE, CHPY, AMDW, GOOW, NVDW, PLTY, QQQY, YMAG, GPTY, BLOX, TOPW, ODTE';
 const safeJSON = s => { try { return JSON.parse(s); } catch (e) { return null; } };
 const readLS = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
-const DEFAULT_CFG = { token: '', owner: 'benjiesiegel1414', repo: 'weeklyetfs-x-poster', branch: 'main', start: '08:00', end: '21:00', fav: POPULAR, excl: '', max: 150, nodecay: false, listEvery: 8 };
+const DEFAULT_CFG = { token: '', owner: 'benjiesiegel1414', repo: 'weeklyetfs-x-poster', branch: 'main', start: '08:00', end: '21:00', fav: POPULAR, excl: '', max: 150, nodecay: false, listEvery: 2 };
 let cfg = { ...DEFAULT_CFG, ...(safeJSON(readLS(CFG_KEY)) || {}) };
 const saveCfg = () => { try { localStorage.setItem(CFG_KEY, JSON.stringify(cfg)); } catch (e) {} };
 const $ = id => document.getElementById(id);
@@ -231,7 +231,7 @@ function paramsFor(kind) {
   return { amt: pick(AMOUNTS) };
 }
 function histKey(p) {
-  if (p.kind === 'list') { let h = 0; for (const c of [...p.params.syms].sort().join(',')) h = (h * 31 + c.charCodeAt(0)) >>> 0; return `LIST_list_${h.toString(36)}`; }
+  if (p.kind === 'list') { let h = 0; for (const c of [...p.params.syms].sort().join(',')) h = (h * 31 + c.charCodeAt(0)) >>> 0; return `LIST_${['watch', 'nodecay', 'tr'].includes(p.params.theme) ? 'list' : p.params.theme}_${h.toString(36)}`; }
   const f = p.fund, k = p.kind;
   const param = k === 'goal' ? p.params.goal : k === 'tr' ? Math.round(f.tr) : k === 'growth' ? `${p.params.amt}-${Math.round(f.tr)}` : p.params.amt;
   return `${f.sym}_${k}_${param}`;
@@ -385,16 +385,39 @@ function drawImage(p) {
    10-ETF LIST POSTS (no $ticker in the text, the list is in the image)
    ===================================================================== */
 const LIST_THEMES = {
-  watch: { label: 'Worth watching', title: 'Top Weekly ETFs worth watching', w: 50 },
-  nodecay: { label: 'No price decay', title: 'Weekly ETFs with NO price decay', w: 30 },
-  tr: { label: 'Top total return', title: 'Top total return weekly ETFs', w: 20 },
+  watch: { label: 'Worth watching', title: 'Top Weekly ETFs worth watching', w: 18 },
+  income: { label: '$10K per year', title: 'What $10,000 pays per year in these weekly ETFs', w: 22 },
+  weekly: { label: '$10K per week', title: 'Your weekly paycheck from $10,000 in each', w: 18 },
+  highest: { label: 'Highest yields', title: 'Highest yielding weekly ETFs right now', w: 14 },
+  tr: { label: 'Top total return', title: 'Top total return weekly ETFs', w: 16 },
+  nodecay: { label: 'No price decay', title: 'Weekly ETFs with NO price decay', w: 12 },
 };
+const LIST_AMT = 10000;
+const LIST_COLS = {
+  watch: { head: 'YIELD', val: f => pct(f.yield), row: f => pct(f.yield), foot: "All pay weekly. Yields change and aren't guaranteed" },
+  highest: { head: 'YIELD', val: f => pct(f.yield), row: f => pct(f.yield), foot: "All pay weekly. Yields change and aren't guaranteed" },
+  nodecay: { head: 'YIELD', val: f => pct(f.yield), row: f => pct(f.yield), foot: "All pay weekly. Yields change and aren't guaranteed" },
+  tr: { head: 'TOTAL RETURN', second: 'YIELD', val: f => signed(f.tr), row: f => signed(f.tr), foot: "Total return since launch, distributions included. Past returns don't guarantee future results" },
+  income: { head: 'PER YEAR', second: 'YIELD', val: f => usd0.format(LIST_AMT * f.yield / 100), row: f => usd0.format(LIST_AMT * f.yield / 100) + '/yr', foot: "Based on $10,000 in each fund at today's yield. Yields change and aren't guaranteed" },
+  weekly: { head: 'PER WEEK', second: 'YIELD', val: f => usd0.format(LIST_AMT * f.yield / 100 / 52), row: f => usd0.format(LIST_AMT * f.yield / 100 / 52) + '/wk', foot: "Based on $10,000 in each fund at today's yield. Yields change and aren't guaranteed" },
+};
+const LIST_HEADS = {
+  watch: ['Top Weekly ETFs worth watching 👇', 'Weekly paying ETFs worth a look 👇', 'Weekly ETFs on my radar right now 👇'],
+  income: ['What $10,000 in each of these weekly ETFs pays per year 👇', 'Yearly income from $10,000 in each 👇', '$10,000 in each of these pays you this much a year 👇'],
+  weekly: ['Your weekly paycheck from $10,000 in each 👇', 'What $10,000 pays you every single week 👇', 'Weekly income from $10,000 in each 👇'],
+  highest: ['Highest yielding weekly ETFs right now 👇', 'The biggest weekly yields out there 👇'],
+  tr: ['Top total return weekly ETFs since launch 👇', 'Weekly ETFs with the best total returns 👇'],
+  nodecay: ['Weekly ETFs with NO price decay 👇', 'Weekly payers that held their share price 👇'],
+};
+const xlen = t => [...t].reduce((n, c) => n + (c.codePointAt(0) > 0x10FF ? 2 : 1), 0);
 const LIST_ASKS = ['Comment down below which ones you hold!', 'Comment down below which ones you hold!', 'Which ones do you hold? Comment below!', 'Comment down below which ones you own!'];
 const isList = p => p.kind === 'list';
 function listCandidates(theme) {
   const base = pool().filter(f => f.name);
   if (theme === 'nodecay') return base.filter(f => f.decay === 'NO');
   if (theme === 'tr') return base.filter(f => f.tr != null && f.tr > 0).sort((a, b) => b.tr - a.tr).slice(0, 25);
+  if (theme === 'highest') return base.filter(f => f.yield > 0).sort((a, b) => b.yield - a.yield).slice(0, 25);
+  if (theme === 'income' || theme === 'weekly') return base.filter(f => f.yield > 0);
   return base;
 }
 function pickListFunds(theme, avoid) {
@@ -415,7 +438,15 @@ function pickTheme() {
   for (const [k, t] of bag) { if ((r -= t.w) < 0) return k; }
   return 'watch';
 }
-function listText(p) { return `${LIST_THEMES[p.params.theme].title} 👇\n\n${pick(LIST_ASKS)}`; }
+function listText(p) {
+  const th = p.params.theme, col = LIST_COLS[th] || LIST_COLS.watch, head = pick(LIST_HEADS[th] || [LIST_THEMES[th].title + ' 👇']), ask = pick(LIST_ASKS);
+  const rows = p.funds.map((f, i) => `${i + 1}. ${i === 0 ? '$' : ''}${f.sym} ${col.row(f)}`);
+  for (let n = rows.length; n >= 5; n--) {
+    const t = `${head}\n\n${rows.slice(0, n).join('\n')}\n\n${ask}`;
+    if (xlen(t) <= 280) return t;
+  }
+  return `${head}\n\n${rows.slice(0, 5).join('\n')}`;
+}
 function makeListPost(theme, avoid = new Set()) {
   theme = theme || pickTheme();
   for (let i = 0; i < 10; i++) {
@@ -430,26 +461,24 @@ function makeListPost(theme, avoid = new Set()) {
 function drawList(p) {
   const W = 1200, H = 1200, S = 2, cv = document.createElement('canvas'); cv.width = W * S; cv.height = H * S;
   const ctx = cv.getContext('2d'); ctx.scale(S, S);
-  const F = (w, s) => `${w} ${s}px Lato, Arial, sans-serif`, tr = p.params.theme === 'tr';
+  const F = (w, s) => `${w} ${s}px Lato, Arial, sans-serif`, th = p.params.theme, col = LIST_COLS[th] || LIST_COLS.watch, two = !!col.second;
   const fitFont = (text, w, size, max, min) => { ctx.font = F(w, size); while (ctx.measureText(text).width > max && size > min) { size -= 1; ctx.font = F(w, size); } return size; };
   ctx.fillStyle = '#001f3d'; ctx.fillRect(0, 0, W, H);
   const g = ctx.createRadialGradient(W, 0, 0, W, 0, 1100); g.addColorStop(0, 'rgba(231,76,60,.20)'); g.addColorStop(1, 'rgba(231,76,60,0)');
   ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.fillStyle = '#e74c3c'; ctx.fillRect(0, 0, W, 8);
-  // wordmark + date
   ctx.textAlign = 'left'; ctx.font = F(900, 26); ctx.fillStyle = '#fff'; ctx.fillText('Weekly', 64, 70);
   const ww = ctx.measureText('Weekly').width; ctx.fillStyle = '#e74c3c'; ctx.fillText('ETFs', 64 + ww, 70);
   const we = ctx.measureText('ETFs').width; ctx.fillStyle = '#fff'; ctx.fillText('.com', 64 + ww + we, 70);
   ctx.textAlign = 'right'; ctx.fillStyle = '#9fb3c8'; ctx.font = F(700, 18); ctx.fillText(`Data as of ${today()}`, W - 64, 68);
-  // title
-  ctx.textAlign = 'left'; ctx.fillStyle = '#fff'; fitFont(LIST_THEMES[p.params.theme].title, 900, 54, W - 128, 34); ctx.fillText(LIST_THEMES[p.params.theme].title, 64, 158);
-  // column heads
-  const top = 232, rowH = 88, colR = W - 64, colR2 = tr ? W - 250 : null;
+  const title = LIST_THEMES[th].title;
+  ctx.textAlign = 'left'; ctx.fillStyle = '#fff'; fitFont(title, 900, 54, W - 128, 30); ctx.fillText(title, 64, 158);
+  const top = 232, rowH = 88, colR = W - 64, colR2 = two ? W - 250 : null;
   ctx.font = F(700, 17); ctx.fillStyle = '#6f87a0';
   ctx.fillText('ETF', 84, top - 14);
   ctx.textAlign = 'right';
-  if (tr) { ctx.fillText('YIELD', colR2, top - 14); ctx.fillText('TOTAL RETURN', colR - 20, top - 14); }
-  else ctx.fillText('YIELD', colR - 20, top - 14);
-  const nameMax = (tr ? colR2 - 120 : colR - 190) - 250;
+  if (two) ctx.fillText(col.second, colR2, top - 14);
+  ctx.fillText(col.head, colR - 20, top - 14);
+  const nameMax = (two ? colR2 - 120 : colR - 190) - 250;
   p.funds.forEach((f, i) => {
     const y = top + i * rowH;
     ctx.fillStyle = i % 2 ? 'rgba(255,255,255,.035)' : 'rgba(255,255,255,.075)';
@@ -458,13 +487,11 @@ function drawList(p) {
     ctx.textAlign = 'left'; ctx.fillStyle = '#ff6b5a'; fitFont('$' + f.sym, 900, 32, 150, 22); ctx.fillText('$' + f.sym, 84, mid);
     const nm = f.name.replace(/[®™]/g, '').replace(/\s+/g, ' ').trim(); ctx.fillStyle = '#fff'; fitFont(nm, 700, 25, nameMax, 15); ctx.fillText(nm, 250, mid - 1);
     ctx.textAlign = 'right';
-    if (tr) {
-      ctx.fillStyle = '#9fb3c8'; ctx.font = F(700, 28); ctx.fillText(pct(f.yield), colR2, mid);
-      ctx.fillStyle = '#fff'; ctx.font = F(900, 32); ctx.fillText(signed(f.tr), colR - 20, mid);
-    } else { ctx.fillStyle = '#fff'; ctx.font = F(900, 32); ctx.fillText(pct(f.yield), colR - 20, mid); }
+    if (two) { ctx.fillStyle = '#9fb3c8'; ctx.font = F(700, 28); ctx.fillText(pct(f.yield), colR2, mid); }
+    ctx.fillStyle = '#fff'; fitFont(col.val(f), 900, 32, two ? 190 : 260, 22); ctx.fillText(col.val(f), colR - 20, mid);
   });
   ctx.textAlign = 'left'; ctx.fillStyle = '#6f87a0'; ctx.font = F(700, 17);
-  ctx.fillText(tr ? "Total return since launch, distributions included. Past returns don't guarantee future results" : "All pay weekly. Yields change and aren't guaranteed", 64, H - 40);
+  ctx.fillText(col.foot, 64, H - 40);
   ctx.textAlign = 'right'; ctx.fillStyle = '#9fb3c8'; ctx.font = F(900, 18); ctx.fillText('weeklyetfs.com', W - 64, H - 40);
   return cv.toDataURL('image/png');
 }
@@ -531,7 +558,7 @@ async function generate() {
     const dayPosts = [];
     let tries = 0;
     while (dayPosts.length < perDay && tries++ < perDay * 30) {
-      if (listEvery && (out.length + dayPosts.length + 1) % listEvery === 0 && !dayPosts.some(isList)) {
+      if (listEvery && (out.length + dayPosts.length + 1) % listEvery === 0) {
         const lp = makeListPost(null, listSyms);
         if (lp && !used.has(histKey(lp))) { lp.at = times[dayPosts.length]; used.add(histKey(lp)); lp.funds.forEach(f => listSyms.add(f.sym)); dayPosts.push(lp); continue; }
       }
@@ -875,7 +902,8 @@ function updateStatus() {
   $('dataStatus').textContent = `${state.funds.length} weekly ETFs loaded (${withTR} with total return), ${pool().length} in the posting pool`;
 }
 $('genBtn').addEventListener('click', generate);
-$('listEvery').value = String(cfg.listEvery ?? 8);
+if (!cfg.listV2) { cfg.listEvery = 2; cfg.listV2 = true; saveCfg(); }
+$('listEvery').value = String(cfg.listEvery ?? 2);
 { const t = new Date(), m = new Date(); m.setDate(m.getDate() + 1); $('startDate').min = ymd(t); $('startDate').value = ymd(m); }
 
 showSetup();
