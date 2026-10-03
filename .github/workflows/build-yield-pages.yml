@@ -7,6 +7,8 @@ on:
   push:
     paths:
       - "generate-yield-pages.js"
+      - "scripts/build-etf-images.mjs"
+      - ".github/workflows/build-yield-pages.yml"
 
 permissions:
   contents: write
@@ -21,6 +23,12 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Build weekly ETF ticker images (only new or renamed ETFs are rendered)
+        run: |
+          npm i --no-save --no-package-lock --no-audit --no-fund satori@0.35.0 @resvg/resvg-js@2.6.2 @fontsource/lato@5.3.0
+          node scripts/build-etf-images.mjs
+          rm -rf node_modules
+
       - name: Generate pages
         run: node generate-yield-pages.js
 
@@ -28,7 +36,7 @@ jobs:
         run: |
           git config user.name "yield-page-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add yield/ sitemap-yield.xml
+          git add yield/ sitemap-yield.xml etf-images/
           if git diff --cached --quiet; then
             echo "No changes."
           else
