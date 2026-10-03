@@ -279,7 +279,14 @@ function buildPage(fund, all, updated, year) {
 <meta property="og:url" content="${url}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="${BRAND}">
-<meta name="twitter:card" content="summary">
+${(() => { const img = `${t.toLowerCase()}-etf-wide.png`; return fs.existsSync(path.join(__dirname, "etf-images", img))
+  ? `<meta property="og:image" content="${SITE_URL}/etf-images/${img}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${esc(t)} ETF: ${esc(name)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE_URL}/etf-images/${img}">`
+  : `<meta name="twitter:card" content="summary">`; })()}
 ${HEAD_SCRIPTS}
 ${FONTS}
 <style>${CSS}</style>
