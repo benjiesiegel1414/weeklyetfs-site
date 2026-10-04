@@ -314,6 +314,10 @@ ${header()}
 ${fund.decay ? `<div class="stat"><div class="lab">Price Decay</div><div class="val ${/yes/i.test(fund.decay) ? "neg" : "pos"}">${esc(fund.decay)}</div><div class="note">Share price vs inception</div></div>` : ""}
 </div>
 
+<!-- EMAIL SIGNUP -->
+<div class="etf-signup" data-variant="featured" data-color="#001f3d" data-accent="#e74c3c" data-source="weeklyetfs"></div>
+<script src="/email-signup.js" defer></script>
+
 ${intro}
 
 <h2>${t} Total Return Since Inception</h2>
@@ -393,6 +397,9 @@ ${header()}
 <p class="sub">${funds.length} funds · Data updated <span class="upd">${updated}</span></p>
 <p class="body">Yield is what a fund pays. Total return since inception is what shareholders have actually kept over the fund's full life. This index tracks both for every income ETF we cover, updated daily. Click any ticker for its full yield and return breakdown.</p>
 <table class="hublist"><thead><tr><th>Ticker</th><th>Fund</th><th style="text-align:right">Yield</th><th style="text-align:center">Price Decay</th><th style="text-align:right">Return Since Inception</th></tr></thead><tbody>${rows}</tbody></table>
+<!-- EMAIL SIGNUP -->
+<div class="etf-signup" data-variant="featured" data-color="#001f3d" data-accent="#e74c3c" data-source="weeklyetfs"></div>
+<script src="/email-signup.js" defer></script>
 <p class="disc">Data is provided for informational and educational purposes only and is not investment advice. Verify all figures with the fund issuer.</p>
 </main>
 ${footer(year)}
