@@ -247,7 +247,7 @@ details.tbl summary{cursor:pointer;font-size:.84em;font-weight:900;color:var(--n
     <div class="chart-head">
       <div><h2>Event Count by Event Name</h2><p class="h2sub" style="margin:0">Every tracked interaction on WeeklyETFs.com, by day.</p></div>
       <div class="seg" role="group" aria-label="Date range" id="rangeSeg">
-        <button data-r="30">30D</button><button data-r="90" class="on">90D</button><button data-r="180">180D</button>
+        <button data-r="30">30D</button><button data-r="90">90D</button><button data-r="180" class="on">180D</button>
       </div>
     </div>
     <div class="chart-box"><canvas id="evChart" aria-label="Event count by event name over time"></canvas></div>
@@ -531,7 +531,7 @@ function bars(id, rows, key, valKey, n) {
 load().then(function (data) {
   D = data;
   headline(D);
-  drawEvents(90);
+  drawEvents(180);
   drawTraffic();
   bars('chBars', D.channels, 'sessionDefaultChannelGroup', 'sessions');
   bars('srcBars', D.sources, 'sessionSource', 'sessions');
