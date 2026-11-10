@@ -481,10 +481,13 @@ function legend(ul, chart, totals) {
 }
 
 var evChart, D;
+/* hide tiny, low-volume events (lead/form/sponsor tracking) from the chart and table */
+var HIDE_EVENTS = ['generate_lead', 'form_start', 'sponsor_impression', 'sponsor_click', 'sponsor_dismiss'];
+var MIN_EVENTS = 100;
+function shownEvents() { return (D.eventNames || []).filter(function (e) { return HIDE_EVENTS.indexOf(e.name) < 0 && e.count >= MIN_EVENTS; }); }
 function drawEvents(range) {
   var rows = (D.eventsDaily || []).slice(-range);
-  var names = (D.eventNames || []).slice(0, 8).map(function (x) { return x.name; });
-  if (rows.some(function (r) { return r.e.other; })) names.push('other');
+  var names = shownEvents().slice(0, 8).map(function (x) { return x.name; });
   var ds = names.map(function (n, i) {
     var col = n === 'other' ? OTHER : PALETTE[i];
     return { label: n === 'other' ? 'all other events' : n, data: rows.map(function (r) { return r.e[n] || 0; }),
@@ -538,7 +541,7 @@ load().then(function (data) {
   bars('devBars', D.devices, 'deviceCategory', 'sessions');
   bars('pgBars', (D.pages || []).map(function (p) { return { p: p.pagePath === '/' ? 'Homepage (/)' : p.pagePath, v: p.screenPageViews }; }), 'p', 'v', 8);
   var tb = document.querySelector('#evTable tbody');
-  tb.innerHTML = (D.eventNames || []).map(function (e) { return '<tr><td><code>' + e.name + '</code></td><td class="n">' + fmt(e.count) + '</td></tr>'; }).join('');
+  tb.innerHTML = shownEvents().map(function (e) { return '<tr><td><code>' + e.name + '</code></td><td class="n">' + fmt(e.count) + '</td></tr>'; }).join('');
 });
 
 document.getElementById('rangeSeg').addEventListener('click', function (e) {
