@@ -10,7 +10,7 @@
     <meta name="robots" content="index, follow">
 
     <title id="pageTitle">ETF Scorecard | WeeklyETFs.com</title>
-    <meta id="pageDescription" name="description" content="Full scorecard for this weekly dividend ETF — dividend yield, total return, and price decay, updated daily.">
+    <meta id="pageDescription" name="description" content="Full scorecard for this weekly dividend ETF: price, dividend history, dividend yield, total return and price decay, updated daily.">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EG30PW49ZN"></script>
     <script>
@@ -238,6 +238,66 @@
         .footer{margin-top:20px;padding:25px;background:#fff;width:100%;text-align:center;font-size:0.9em;color:#555;border-top:1px solid #ddd}
         .footer a{color:var(--navy);text-decoration:none;margin:0 12px;font-weight:700}
         .footer a:hover{text-decoration:underline}
+
+        .price-line{display:inline-flex;align-items:baseline;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px;background:#fff;border:1px solid #ddd;border-radius:999px;padding:8px 18px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+        .price-line .px{font-size:1.45em;font-weight:900;color:var(--navy)}
+        .price-line .chg{font-weight:900;font-size:.9em}
+        .price-line .asof{font-size:.78em;color:#888}
+        .quick-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;width:94%;max-width:1000px;margin:6px auto 22px}
+        .qs{background:#fff;border:1px solid #ddd;border-radius:12px;padding:14px 12px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+        .qs .k{font-size:.68em;text-transform:uppercase;letter-spacing:1px;color:#888;font-weight:900}
+        .qs .v{font-size:1.45em;font-weight:900;color:var(--navy);margin-top:5px}
+        .panel{width:94%;max-width:1000px;margin:0 auto 24px;background:#fff;border-radius:14px;border:3px solid var(--navy);padding:22px 26px;box-shadow:0 4px 15px rgba(0,0,0,.1)}
+        .panel h2{font-size:1.15em;color:var(--navy);margin:0 0 4px}
+        .panel .lead{font-size:.88em;color:#777;margin:0 0 14px}
+        .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.78em;color:#666;margin-top:8px}
+        .legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+        .div-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+        .div-stats div{background:#f6f8fa;border-radius:10px;padding:11px 13px}
+        .div-stats em{display:block;font-style:normal;font-size:.66em;color:#888;font-weight:900;text-transform:uppercase;letter-spacing:.8px}
+        .div-stats b{font-size:1.15em;color:var(--navy)}
+        .div-stats small{color:#999;font-size:.75em}
+        .calc{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:center}
+        .calc label{font-weight:900;color:var(--navy);font-size:.88em;text-transform:uppercase;letter-spacing:.5px}
+        .calc .amt-big{font-size:2.2em;font-weight:900;color:var(--navy);line-height:1.1}
+        .calc input[type=range]{width:100%;margin:12px 0 4px;accent-color:#001f3d}
+        .calc .shares{font-size:.8em;color:#999}
+        .calc-out{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+        .calc-out div{border-radius:12px;padding:14px 8px;text-align:center;background:linear-gradient(155deg,#eafaf0,#fff);border:2px solid #a9e3bc}
+        .calc-out em{display:block;font-style:normal;font-size:.68em;color:#888;font-weight:900;text-transform:uppercase;letter-spacing:.8px}
+        .calc-out b{font-size:1.4em;color:var(--green)}
+        .fine{font-size:.76em;color:#999;margin:12px 0 0}
+        .pay-table{width:100%;border-collapse:collapse;font-size:.93em}
+        .pay-table th{text-align:left;font-size:.7em;text-transform:uppercase;letter-spacing:1px;color:#888;padding:8px 10px;border-bottom:2px solid #eee}
+        .pay-table td{padding:10px;border-bottom:1px solid #eee}
+        .pay-table td.amt{font-weight:900;color:var(--navy)}
+        .pay-table tr.more{display:none} .pay-table.open tr.more{display:table-row}
+        .fl{color:#aaa}
+        .sp{background:#fff7e6;color:#8a6100;border:1px solid #f0d090;font-weight:900;font-size:.72em;padding:3px 8px;border-radius:999px}
+        .show-all{margin-top:12px;background:#fff;border:1px solid var(--navy);color:var(--navy);font-weight:900;padding:9px 18px;border-radius:8px;cursor:pointer;font-family:inherit}
+        .trend-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:94%;max-width:1000px;margin:0 auto 24px}
+        .trend-row .panel{width:100%;margin:0}
+        .trend-row .panel.y{border-color:#f0d090;background:linear-gradient(155deg,#fff7e6,#fff 45%)}
+        .trend-row .panel.t{border-color:#a9e3bc;background:linear-gradient(155deg,#eafaf0,#fff 45%)}
+        .detail-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:34px}
+        .lock{background:#fff7e6;border:1px solid #f0d090;color:#8a6100 !important;border-radius:999px;padding:2px 10px;font-size:.82em}
+        .pro-cta{width:94%;max-width:1000px;margin:0 auto 24px;display:flex;justify-content:space-between;align-items:center;gap:18px;background:var(--navy);background-image:url('https://www.transparenttextures.com/patterns/noise.png');background-blend-mode:overlay;color:#fff;border-radius:14px;padding:20px 24px;box-shadow:0 4px 15px rgba(0,0,0,.15)}
+        .pro-cta strong{display:block;color:#f5b942;font-size:1.05em;margin-bottom:4px}
+        .pro-cta p{margin:0;font-size:.88em;color:rgba(255,255,255,.85)}
+        .pro-cta a{background:var(--green);color:#fff;font-weight:900;text-decoration:none;padding:11px 20px;border-radius:8px;white-space:nowrap}
+        .sim-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+        .sim-card{text-decoration:none;border:1px solid #ddd;border-radius:10px;padding:13px 14px;display:flex;flex-direction:column;gap:5px;transition:all .15s}
+        .sim-card:hover{border-color:var(--navy);box-shadow:0 3px 12px rgba(0,0,0,.1);transform:translateY(-2px)}
+        .sim-tk{font-weight:900;color:var(--navy);font-size:1.05em}
+        .sim-nm{font-size:.76em;color:#777;line-height:1.35;min-height:2.1em}
+        .sim-stats{display:flex;justify-content:space-between;gap:6px}
+        .sim-stats em{display:block;font-style:normal;font-size:.62em;color:#999;font-weight:900;text-transform:uppercase}
+        .sim-stats b{font-size:.98em}
+        @media(max-width:760px){.quick-stats,.div-stats{grid-template-columns:1fr 1fr}.calc,.trend-row,.detail-grid{grid-template-columns:1fr}.sim-grid{grid-template-columns:1fr 1fr}.pro-cta{flex-direction:column;align-items:flex-start}.panel{padding:18px 16px}}
+        .price-wrap{display:none}
+        .js-hide{display:none !important}
+        .chart-tip{position:absolute;pointer-events:none;background:#001f3d;color:#fff;font-size:.78em;font-weight:700;padding:6px 10px;border-radius:6px;white-space:nowrap;transform:translate(-50%,-110%);display:none;z-index:5}
+        .chart-box{position:relative}
     </style>
 </head>
 <body>
@@ -290,6 +350,7 @@
                 <div class="score-symbol-icon" id="tickerIcon">—</div>
                 <h1 id="etfName">—<span class="symbol-tag" id="etfSymbolBadge"></span></h1>
                 <p class="sub" id="etfSub">Full scorecard for this weekly dividend ETF, pulled from our live rankings data.</p>
+                <div class="price-wrap" id="priceWrap"><div class="price-line"><span class="px" id="pxVal"></span><span class="chg" id="pxChg"></span><span class="asof" id="pxAsof"></span></div><br></div>
                 <div class="updated-note"><span class="dot"></span> Data Updated Daily</div>
             </div>
 
@@ -306,26 +367,63 @@
                 </div>
             </div>
 
-            <div class="return-chart-panel">
-                <div class="return-chart-title">Total Return At A Glance</div>
-                <div class="return-chart-track">
-                    <div class="return-chart-zero"></div>
-                    <div class="return-chart-bar" id="returnBar"></div>
+            <div class="quick-stats js-hide" id="quickStats"></div>
+
+            <div class="panel js-hide" id="divPanel">
+                <h2 id="divTitle"></h2>
+                <p class="lead">Every payout over the past year. Hover or tap a bar for the exact date and amount.</p>
+                <div class="chart-box" id="divChart"></div>
+                <div class="legend" id="divLegend"></div>
+                <div class="div-stats" id="divStats"></div>
+            </div>
+
+            <div class="panel js-hide" id="calcPanel">
+                <h2 id="calcTitle"></h2>
+                <p class="lead" id="calcLead"></p>
+                <div class="calc">
+                    <div><label for="amt">Amount invested</label><div class="amt-big" id="amtOut">$10,000</div>
+                        <input type="range" id="amt" min="1000" max="250000" step="1000" value="10000" aria-label="Amount invested"><div class="shares" id="shares"></div></div>
+                    <div class="calc-out"><div><em id="perLabel">Per week</em><b id="pw"></b></div><div><em>Per month</em><b id="pm"></b></div><div><em>Per year</em><b id="py"></b></div></div>
                 </div>
-                <div class="return-chart-scale">
-                    <span>-100%</span>
-                    <span>0%</span>
-                    <span>+100%</span>
-                </div>
+                <p class="fine">Payouts change and are not guaranteed. Estimate is before taxes and assumes no reinvestment.</p>
+            </div>
+
+            <div class="detail-panel js-hide" id="payPanel">
+                <h2>&#129534; Payout Table</h2>
+                <table class="pay-table" id="ptable"><thead><tr><th>Ex-Dividend Date</th><th>Amount Per Share</th><th>vs Prior Payout</th></tr></thead><tbody id="ptbody"></tbody></table>
+                <button class="show-all" id="tbtn" type="button"></button>
+            </div>
+
+            <div class="trend-row js-hide" id="trendRow">
+                <div class="panel y"><h2>Yield Trend</h2><p class="lead" id="yLead"></p><div class="chart-box" id="yChart"></div></div>
+                <div class="panel t"><h2>Total Return Trend</h2><p class="lead" id="tLead"></p><div class="chart-box" id="tChart"></div></div>
             </div>
 
             <div class="detail-panel">
                 <h2>Fund Details</h2>
-                <div class="detail-row"><span class="label">Ticker Symbol</span><span class="value" id="detailSymbol">—</span></div>
-                <div class="detail-row"><span class="label">ETF Name</span><span class="value" id="detailName">—</span></div>
-                <div class="detail-row"><span class="label">Dividend Yield</span><span class="value" id="detailYield">—</span></div>
-                <div class="detail-row"><span class="label">Total Return</span><span class="value" id="detailReturn">—</span></div>
-                <div class="detail-row"><span class="label">Price Decay</span><span class="value" id="detailDecay">—</span></div>
+                <div class="detail-grid">
+                    <div>
+                        <div class="detail-row"><span class="label">Ticker Symbol</span><span class="value" id="detailSymbol">—</span></div>
+                        <div class="detail-row"><span class="label">ETF Name</span><span class="value" id="detailName" style="text-align:right;max-width:65%">—</span></div>
+                        <div class="detail-row js-hide" id="rowProvider"><span class="label">Fund Provider</span><span class="value" id="detailProvider"></span></div>
+                        <div class="detail-row js-hide" id="rowLaunch"><span class="label">Launch Date</span><span class="value" id="detailLaunch"></span></div>
+                        <div class="detail-row js-hide" id="rowFreq"><span class="label">Payout Frequency</span><span class="value" id="detailFreq"></span></div>
+                    </div>
+                    <div>
+                        <div class="detail-row"><span class="label">Dividend Yield</span><span class="value" id="detailYield">—</span></div>
+                        <div class="detail-row"><span class="label">Total Return</span><span class="value" id="detailReturn">—</span></div>
+                        <div class="detail-row"><span class="label">Price Decay</span><span class="value" id="detailDecay">—</span></div>
+                        <div class="detail-row js-hide" id="rowMdd"><span class="label">Worst Drop From a High</span><span class="value" id="detailMdd" style="color:var(--red)"></span></div>
+                        <div class="detail-row"><span class="label">Rating &amp; Tax Grade</span><a class="value lock" href="https://topdividendetfspro.com/?utm_source=weeklyetfs&utm_medium=etf_page_grade&utm_campaign=etf_page" target="_blank" rel="noopener" style="text-decoration:none" id="lockLink">&#128274; PRO</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pro-cta"><div><strong id="proTitle">&#128274; See this ETF's rating and tax grade</strong><p>TopDividendETFsPRO shows ratings, tax grades, live yields and price decay for 190+ income ETFs, plus watchlists you can download.</p></div><a href="https://topdividendetfspro.com/?utm_source=weeklyetfs&utm_medium=etf_page_cta&utm_campaign=etf_page" target="_blank" rel="noopener" id="proBtn">Unlock PRO &rarr;</a></div>
+
+            <div class="detail-panel js-hide" id="simPanel">
+                <h2 id="simTitle"></h2>
+                <div class="sim-grid" id="simGrid"></div>
             </div>
 
             <div class="etf-nav">
@@ -367,6 +465,10 @@
 
 <script>
 const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1P00pQ6hNvYolxzrKYIuxC-AH1xFBpMtsn-NwC17W4vQazk3ql69ZmSmW8J-jp7OaUmKLV5v2KPI3/pub?gid=0&single=true&output=csv';
+// Extra data piggybacks on the PRO Terminal feeds (refreshed automatically, nothing to maintain here)
+const PRO_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTxCiod-Cwry7E6k9Un9dgrM_ANymC36_IO_wLyNj-YDo2KI7mp_1ZzyNBnBGZOxT48QPM8TCwtsmA4/pub?gid=0&single=true&output=csv';
+const PRO_DATA = 'https://topdividendetfspro.com/data/';
+const PRO_URL = 'https://topdividendetfspro.com/';
 
 function getQueryParam(name) {
   const params = new URLSearchParams(window.location.search);
@@ -378,6 +480,33 @@ function parseReturnValue(str) {
   const num = parseFloat(str.replace(/[%,+]/g, ''));
   return isNaN(num) ? null : num;
 }
+
+// Proper CSV parsing (handles quoted fields with commas)
+function parseCSV(text) {
+  const rows = []; let row = [], f = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
+    else if (c === '"') q = true;
+    else if (c === ',') { row.push(f.trim()); f = ''; }
+    else if (c === '\n' || c === '\r') { if (c === '\r' && text[i + 1] === '\n') i++; row.push(f.trim()); rows.push(row); row = []; f = ''; }
+    else f += c;
+  }
+  if (f || row.length) { row.push(f.trim()); rows.push(row); }
+  return rows;
+}
+
+function getJSON(url) {
+  return fetch(url).then(r => r.ok ? r.json() : null).catch(() => null);
+}
+
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+function pd(s) { const p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+function fmtd(s) { const d = pd(s); return MON[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); }
+function shortd(s) { const d = pd(s); return MON[d.getMonth()] + ' ' + d.getDate(); }
+function money(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+function show(id) { const el = document.getElementById(id); if (el) el.classList.remove('js-hide'); }
 
 function trackScorecardPageview(symbol, name) {
   const path = '/etf/' + encodeURIComponent(symbol);
@@ -420,6 +549,165 @@ function setupEtfNav(allRows, currentIndex, currentSymbol) {
   });
 }
 
+// Hover / tap tooltip for SVG charts: any element with data-tip
+function wireTips(box) {
+  const tip = document.createElement('div'); tip.className = 'chart-tip'; box.appendChild(tip);
+  function on(e) {
+    const t = e.target.closest('[data-tip]'); if (!t) { tip.style.display = 'none'; return; }
+    const b = box.getBoundingClientRect(), r = t.getBoundingClientRect();
+    tip.textContent = t.getAttribute('data-tip'); tip.style.display = 'block';
+    tip.style.left = Math.min(Math.max(r.left + r.width / 2 - b.left, 70), b.width - 70) + 'px';
+    tip.style.top = (r.top - b.top) + 'px';
+  }
+  box.addEventListener('mousemove', on); box.addEventListener('click', on);
+  box.addEventListener('mouseleave', function() { tip.style.display = 'none'; });
+}
+
+function niceStep(max) {
+  const raw = max / 3, p = Math.pow(10, Math.floor(Math.log10(raw))), n = raw / p;
+  return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * p;
+}
+
+// ---------- Dividend history ----------
+function renderDividends(sym, div, price) {
+  if (!div || !div.rows || div.rows.length < 2) return;
+  const all = div.rows.slice().sort((a, b) => a[0] < b[0] ? -1 : 1); // oldest first
+  const latestDate = pd(all[all.length - 1][0]);
+  const cutoff = new Date(latestDate.getTime() - 364 * 864e5);
+  let rows = all.filter(r => pd(r[0]) > cutoff);
+  if (rows.length < 2) rows = all.slice(-12);
+  const amts = rows.map(r => r[1]);
+  const sorted = amts.slice().sort((a, b) => a - b), med = sorted[Math.floor(sorted.length / 2)];
+  const isSp = a => rows.length >= 8 && a > 3 * med;
+
+  // payout frequency from the typical gap between payouts
+  const gaps = []; for (let i = 1; i < all.length; i++) gaps.push((pd(all[i][0]) - pd(all[i - 1][0])) / 864e5);
+  gaps.sort((a, b) => a - b); const gap = gaps[Math.floor(gaps.length / 2)] || 7;
+  const ppy = gap <= 10 ? 52 : gap <= 20 ? 26 : gap <= 45 ? 12 : gap <= 120 ? 4 : 1;
+  const unit = ppy === 52 ? 'week' : ppy === 12 ? 'month' : ppy === 4 ? 'quarter' : 'payout';
+  const label = ppy === 52 ? 'Weekly' : ppy === 26 ? 'Every Two Weeks' : ppy === 12 ? 'Monthly' : ppy === 4 ? 'Quarterly' : '';
+
+  // chart
+  const reg = amts.filter(a => !isSp(a)); const regMax = Math.max.apply(null, reg);
+  const step = niceStep(regMax * 1.1), cap = Math.ceil(regMax * 1.12 / step) * step;
+  show('divPanel');
+  const box = document.getElementById('divChart');
+  const W = Math.min(Math.max(Math.round(box.clientWidth) || 760, 300), 1000), H = W < 520 ? 210 : 240, L = 50, R = 12, T = 26, B = 34, n = rows.length, bw = (W - L - R) / n;
+  const Y = v => T + (cap - Math.min(v, cap)) / cap * (H - T - B);
+  const dec = cap < 0.1 ? 3 : 2;
+  let g = '';
+  for (let v = 0; v <= cap + 1e-9; v += step) g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(v).toFixed(1) + '" y2="' + Y(v).toFixed(1) + '" stroke="#eef1f4"/><text x="' + (L - 6) + '" y="' + (Y(v) + 4).toFixed(1) + '" text-anchor="end" font-size="11" fill="#999">$' + v.toFixed(dec) + '</text>';
+  let firstSp = -1, spList = [];
+  rows.forEach(function(r, i) {
+    const a = r[1], sp = isSp(a), x = L + i * bw + 1, w = Math.max(bw - 2, 1);
+    const col = sp ? '#c98a11' : (i === n - 1 ? '#27ae60' : '#001f3d');
+    if (sp) { spList.push(r); if (firstSp < 0) firstSp = i; }
+    // invisible full-height hit area makes small bars easy to hover
+    g += '<g data-tip="' + fmtd(r[0]) + ': $' + a.toFixed(4) + (sp ? ' (special)' : '') + '"><rect x="' + (L + i * bw) + '" y="' + T + '" width="' + bw + '" height="' + (H - T - B) + '" fill="transparent"/>' +
+      '<rect x="' + x.toFixed(1) + '" y="' + Y(a).toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + Math.max(H - B - Y(a), 1).toFixed(1) + '" rx="2" fill="' + col + '"/></g>';
+  });
+  if (firstSp >= 0) {
+    const txt = 'Special payout' + (spList.length > 1 ? 's' : '') + ': ' + spList.map(r => '$' + r[1].toFixed(2)).join(' + ');
+    const x0 = L + firstSp * bw, right = x0 > W * 0.6;
+    g += '<text x="' + (right ? x0 - 6 : x0 + bw * spList.length + 6).toFixed(1) + '" y="' + (T + 6) + '" text-anchor="' + (right ? 'end' : 'start') + '" font-size="11" font-weight="900" fill="#c98a11">' + (right ? '' : '← ') + txt + (right ? ' →' : '') + '</text>';
+  }
+  const ticks = W < 520 && n > 8 ? [0, Math.round(n / 2), n - 1] : n > 8 ? [0, Math.round(n / 4), Math.round(n / 2), Math.round(3 * n / 4), n - 1] : rows.map((_, i) => i);
+  ticks.forEach(function(i) {
+    const d = pd(rows[i][0]);
+    const anc = n > 8 && i === n - 1 ? 'end' : n > 8 && i === 0 ? 'start' : 'middle', tx = anc === 'end' ? L + n * bw : anc === 'start' ? L : L + i * bw + bw / 2;
+    g += '<text x="' + tx.toFixed(1) + '" y="' + (H - 12) + '" text-anchor="' + anc + '" font-size="11" fill="#999">' + MON[d.getMonth()] + ' ' + String(d.getFullYear()).slice(2) + '</text>';
+  });
+  box.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;height:auto;display:block" role="img" aria-label="' + sym + ' dividend per share, last ' + n + ' payouts">' + g + '</svg>';
+  wireTips(box);
+  document.getElementById('divTitle').innerHTML = '&#128197; $' + esc(sym) + ' Dividend History: Last ' + n + (label ? ' ' + label : '') + ' Payouts';
+  document.getElementById('divLegend').innerHTML = '<span><i style="background:#001f3d"></i>Payout</span><span><i style="background:#27ae60"></i>Latest payout</span>' + (spList.length ? '<span><i style="background:#c98a11"></i>Special payout (bar cut off so the chart stays readable)</span>' : '');
+
+  const last = rows[n - 1], recent = reg.slice(-4), avg = recent.reduce((a, b) => a + b, 0) / recent.length;
+  const regTotal = reg.reduce((a, b) => a + b, 0), spTotal = spList.reduce((a, r) => a + r[1], 0);
+  let fourth;
+  if (spList.length) {
+    const d = pd(spList[spList.length - 1][0]);
+    fourth = '<div><em>Special payouts</em><b>$' + spTotal.toFixed(2) + '</b><br><small>paid ' + MON[d.getMonth()] + ' ' + d.getFullYear() + '</small></div>';
+  } else if (price) {
+    fourth = '<div><em>Current pay rate</em><b>' + (avg * ppy / price * 100).toFixed(1) + '%</b><br><small>recent payouts vs price</small></div>';
+  } else {
+    fourth = '<div><em>Payouts counted</em><b>' + n + '</b><br><small>last 12 months</small></div>';
+  }
+  document.getElementById('divStats').innerHTML =
+    '<div><em>Latest payout</em><b>$' + last[1].toFixed(4) + '</b><br><small>Ex-date ' + fmtd(last[0]) + '</small></div>' +
+    '<div><em>' + recent.length + '-payout average</em><b>$' + avg.toFixed(4) + '</b><br><small>per share, per ' + unit + '</small></div>' +
+    '<div><em>12-month total</em><b>$' + regTotal.toFixed(2) + '</b><br><small>' + (spList.length ? 'regular payouts' : 'all payouts') + '</small></div>' + fourth;
+
+  // table, newest first
+  let html = '';
+  for (let i = n - 1, k = 0; i >= 0; i--, k++) {
+    const a = rows[i][1], prev = i ? rows[i - 1][1] : null; let ch;
+    if (isSp(a)) ch = '<span class="sp">Special payout</span>';
+    else if (prev === null || isSp(prev)) ch = '<span class="fl">-</span>';
+    else {
+      const p = (a / prev - 1) * 100;
+      ch = '<span class="' + (p > 0.5 ? 'badge-no' : p < -0.5 ? 'badge-yes' : 'fl') + '">' + (p > 0.5 ? '▲' : p < -0.5 ? '▼' : '•') + ' ' + Math.abs(p).toFixed(0) + '%</span>';
+    }
+    html += '<tr class="' + (k >= 10 ? 'more' : '') + '"><td>' + fmtd(rows[i][0]) + '</td><td class="amt">$' + a.toFixed(4) + '</td><td>' + ch + '</td></tr>';
+  }
+  document.getElementById('ptbody').innerHTML = html;
+  const tbtn = document.getElementById('tbtn'), allTxt = 'Show all ' + n + ' payouts';
+  if (n <= 10) tbtn.style.display = 'none';
+  tbtn.textContent = allTxt;
+  tbtn.addEventListener('click', function() { const t = document.getElementById('ptable'); t.classList.toggle('open'); tbtn.textContent = t.classList.contains('open') ? 'Show fewer' : allTxt; });
+  show('payPanel');
+
+  // income calculator
+  if (price) {
+    document.getElementById('calcTitle').innerHTML = '&#128176; What Would $' + esc(sym) + ' Pay You?';
+    document.getElementById('calcLead').textContent = 'Based on the last ' + recent.length + ' regular payouts and the latest closing price.';
+    document.getElementById('perLabel').textContent = 'Per ' + (ppy === 52 ? 'week' : ppy === 12 ? 'payout' : unit);
+    const r = document.getElementById('amt');
+    const u = function() {
+      const a = +r.value, sh = a / price, w = sh * avg;
+      document.getElementById('amtOut').textContent = money(a);
+      document.getElementById('shares').textContent = 'About ' + sh.toFixed(1) + ' shares at $' + price.toFixed(2);
+      document.getElementById('pw').textContent = money(w);
+      document.getElementById('pm').textContent = money(w * ppy / 12);
+      document.getElementById('py').textContent = money(w * ppy);
+    };
+    r.addEventListener('input', u); u();
+    show('calcPanel');
+  }
+  return label;
+}
+
+// ---------- Yield / total return trend (daily snapshots) ----------
+function spark(boxId, pts, key, color, suffix) {
+  const vals = pts.map(p => p[key]);
+  const w = 380, h = 160, l = 40, r = 12, t = 14, b = 26;
+  let lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals); const pad = (hi - lo) * 0.15 || 1; lo -= pad; hi += pad;
+  const X = i => l + i * (w - l - r) / (vals.length - 1), Yy = v => t + (hi - v) / (hi - lo) * (h - t - b);
+  const line = vals.map((v, i) => X(i).toFixed(1) + ',' + Yy(v).toFixed(1)).join(' ');
+  let grid = '';
+  [0.5, 1.5, 2.5].forEach(function(k) { const v = lo + (hi - lo) * k / 3; grid += '<line x1="' + l + '" x2="' + (w - r) + '" y1="' + Yy(v).toFixed(1) + '" y2="' + Yy(v).toFixed(1) + '" stroke="#eef1f4"/><text x="' + (l - 5) + '" y="' + (Yy(v) + 4).toFixed(1) + '" text-anchor="end" font-size="10" fill="#999">' + Math.round(v) + '%</text>'; });
+  let hits = ''; const hw = (w - l - r) / (vals.length - 1);
+  pts.forEach(function(p, i) { hits += '<rect data-tip="' + shortd(p.date) + ': ' + p[key] + '%" x="' + (X(i) - hw / 2).toFixed(1) + '" y="' + t + '" width="' + hw.toFixed(1) + '" height="' + (h - t - b) + '" fill="transparent"/>'; });
+  const box = document.getElementById(boxId);
+  box.innerHTML = '<svg viewBox="0 0 ' + w + ' ' + h + '" style="width:100%;height:auto;display:block">' + grid +
+    '<polygon points="' + X(0).toFixed(1) + ',' + (h - b) + ' ' + line + ' ' + X(vals.length - 1).toFixed(1) + ',' + (h - b) + '" fill="' + color + '" opacity=".08"/>' +
+    '<polyline points="' + line + '" fill="none" stroke="' + color + '" stroke-width="2.5" stroke-linejoin="round"/>' +
+    '<circle cx="' + X(vals.length - 1).toFixed(1) + '" cy="' + Yy(vals[vals.length - 1]).toFixed(1) + '" r="4.5" fill="' + color + '" stroke="#fff" stroke-width="2"/>' +
+    '<text x="' + l + '" y="' + (h - 8) + '" font-size="10" fill="#999">' + shortd(pts[0].date) + '</text><text x="' + (w - r) + '" y="' + (h - 8) + '" text-anchor="end" font-size="10" fill="#999">' + shortd(pts[pts.length - 1].date) + '</text>' + hits + '</svg>';
+  wireTips(box);
+  return vals;
+}
+function renderTrends(hist) {
+  if (!hist || hist.length < 5) return;
+  const pts = hist.filter(p => typeof p.yield === 'number' && typeof p.totalReturn === 'number');
+  if (pts.length < 5) return;
+  const yv = spark('yChart', pts, 'yield', '#c98a11'), tv = spark('tChart', pts, 'totalReturn', '#27ae60');
+  const sg = v => (v > 0 ? '+' : '') + v;
+  document.getElementById('yLead').innerHTML = 'Distribution rate, ' + shortd(pts[0].date) + ' to ' + shortd(pts[pts.length - 1].date) + ': ' + yv[0] + '% &rarr; ' + yv[yv.length - 1] + '%';
+  document.getElementById('tLead').innerHTML = 'Since-launch total return: ' + sg(tv[0]) + '% &rarr; ' + sg(tv[tv.length - 1]) + '%';
+  show('trendRow');
+}
+
 async function loadScorecard() {
   const symbol = (getQueryParam('symbol') || '').trim().toUpperCase();
   const loadingEl = document.getElementById('loadingState');
@@ -432,11 +720,15 @@ async function loadScorecard() {
     return;
   }
 
+  // start the extra data loads right away, in parallel with the main sheet
+  const proP = fetch(PRO_CSV).then(r => r.ok ? r.text() : '').catch(() => '');
+  const retP = getJSON(PRO_DATA + 'returns.json');
+  const divP = getJSON(PRO_DATA + 'div/' + encodeURIComponent(symbol) + '.json');
+
   try {
     const res = await fetch(CSV_URL + '&t=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    const csv = await res.text();
-    const lines = csv.split('\n');
+    const lines = parseCSV(await res.text());
 
     // Build full list of rows (for prev/next nav) and find the current match
     const allRows = [];
@@ -444,9 +736,9 @@ async function loadScorecard() {
     let matchIndex = -1;
 
     for (let i = 1; i < lines.length; i++) {
-      const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
+      const cols = lines[i];
       if (!cols[0]) continue;
-      allRows.push({ symbol: cols[0], name: cols[1] || cols[0] });
+      allRows.push({ symbol: cols[0], name: cols[1] || cols[0], yieldVal: cols[2] || '', ret: cols[4] || '' });
       if (cols[0].toUpperCase() === symbol && !match) {
         match = cols;
         matchIndex = allRows.length - 1;
@@ -472,7 +764,7 @@ async function loadScorecard() {
     document.getElementById('etfName').childNodes[0].textContent = name + ' ';
     document.getElementById('etfSymbolBadge').textContent = sym;
     document.getElementById('etfSub').textContent =
-      'Full scorecard for ' + name + ' (' + sym + ') — dividend yield, total return, and price decay in one place.';
+      'Full scorecard for ' + name + ' (' + sym + '): price, dividend history, yield, total return and price decay in one place.';
 
     document.getElementById('heroYield').textContent = yieldVal;
 
@@ -482,14 +774,6 @@ async function loadScorecard() {
     heroReturn.classList.add(isPositive ? 'positive' : 'negative');
     heroReturn.textContent = returnVal;
     document.getElementById('returnSub').textContent = isPositive ? 'Positive since inception' : 'Negative since inception';
-
-    // Diverging bar chart: clamp magnitude to +/-100% scale for display
-    const bar = document.getElementById('returnBar');
-    const magnitude = returnNum === null ? 0 : Math.min(Math.abs(returnNum), 100);
-    const widthPct = (magnitude / 100) * 50;
-    bar.classList.add(isPositive ? 'positive' : 'negative');
-    bar.style.width = widthPct + '%';
-    bar.textContent = returnNum === null ? '' : (isPositive ? '▲ ' : '▼ ') + returnVal;
 
     document.getElementById('detailSymbol').textContent = sym;
     document.getElementById('detailName').textContent = name;
@@ -502,7 +786,8 @@ async function loadScorecard() {
 
     document.getElementById('pageTitle').textContent = name + ' (' + sym + ') — ETF Scorecard | WeeklyETFs.com';
     document.getElementById('pageDescription').setAttribute('content',
-      name + ' (' + sym + ') scorecard: dividend yield ' + yieldVal + ', total return ' + returnVal + '. Updated daily.');
+      name + ' (' + sym + ') scorecard: price, dividend history, dividend yield ' + yieldVal + ', total return ' + returnVal + '. Updated daily.');
+    document.getElementById('proTitle').innerHTML = '&#128274; See $' + esc(sym) + '’s rating and tax grade';
 
     setupEtfNav(allRows, matchIndex, sym);
 
@@ -511,11 +796,97 @@ async function loadScorecard() {
 
     trackScorecardPageview(sym, name);
 
+    // ---------- extras (each section stays hidden if its data is missing) ----------
+    try { await loadExtras(sym, name, allRows, matchIndex, decay, proP, retP, divP); } catch (e) { console.error(e); }
+
   } catch (err) {
     console.error(err);
     loadingEl.style.display = 'none';
     errorEl.style.display = 'block';
   }
+}
+
+async function loadExtras(sym, name, allRows, matchIndex, decay, proP, retP, divP) {
+  const [proText, ret, div] = await Promise.all([proP, retP, divP]);
+
+  // PRO sheet row: Symbol, Name, Fund Provider, Dividend Yield, Tax Grade, Expense Ratio, AUM, Total Return, Price Decay, Inception, Frequency, Rating
+  let pro = null;
+  if (proText) {
+    const pr = parseCSV(proText);
+    for (let i = 1; i < pr.length; i++) if ((pr[i][0] || '').toUpperCase() === sym.toUpperCase()) { pro = pr[i]; break; }
+  }
+  const provider = pro && pro[2] ? pro[2] : '';
+
+  // price: newest of the PRO returns feed and the dividend feed
+  const r = ret && ret.funds ? ret.funds[sym] : null;
+  let px = null, chg = null, pxDate = null;
+  if (r && r.px) { px = r.px; chg = r.chg; pxDate = r.pxDate; }
+  if (div && div.px && (!pxDate || (div.pxDate && div.pxDate > pxDate))) { px = div.px; chg = div.chg; pxDate = div.pxDate; }
+  if (px) {
+    document.getElementById('pxVal').textContent = '$' + px.toFixed(2);
+    const c = document.getElementById('pxChg');
+    if (typeof chg === 'number') { c.className = 'chg ' + (chg < 0 ? 'badge-yes' : 'badge-no'); c.textContent = (chg < 0 ? '▼ ' : '▲ ') + Math.abs(chg).toFixed(1) + '%'; }
+    document.getElementById('pxAsof').innerHTML = 'Closing price' + (pxDate ? ' &bull; ' + fmtd(pxDate) : '');
+    document.getElementById('priceWrap').style.display = 'block';
+  }
+
+  // quick stats
+  const qs = [];
+  if (r && typeof r.r1y === 'number') qs.push(['1-Year Return', (r.r1y > 0 ? '+' : '') + r.r1y + '%', r.r1y >= 0 ? 'var(--green)' : 'var(--red)']);
+  if (decay && decay !== '—') qs.push(['Price Decay', decay.toUpperCase(), decay.toLowerCase() === 'yes' ? 'var(--red)' : decay.toLowerCase() === 'no' ? 'var(--green)' : '']);
+  if (pro && pro[5]) qs.push(['Expense Ratio', pro[5], '']);
+  if (pro && pro[6]) qs.push(['Fund Size', /^\$/.test(pro[6]) ? pro[6] : '$' + pro[6], '']);
+  if (qs.length >= 2) {
+    const el = document.getElementById('quickStats');
+    el.style.gridTemplateColumns = window.innerWidth > 760 ? 'repeat(' + qs.length + ',1fr)' : '';
+    el.innerHTML = qs.map(q => '<div class="qs"><div class="k">' + q[0] + '</div><div class="v"' + (q[2] ? ' style="color:' + q[2] + '"' : '') + '>' + esc(q[1]) + '</div></div>').join('');
+    show('quickStats');
+  }
+
+  // dividends, calculator, payout table
+  const freq = renderDividends(sym, div, px);
+
+  // fund details from PRO
+  if (provider) { document.getElementById('detailProvider').textContent = provider; show('rowProvider'); }
+  if (pro && pro[9]) {
+    const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(pro[9]);
+    document.getElementById('detailLaunch').textContent = m ? MON[+m[1] - 1] + ' ' + (+m[2]) + ', ' + m[3] : pro[9];
+    show('rowLaunch');
+  }
+  const f = (pro && pro[10]) || freq;
+  if (f) { document.getElementById('detailFreq').textContent = f; show('rowFreq'); }
+  if (r && typeof r.mdd === 'number') { document.getElementById('detailMdd').textContent = r.mdd + '%'; show('rowMdd'); }
+
+  // more funds from the same provider (provider = PRO sheet, else first word of the name)
+  const key = (provider || name.split(' ')[0]).toLowerCase();
+  const same = allRows.filter((x, i) => i !== matchIndex && x.name.toLowerCase().indexOf(key) === 0);
+  let pick, title;
+  if (same.length >= 2) {
+    // the funds that follow this one in the list first, so every page links to different neighbors
+    const after = allRows.slice(matchIndex + 1).concat(allRows.slice(0, matchIndex)).filter(x => same.indexOf(x) > -1);
+    pick = after.slice(0, 4); title = 'More ' + (provider || name.split(' ')[0]) + ' Weekly ETFs';
+  } else {
+    pick = allRows.slice(matchIndex + 2).concat(allRows.slice(0, matchIndex)).slice(0, 4); title = 'More Weekly ETFs';
+  }
+  if (pick.length) {
+    const strip = provider ? new RegExp('^' + provider.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s+', 'i') : null;
+    document.getElementById('simTitle').textContent = title;
+    document.getElementById('simGrid').innerHTML = pick.map(function(x) {
+      const neg = /^-/.test(x.ret);
+      return '<a class="sim-card" href="etf.html?symbol=' + encodeURIComponent(x.symbol) + '"><span class="sim-tk">' + esc(x.symbol) + '</span><span class="sim-nm">' + esc(strip ? x.name.replace(strip, '') : x.name) + '</span><span class="sim-stats"><span><em>Yield</em><b style="color:var(--gold)">' + esc(x.yieldVal || '-') + '</b></span><span><em>Total Return</em><b style="color:var(--' + (neg ? 'red' : 'green') + ')">' + esc(x.ret || '-') + '</b></span></span></a>';
+    }).join('');
+    show('simPanel');
+  }
+
+  // trend charts last (largest file)
+  const hist = await getJSON(PRO_DATA + 'history.json');
+  if (hist && hist[sym]) renderTrends(hist[sym]);
+
+  // PRO links: track clicks
+  ['proBtn', 'lockLink'].forEach(function(id) {
+    const el = document.getElementById(id);
+    el.addEventListener('click', function() { gtag('event', 'pro_click', { from: 'etf_page', symbol: sym, spot: id }); });
+  });
 }
 
 loadScorecard();
