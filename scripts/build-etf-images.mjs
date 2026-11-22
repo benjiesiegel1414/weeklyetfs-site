@@ -131,7 +131,7 @@ a{color:#0a3a6b;font-weight:700}
 .disc{font-size:.8rem;color:#777;border-left:4px solid #ccc;background:#fff;padding:12px 16px;margin:20px 0}
 footer{font-size:.9em;color:#666;margin:10px auto;padding-top:10px;border-top:1px solid #ddd;max-width:960px;width:94%;text-align:center}
 footer a{color:#001f3d;text-decoration:none}`;
-const FOOT = `<footer><p><a href="/">WeeklyETFs.com</a> · <a href="/etf-images/">Weekly ETF Ticker Images</a> · <a href="/yield/">Yield &amp; Total Returns</a> · <a href="/blog.html">Blog</a></p><p style="margin-top:6px">Contact: <a href="mailto:Business@TopDividendETFs.com">Business@TopDividendETFs.com</a></p></footer>`;
+const FOOT = `<footer><p><a href="/">WeeklyETFs.com</a> · <a href="/etf-images/">Weekly ETF Ticker Images</a> · <a href="/yield/">Yield &amp; Total Returns</a> · <a href="/blog">Blog</a></p><p style="margin-top:6px">Contact: <a href="mailto:Business@TopDividendETFs.com">Business@TopDividendETFs.com</a></p></footer>`;
 const LICENSE_TXT = 'Free to use on websites, blogs, social media posts and videos. Please credit WeeklyETFs.com with a link when you can.';
 function shell({ title, desc, canonical, ogImage, schema, body }) {
   return `<!DOCTYPE html>
