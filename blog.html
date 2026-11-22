@@ -6,12 +6,12 @@
     <meta name="robots" content="index, follow">
     <title>Weekly Dividend ETF Blog: Rankings, Payouts & Income Guides (2026) | WeeklyETFs.com</title>
     <meta name="description" content="Every guide to weekly dividend ETFs in one place: top 20 rankings, YieldMax and Roundhill breakdowns, income calculators, and payout strategies. Updated for 2026, free.">
-    <link rel="canonical" href="https://weeklyetfs.com/blog.html">
+    <link rel="canonical" href="https://weeklyetfs.com/blog">
 
     <meta property="og:title" content="Weekly Dividend ETF Blog: Rankings, Payouts & Income Guides (2026)">
     <meta property="og:description" content="Top 20 rankings, YieldMax and Roundhill breakdowns, income math, and payout strategies for weekly dividend ETFs. Free at WeeklyETFs.com.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://weeklyetfs.com/blog.html">
+    <meta property="og:url" content="https://weeklyetfs.com/blog">
     <meta property="og:site_name" content="WeeklyETFs.com">
     <meta property="og:image" content="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/social-preview.png">
 
@@ -26,7 +26,7 @@
       "@context": "https://schema.org",
       "@type": "Blog",
       "name": "WeeklyETFs.com Blog",
-      "url": "https://weeklyetfs.com/blog.html",
+      "url": "https://weeklyetfs.com/blog",
       "description": "Guides, rankings, and income strategies for weekly dividend ETFs, updated for 2026.",
       "publisher": {"@type": "Organization", "name": "WeeklyETFs.com", "url": "https://weeklyetfs.com"}
     }
@@ -41,346 +41,499 @@
 </script>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root{--navy:#001f3d;--red:#e74c3c;--green:#27ae60}
-        body{font-family:'Lato',sans-serif;background:#f4f4f4;color:#333;margin:0;padding:0;line-height:1.65}
-        header{background:var(--navy);padding:12px 20px;text-align:center;position:sticky;top:0;z-index:10;cursor:pointer}
+        :root{--navy:#001f3d;--navy2:#0a3a6b;--red:#e74c3c;--green:#27ae60;--ink:#1f2d3d;--mute:#5d6b7a;--line:#dfe6ee;--bg:#f3f5f8}
+        *{box-sizing:border-box}
+        html{scroll-behavior:smooth}
+        body{font-family:'Lato',sans-serif;background:var(--bg);color:#333;margin:0;padding:0;line-height:1.6}
+        header{background:var(--navy);padding:10px 20px;text-align:center;cursor:pointer}
         .banner-img{max-width:440px;width:82%;height:auto;margin:0 auto;display:block}
-        .wrap{max-width:900px;margin:0 auto;padding:20px 15px}
-        h1{color:var(--navy);text-align:center;font-size:2.2em;margin:20px 0 6px}
-        .tagline{text-align:center;color:#555;font-size:1.05em;margin:0 0 22px}
-        .top-links{text-align:center;margin:0 0 26px}
-        .top-links a{display:inline-block;background:var(--navy);color:#fff;font-weight:900;text-decoration:none;border-radius:8px;padding:10px 18px;margin:5px 4px;font-size:0.95em}
-        .top-links a.green{background:var(--green)}
-        .top-links a.red{background:var(--red)}
 
-        .section-label{color:var(--navy);font-size:1.35em;font-weight:900;margin:30px 0 12px;border-bottom:3px solid var(--navy);padding-bottom:6px}
+        /* hero */
+        .bhero{background:radial-gradient(900px 320px at 85% 0%,rgba(231,76,60,.28),rgba(231,76,60,0) 60%),linear-gradient(135deg,var(--navy) 0%,#062c52 60%,var(--navy2) 100%);color:#fff;padding:34px 15px 30px;text-align:center}
+        .bhero .eyebrow{display:inline-block;font-size:.74em;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#ff9b8f;margin-bottom:8px}
+        .bhero h1{color:#fff;font-size:2.35em;line-height:1.12;margin:0 0 8px;font-weight:900;letter-spacing:-.5px}
+        .tagline{color:#cfe0f1;font-size:1.06em;margin:0 auto 18px;max-width:640px}
+        .top-links{margin:0 0 20px}
+        .top-links a{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);color:#fff;font-weight:900;text-decoration:none;border-radius:8px;padding:9px 16px;margin:4px 3px;font-size:.93em;transition:background .15s}
+        .top-links a:hover{background:rgba(255,255,255,.2)}
+        .top-links a.green{background:var(--green);border-color:var(--green)}
+        .top-links a.red{background:var(--red);border-color:var(--red)}
+        .bstats{display:flex;justify-content:center;gap:34px;flex-wrap:wrap}
+        .bstats div b{display:block;font-size:1.75em;font-weight:900;line-height:1.1}
+        .bstats div span{font-size:.72em;letter-spacing:.1em;text-transform:uppercase;color:#a9c1d8;font-weight:700}
 
-        .post{background:#fff;border:1px solid #e3e8ef;border-left:5px solid var(--navy);border-radius:10px;padding:18px 22px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:box-shadow .15s ease}
-        .post:hover{box-shadow:0 5px 16px rgba(0,0,0,.12)}
-        .post.hot{border-left-color:var(--red)}
-        .post.new{border-left-color:var(--green)}
-        .post h2{margin:0 0 4px;font-size:1.25em;line-height:1.35}
+        /* jump nav */
+        .jump{background:#fff;border-bottom:1px solid var(--line)}
+        .jump-in{max-width:1180px;margin:0 auto;padding:9px 15px;display:flex;gap:8px;align-items:center;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+        .jump-in::-webkit-scrollbar{display:none}
+        .jump span{font-size:.68em;text-transform:uppercase;letter-spacing:.5px;color:#999;font-weight:900;flex:none}
+        .jump a{flex:none;display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px solid var(--navy);color:var(--navy);font-size:.82em;font-weight:700;text-decoration:none;transition:background .15s,color .15s}
+        .jump a:hover{background:var(--navy);color:#fff}
+        .jump a i{font-style:normal;font-weight:900;font-size:.85em;opacity:.6}
+
+        /* layout */
+        .layout{max-width:1180px;margin:0 auto;padding:26px 15px 10px;display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:30px;align-items:start}
+        .side{position:sticky;top:60px;display:flex;flex-direction:column;gap:16px}
+        .box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 16px 12px}
+        .box h3{margin:0 0 10px;font-size:.74em;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:900}
+        .box a.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line);color:var(--navy);text-decoration:none;font-weight:700;font-size:.95em}
+        .box a.row:first-of-type{border-top:0}
+        .box a.row:hover{color:var(--red)}
+        .box a.row i{font-style:normal;font-size:.8em;font-weight:900;color:#fff;background:var(--navy);border-radius:999px;min-width:26px;text-align:center;padding:1px 7px}
+        .tick{display:flex;flex-wrap:wrap;gap:6px}
+        .tick a{background:var(--navy);color:#fff;font-weight:900;font-size:.8em;border-radius:6px;padding:5px 8px;text-decoration:none;transition:background .15s}
+        .tick a:hover{background:var(--red)}
+
+        /* filter */
+        .filter{position:relative;margin:0 0 6px}
+        .filter svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:#7a8a99}
+        .filter input{width:100%;height:46px;border:2px solid var(--navy);border-radius:10px;padding:0 14px 0 40px;font:inherit;font-size:16px;color:var(--navy);background:#fff;outline:0}
+        .filter input:focus{box-shadow:0 0 0 3px rgba(231,76,60,.35)}
+        .fcount{font-size:.85em;color:var(--mute);margin:0 0 4px;min-height:1.4em}
+        .empty{display:none;background:#fff;border:1px dashed var(--line);border-radius:12px;padding:26px;text-align:center;color:var(--mute)}
+        .empty button{margin-top:8px;border:0;background:var(--navy);color:#fff;font:inherit;font-weight:900;border-radius:8px;padding:9px 16px;cursor:pointer}
+
+        /* start here */
+        .start{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+        .start a{display:flex;gap:12px;align-items:flex-start;background:var(--navy);color:#fff;text-decoration:none;border-radius:12px;padding:15px 16px;transition:transform .15s,box-shadow .15s}
+        .start a:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,31,61,.25)}
+        .start a em{flex:none;font-style:normal;font-size:1.5em;line-height:1}
+        .start a b{display:block;font-size:1.02em;line-height:1.3}
+        .start a span{display:block;font-size:.84em;color:#b9cde0;margin-top:3px;line-height:1.4}
+
+        /* sections + posts */
+        .psec{scroll-margin-top:64px}
+        .section-label{color:var(--navy);font-size:1.4em;font-weight:900;margin:34px 0 14px;border-bottom:3px solid var(--navy);padding-bottom:6px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+        .section-label small{font-size:.55em;color:var(--mute);font-weight:700;letter-spacing:.04em}
+        .pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+        .post{background:#fff;border:1px solid var(--line);border-top:4px solid var(--navy);border-radius:12px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column}
+        .post:hover{box-shadow:0 8px 22px rgba(0,31,61,.14);transform:translateY(-2px)}
+        .post[hidden]{display:none}
+        .post.hot{border-top-color:var(--red)}
+        .post.new{border-top-color:var(--green)}
+        .post h2{margin:0 0 4px;font-size:1.08em;line-height:1.32}
         .post h2 a{color:var(--navy);text-decoration:none}
-        .post h2 a:hover{color:var(--green)}
-        .post .date{font-size:0.82em;color:#888;margin-bottom:6px}
-        .post p{margin:0;font-size:0.97em;color:#444}
-        .badge{display:inline-block;font-size:0.7em;font-weight:900;color:#fff;border-radius:5px;padding:2px 8px;margin-left:8px;vertical-align:middle;letter-spacing:.5px}
+        .post h2 a:hover{color:var(--red)}
+        .post .date{font-size:.78em;color:#8a96a3;margin-bottom:6px;font-weight:700}
+        .post p{margin:0;font-size:.92em;color:#445260}
+        .badge{display:inline-block;font-size:.62em;font-weight:900;color:#fff;border-radius:5px;padding:2px 7px;margin-left:8px;vertical-align:middle;letter-spacing:.5px}
         .badge.new{background:var(--green)}
         .badge.hot{background:var(--red)}
+        .psec#latest .pgrid .post:first-child{grid-column:1/-1;border-top-width:5px;padding:22px 24px;background:linear-gradient(120deg,#f1fbf5 0%,#fff 55%)}
+        .psec#latest .pgrid .post:first-child h2{font-size:1.45em}
+        .psec#latest .pgrid .post:first-child p{font-size:1em}
 
-        .cta-box{background:var(--navy);color:#fff;border-radius:10px;padding:22px;text-align:center;margin:30px 0}
+        .cta-box{background:var(--navy);color:#fff;border-radius:12px;padding:22px;text-align:center;margin:34px 0 10px}
         .cta-box p{margin:0 0 6px;font-size:1.1em}
         .cta-box a{display:inline-block;background:var(--green);color:#fff;font-weight:900;text-decoration:none;border-radius:8px;padding:12px 22px;margin:8px 6px 0}
         .cta-box a.alt{background:var(--red)}
-
-        .back{text-align:center;margin:34px 0;font-size:1.1em}
+        .back{text-align:center;margin:26px 0 34px;font-size:1.05em}
         .back a{color:var(--navy);font-weight:700}
 
-        footer{padding:30px;background:#fff;text-align:center;border-top:1px solid #ddd;font-size:0.9em;color:#555}
+        footer{padding:30px;background:#fff;text-align:center;border-top:1px solid #ddd;font-size:.9em;color:#555}
         footer a{color:var(--navy);text-decoration:none;margin:0 10px;font-weight:700}
         footer a:hover{text-decoration:underline}
-        footer .tracker a{display:inline-block;background:#2E5D54;color:#fff !important;font-weight:900;font-size:0.85em;padding:6px 14px;border-radius:6px;text-decoration:none;margin-top:16px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+        footer .tracker a{display:inline-block;background:#2E5D54;color:#fff !important;font-weight:900;font-size:.85em;padding:6px 14px;border-radius:6px;text-decoration:none;margin-top:16px}
 
-        @media (max-width:600px){h1{font-size:1.6em}.post{padding:14px 16px}.post h2{font-size:1.1em}}
+        @media (max-width:960px){.layout{grid-template-columns:1fr}.side{position:static;order:-1;display:grid;grid-template-columns:1fr 1fr}.side .box.tools{display:none}}
+        @media (max-width:640px){.bhero h1{font-size:1.7em}.pgrid,.start{grid-template-columns:1fr}.side{grid-template-columns:1fr}.bstats{gap:22px}.bstats div b{font-size:1.4em}.psec#latest .pgrid .post:first-child h2{font-size:1.2em}.section-label{font-size:1.2em}}
+        @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
     </style>
 </head>
 <body>
-
 <header onclick="location.href='/'">
     <img src="https://raw.githubusercontent.com/benjiesiegel1414/weeklyetfs-site/main/Weeklyftps%203.png" alt="WeeklyETFs.com" class="banner-img">
 </header>
 
-<div class="wrap">
+<section class="bhero">
+    <span class="eyebrow">WeeklyETFs.com Blog</span>
     <h1>Weekly Dividend ETF Blog</h1>
     <p class="tagline">Rankings, payout breakdowns, and income guides for 100+ weekly paying ETFs, updated for 2026</p>
-
     <div class="top-links">
         <a href="/" class="green">📊 Full ETF Rankings</a>
         <a href="/weekly-dividend-calculator.html">🧮 Income Calculator</a>
         <a href="/top-20-weekly-etfs-2026.html" class="red">🏆 Top 20 for 2026</a>
     </div>
+    <div class="bstats" id="bstats"></div>
+</section>
+
+<nav class="jump" aria-label="Sections"><div class="jump-in" id="jump"><span>Jump to:</span>
+    <a href="#latest">🆕 Latest</a><a href="#by-etf">💵 Income by ETF</a><a href="#income-math">💰 Income Math</a><a href="#rankings">🏆 Rankings</a><a href="#issuers">🏦 Issuers</a><a href="#guides">📚 Guides</a>
+</div></nav>
+
+<div class="layout">
+<main>
+    <div class="filter">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <input id="bq" type="search" placeholder="Filter articles by ticker, issuer or topic" autocomplete="off" aria-label="Filter articles">
+    </div>
+    <p class="fcount" id="fcount"></p>
+
+    <section class="psec" id="start">
+        <div class="section-label">🚀 Start Here</div>
+        <div class="start">
+            <a href="/weekly-dividend-etfs-basics.html"><em>📘</em><span><b>Weekly Dividend ETFs: The Basics</b><span>How weekly payers work and what to watch for</span></span></a>
+            <a href="/list-of-weekly-paying-etfs-2026.html"><em>📋</em><span><b>List of Weekly Paying ETFs 2026</b><span>Every fund that pays every week</span></span></a>
+            <a href="/top-20-weekly-etfs-2026.html"><em>🏆</em><span><b>Top 20 Weekly ETFs for 2026</b><span>The ranked shortlist</span></span></a>
+            <a href="/weekly-dividend-etf-cheat-sheet-2026.html"><em>🧾</em><span><b>Weekly Dividend ETF Cheat Sheet</b><span>Quick reference for yields, decay and payouts</span></span></a>
+        </div>
+    </section>
 
     <!-- EMAIL SIGNUP -->
-    <div class="etf-signup" data-variant="featured" data-color="#001f3d" data-accent="#e74c3c" data-source="weeklyetfs"></div>
+    <div class="etf-signup" data-variant="featured" data-color="#001f3d" data-accent="#e74c3c" data-source="weeklyetfs" style="margin-top:26px"></div>
     <script src="/email-signup.js" defer></script>
 
-    <div class="section-label">🆕 Latest Posts</div>
+    <section class="psec" id="latest">
+        <div class="section-label">🆕 Latest Posts</div>
+        <!-- NEW POSTS: add each new <div class="post new"> as the FIRST item inside the .pgrid just below.
+             Keep the same markup (h2 > a, .date, p). Link the blog as /blog, never /blog.html. -->
+        <div class="pgrid">
+        <div class="post new">
+            <h2><a href="/how-much-does-10000-in-hoow-pay-weekly.html">How Much Does $10,000 in $HOOW Pay Per Week? (2026)</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published November 2026</div>
+            <p>$10,000 in Roundhill's Robinhood WeeklyPay ETF pays about $127 to $205 a week right now. The weekly schedule, all 74 payouts, the 66% distribution rate, the 74% price decay, why reinvesting lost money, and how $HOOW compares with $HOOY.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/how-much-does-10000-in-brkw-pay-weekly.html">How Much Does $10,000 in $BRKW Pay Per Week? (2026)</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published November 2026</div>
+            <p>$10,000 in Roundhill's Berkshire Hathaway WeeklyPay ETF pays about $29 to $46 a week right now. The weekly schedule, all 73 payouts, the 24% distribution rate, the 11% price decay, total return vs $BRK.B, and how $BRKW compares with $BRKC.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/how-much-does-10000-in-msfw-pay-weekly.html">How Much Does $10,000 in $MSFW Pay Per Week? (2026)</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published November 2026</div>
+            <p>$10,000 in Roundhill's Microsoft WeeklyPay ETF pays about $59 to $70 a week right now. The weekly schedule, all 68 payouts, the 36% distribution rate, the 36% price decay, total return vs $MSFT, and how $MSFW compares with $MSFO.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/how-much-does-10000-in-plty-pay-weekly.html">How Much Does $10,000 in $PLTY Pay Per Week? (2026)</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published November 2026</div>
+            <p>$10,000 in YieldMax's Palantir option income ETF pays about $89 to $124 a week right now. The weekly schedule, all 70 payouts, the 46% distribution rate, the 40% price decay, total return vs $PLTR, and how $PLTY compares with $PLTW.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/how-much-does-10000-in-amdw-pay-weekly.html">How Much Does $10,000 in $AMDW Pay Per Week? (2026)</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published November 2026</div>
+            <p>$10,000 in Roundhill's AMD WeeklyPay ETF pays about $100 to $123 a week right now. The weekly schedule, all 67 payouts, the 52% distribution rate, why it has no price decay, total return vs $AMD, and how $AMDW compares with $AMDY and $AMYY.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/how-much-does-10000-in-fby-pay-weekly.html">How Much Does $10,000 in $FBY Pay Per Week? (2026)</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published November 2026</div>
+            <p>$10,000 in YieldMax's META option income ETF pays about $63 to $95 a week right now. The weekly schedule, the last 20 payouts, the 32% distribution rate, return of capital, total return and how $FBY compares with $METW.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/how-much-does-10000-in-qdte-pay-weekly.html">How Much Does $10,000 in $QDTE Pay Per Week? (2026)</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published November 2026</div>
+            <p>$10,000 in Roundhill's Nasdaq-100 0DTE fund pays about $57 to $62 a week right now. The weekly schedule, the last 20 payouts, the 32% yield, total return and how $QDTE compares with $XDTE and $RDTE.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/investments-that-pay-weekly-2026.html">Investments That Pay Weekly: 2026 Guide to Weekly Income</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published November 2026</div>
+            <p>Almost nothing pays you every week. Here is every investment that does, from the $WEEK T-bill fund to $XDTE, $QDTE and single-stock weekly ETFs, plus the DIY monthly method, real yields, price decay and what $100 a week takes.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/week-etf-dividend-yield-holdings-2026.html">$WEEK ETF Dividend, Yield and Holdings (2026)</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published November 2026</div>
+            <p>The Roundhill Weekly T-Bill ETF pays about $0.07 a share every week, a 3.73% distribution rate from 13 Treasury bills. Every payout since launch, the next dates, what $10,000 pays (about $7 a week), and how it compares with $XDTE and $QDTE.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/how-much-does-10000-in-pltw-pay-weekly.html">How Much Does $10,000 in $PLTW Pay Per Week?</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published October 2026</div>
+            <p>The weekly income math on the Roundhill PLTR WeeklyPay ETF: about $138 a week at the newest payout and $109 at the 13-week average, all 88 distributions since launch, why 2026 checks are less than half of 2025's, and $PLTW vs $PLTY.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/best-weeklypay-etfs-to-buy-2026.html">Best WeeklyPay ETFs to Buy in 2026 (and How They Work)</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published October 2026</div>
+            <p>Roundhill's WeeklyPay ETFs explained: about 1.2x a stock's weekly return, paid out every week. Of the 20 we track only $AMDW and $GOOW show no price decay, and the highest yielders like $COIW and $MSTW lost the most.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/how-much-does-10000-in-aipi-pay-weekly.html">How Much Does $10,000 in $AIPI Pay Per Week?</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published October 2026</div>
+            <p>The weekly income math on the REX AI Equity Premium Income ETF: about $68 a week at the latest payout and $70 at the 13-week average, all 44 payouts since launch (monthly, then weekly since May 2026), and a 1-year total return near +11%.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/weekly-dividend-etf-cheat-sheet-2026.html">Weekly Dividend ETF Cheat Sheet 2026: Every Type Ranked</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published October 2026</div>
+            <p>All 7 types of weekly dividend ETFs on one page, from T-bill funds like $WEEK to YieldMax, Roundhill WeeklyPay and crypto income funds, with yields, price decay and total returns. Only 4 of 100+ weekly payers show no price decay.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/how-much-does-10000-in-chpy-pay-weekly.html">How Much Does $10,000 in $CHPY Pay Per Week?</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published October 2026</div>
+            <p>The weekly income math on the YieldMax Semiconductor Portfolio Option Income ETF: about $77 a week at the latest payout and $90 at the 13-week average, all 80 distributions, and a 1-year total return near +51%.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/how-much-does-10000-in-armw-pay-weekly.html">How Much Does $10,000 in $ARMW Pay Per Week?</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published October 2026</div>
+            <p>The weekly income math on the Roundhill ARM WeeklyPay ETF: about $65 a week at the latest payout and $187 at the 13-week average, all 51 distributions since launch, and why $ARMW trailed plain $ARM stock.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/is-seeking-alpha-premium-worth-it-2026.html">Is Seeking Alpha Premium Worth It? 2026 Review for Weekly ETF Investors</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published October 2026</div>
+            <p>What Seeking Alpha Premium actually gives weekly ETF investors: ETF Grades, Quant Ratings on the stock under funds like $NVDW and $TSLW, the price, the free trial, and Premium vs Alpha Picks vs PRO.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/weekly-etfs-down-the-most-from-launch-price.html">20 Weekly Dividend ETFs Down the Most From Their Launch Price (2026)</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published October 2026</div>
+            <p>104 of 109 weekly payers trade below their launch price. The 20 biggest drops, from $AIYY at -96% to $SMYY at -78%, which ones still made money, and whether they are buying opportunities or traps.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/weekly-dividend-stocks.html">Weekly Dividend Stocks 2026: Top 10 List + What Actually Pays Weekly</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published September 2026</div>
+            <p>Almost no stocks pay weekly dividends. Here is why, the top 10 weekly payers by yield and by total return, and the weekly ETFs built on $NVDA, $TSLA, $GOOGL, $AMD and more.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/safest-weekly-dividend-etfs-2026.html">The 10 Safest Weekly Dividend ETFs for Passive Income (2026)</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published September 2026</div>
+            <p>Ten weekly payers picked for staying power instead of headline yield: $WEEK, $XDTE, $QDTE, $FEPI, $CHPY and more, plus sample passive income mixes and what to avoid.</p>
+        </div>
+        </div>
+    </section>
 
-    <div class="post new">
-        <h2><a href="/how-much-does-10000-in-hoow-pay-weekly.html">How Much Does $10,000 in $HOOW Pay Per Week? (2026)</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published November 2026</div>
-        <p>$10,000 in Roundhill's Robinhood WeeklyPay ETF pays about $127 to $205 a week right now. The weekly schedule, all 74 payouts, the 66% distribution rate, the 74% price decay, why reinvesting lost money, and how $HOOW compares with $HOOY.</p>
-    </div>
+    <section class="psec" id="income-math">
+        <div class="section-label">💰 Income Math & Calculators</div>
+        <div class="pgrid">
+        <div class="post new">
+            <h2><a href="/how-much-does-10000-in-blox-pay-weekly.html">How Much Does $10,000 in $BLOX Pay Per Week?</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published July 2026</div>
+            <p>The exact weekly income math on the Nicholas Crypto Income ETF: what $1K to $100K pays at a ~35% yield, why the total return picture matters more, and a live calculator preloaded with $BLOX.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/how-much-for-100-per-week-in-dividends.html">How Much Do You Need for $100/Week in Dividends?</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published July 2026</div>
+            <p>From ~$6,900 at ultra-high yields to $130,000 with traditional payers, the full capital-required table at every yield level, plus the risk trade-off hiding inside it.</p>
+        </div>
+    
+        <div class="post new">
+            <h2><a href="/500-per-month-from-weekly-dividend-etfs.html">How to Get $500/Month From Weekly Dividend ETFs</a><span class="badge new">NEW</span></h2>
+            <div class="date">Published July 2026</div>
+            <p>Three sample paths to a $500/month income stream that pays every week: capital-heavy and steady, the blended middle, and minimum-capital maximum-risk. Full math included.</p>
+        </div>
+        </div>
+    </section>
 
-    <div class="post new">
-        <h2><a href="/how-much-does-10000-in-brkw-pay-weekly.html">How Much Does $10,000 in $BRKW Pay Per Week? (2026)</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published November 2026</div>
-        <p>$10,000 in Roundhill's Berkshire Hathaway WeeklyPay ETF pays about $29 to $46 a week right now. The weekly schedule, all 73 payouts, the 24% distribution rate, the 11% price decay, total return vs $BRK.B, and how $BRKW compares with $BRKC.</p>
-    </div>
+    <section class="psec" id="rankings">
+        <div class="section-label">🏆 Rankings & Top Lists</div>
+        <div class="pgrid">
+        <div class="post">
+            <h2><a href="/top-weekly-etf-rankings.html">Top 10 Weekly Dividend ETFs by Total Return &amp; Yield (Live)</a></h2>
+            <div class="date">Published August 2026</div>
+            <p>Live rankings of the top 10 weekly dividend ETFs by total return, plus the top 10 highest yielding weekly payers with no price decay. Updated daily.</p>
+        </div>
+    
+        <div class="post hot">
+            <h2><a href="/top-20-weekly-etfs-2026.html">Top 20 Weekly Dividend ETFs for 2026 (Yields Up to 75%)</a><span class="badge hot">POPULAR</span></h2>
+            <div class="date">Published January 2026 · Updated July 2026</div>
+            <p>The definitive top 20 high-yield weekly payers from YieldMax and Roundhill, with yields, weekly schedules, and performance metrics on every fund.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/top-20-highest-yield-weekly-etfs.html">Top 20 Highest Yielding Weekly ETFs (Live Rankings)</a></h2>
+            <div class="date">Published June 2026 · Auto-updated daily</div>
+            <p>The 20 highest-yielding weekly payers ranked live from the WeeklyETFs.com master database, refreshed as the data changes.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/100-highest-total-return-weekly-etfs.html">100 Highest Total Return Weekly ETFs 2026</a></h2>
+            <div class="date">Published January 2026</div>
+            <p>The top 100 weekly paying ETFs ranked by total return, the truest performance measure, featuring YieldMax, Roundhill, Defiance, and GraniteShares funds.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/weekly-etfs-10-top-performing-weekly-dividend-etfs-in-2026.html">10 Top Performing Weekly Dividend ETFs in 2026</a></h2>
+            <div class="date">Published February 2026</div>
+            <p>The top 10 weekly payers by total return (up to 302%), featuring $NVDY, $PLTY, $GOOW and more, with yields, decay flags, and income strategy notes.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/top-10-highest-paying-weekly-dividend-etfs.html">Top 10 Highest Paying Weekly Dividend ETFs</a></h2>
+            <div class="date">Published 2026</div>
+            <p>The biggest weekly payouts on the market ranked by distribution rate, with the risk picture behind each headline yield.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/25-highest-paying-weekly-dividend-etfs-2026.html">25 Highest Paying Weekly Dividend ETFs 2026</a></h2>
+            <div class="date">Published 2026</div>
+            <p>An expanded ranking of the 25 largest weekly distribution rates across every issuer we track.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/list-of-weekly-paying-etfs-2026.html">List of Weekly Paying ETFs 2026</a></h2>
+            <div class="date">Published January 2026</div>
+            <p>The comprehensive 2026 directory of weekly paying ETFs with yields, price decay risks, total returns, and income strategies.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/best-weekly-payer.html">Best WeeklyPay ETF 2026</a></h2>
+            <div class="date">Published January 2026</div>
+            <p>Why $NVDY stands out with a ~300% total return since inception, massive weekly income from NVDA options, and how it compares to other top payers.</p>
+        </div>
+        </div>
+    </section>
 
-    <div class="post new">
-        <h2><a href="/how-much-does-10000-in-msfw-pay-weekly.html">How Much Does $10,000 in $MSFW Pay Per Week? (2026)</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published November 2026</div>
-        <p>$10,000 in Roundhill's Microsoft WeeklyPay ETF pays about $59 to $70 a week right now. The weekly schedule, all 68 payouts, the 36% distribution rate, the 36% price decay, total return vs $MSFT, and how $MSFW compares with $MSFO.</p>
-    </div>
+    <section class="psec" id="issuers">
+        <div class="section-label">🏦 Issuer Deep Dives</div>
+        <div class="pgrid">
+        <div class="post">
+            <h2><a href="/roundhill-weekly-etfs-2026.html">Top Roundhill ETFs 2026: Every Weekly Payer Ranked by Yield &amp; Total Return</a></h2>
+            <div class="date">Published August 2026</div>
+            <p>The full Roundhill lineup ranked by distribution rate and total return: $QDTE, $XDTE, $RDTE, $GOOW, $COIW, $WEEK and the entire WeeklyPay series.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/yieldmax-etfs-high-yield-weekly-2026.html">YieldMax ETFs: High Yield Weekly Income Options for 2026</a></h2>
+            <div class="date">Published January 2026</div>
+            <p>Deep dive into the YieldMax lineup: how the option income strategies work, top funds, benefits, risks, and where they fit in a weekly income portfolio.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/roundhill-weeklypay-etfs-distributions-performance.html">Roundhill WeeklyPay ETFs: Distributions, Top Payers & Performance</a></h2>
+            <div class="date">Published February 2026</div>
+            <p>The Roundhill WeeklyPay series ($GOOW, $NVDW, $MSTW, $WPAY and more) with distribution rates up to 59%, leverage mechanics, and NAV decay risks explained.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/high-yield-roundhill-weekly-etfs-list-2026.html">High Yield Roundhill Weekly ETFs List 2026</a></h2>
+            <div class="date">Published 2026</div>
+            <p>Every high-yield Roundhill weekly payer in one list with current rates and performance context.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/top-weekly-etf-providers-2026.html">Top Weekly ETF Fund Providers List 2026</a></h2>
+            <div class="date">Published December 2025</div>
+            <p>Roundhill, YieldMax, Defiance, GraniteShares: the issuers behind the weekly income boom and how their approaches differ.</p>
+        </div>
+        </div>
+    </section>
 
-    <div class="post new">
-        <h2><a href="/how-much-does-10000-in-plty-pay-weekly.html">How Much Does $10,000 in $PLTY Pay Per Week? (2026)</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published November 2026</div>
-        <p>$10,000 in YieldMax's Palantir option income ETF pays about $89 to $124 a week right now. The weekly schedule, all 70 payouts, the 46% distribution rate, the 40% price decay, total return vs $PLTR, and how $PLTY compares with $PLTW.</p>
-    </div>
+    <section class="psec" id="guides">
+        <div class="section-label">📚 Guides & Basics</div>
+        <div class="pgrid">
+        <div class="post">
+            <h2><a href="/weekly-dividend-etfs-explained-how-they-work.html">Weekly Dividend ETFs Explained: How They Work in 2026</a></h2>
+            <div class="date">Published February 2026</div>
+            <p>How weekly payout ETFs generate income through options or leverage, differences from monthly payers, faster compounding benefits, and the risks to watch.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/weekly-dividend-etfs-basics.html">Weekly Dividend ETFs: All the Basics You Need To Know</a></h2>
+            <div class="date">Published December 2025</div>
+            <p>The complete beginner's guide to weekly payout ETFs and building a reliable weekly income stream from scratch.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/weekly-dividend-etfs-52-payments.html">Weekly Dividend ETFs Pay You 52 Times Per Year!</a></h2>
+            <div class="date">Published December 2025</div>
+            <p>How the 52-payment cycle works and why weekly cash flow accelerates compounding versus monthly or quarterly payers.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/weekly-dividend-etfs-definitions.html">Weekly Dividend ETFs: Definitions & Key Terms Explained</a></h2>
+            <div class="date">Published December 2025</div>
+            <p>A simple glossary of every term in weekly ETF investing: covered calls, yield traps, NAV erosion, return of capital, and more.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/weekly-dividend-etfs-lowest-price-decay.html">Weekly Dividend ETFs With the Lowest Price Decay</a></h2>
+            <div class="date">Published 2026</div>
+            <p>The weekly payers that have best protected their share price, and why decay is the single most important risk to understand.</p>
+        </div>
+    
+        <div class="post">
+            <h2><a href="/weekly-dividend-etfs-zero-nav-decay-2026.html">Weekly Dividend ETFs With Zero NAV Decay 2026</a></h2>
+            <div class="date">Published 2026</div>
+            <p>The short list of weekly payers showing no NAV erosion since inception, the rare combination of weekly income and principal preservation.</p>
+        </div>
+        </div>
+    </section>
 
-    <div class="post new">
-        <h2><a href="/how-much-does-10000-in-amdw-pay-weekly.html">How Much Does $10,000 in $AMDW Pay Per Week? (2026)</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published November 2026</div>
-        <p>$10,000 in Roundhill's AMD WeeklyPay ETF pays about $100 to $123 a week right now. The weekly schedule, all 67 payouts, the 52% distribution rate, why it has no price decay, total return vs $AMD, and how $AMDW compares with $AMDY and $AMYY.</p>
-    </div>
 
-    <div class="post new">
-        <h2><a href="/how-much-does-10000-in-fby-pay-weekly.html">How Much Does $10,000 in $FBY Pay Per Week? (2026)</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published November 2026</div>
-        <p>$10,000 in YieldMax's META option income ETF pays about $63 to $95 a week right now. The weekly schedule, the last 20 payouts, the 32% distribution rate, return of capital, total return and how $FBY compares with $METW.</p>
-    </div>
-
-    <div class="post new">
-        <h2><a href="/how-much-does-10000-in-qdte-pay-weekly.html">How Much Does $10,000 in $QDTE Pay Per Week? (2026)</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published November 2026</div>
-        <p>$10,000 in Roundhill's Nasdaq-100 0DTE fund pays about $57 to $62 a week right now. The weekly schedule, the last 20 payouts, the 32% yield, total return and how $QDTE compares with $XDTE and $RDTE.</p>
-    </div>
-
-    <div class="post new">
-        <h2><a href="/investments-that-pay-weekly-2026.html">Investments That Pay Weekly: 2026 Guide to Weekly Income</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published November 2026</div>
-        <p>Almost nothing pays you every week. Here is every investment that does, from the $WEEK T-bill fund to $XDTE, $QDTE and single-stock weekly ETFs, plus the DIY monthly method, real yields, price decay and what $100 a week takes.</p>
-    </div>
-
-    <div class="post new">
-        <h2><a href="/week-etf-dividend-yield-holdings-2026.html">$WEEK ETF Dividend, Yield and Holdings (2026)</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published November 2026</div>
-        <p>The Roundhill Weekly T-Bill ETF pays about $0.07 a share every week, a 3.73% distribution rate from 13 Treasury bills. Every payout since launch, the next dates, what $10,000 pays (about $7 a week), and how it compares with $XDTE and $QDTE.</p>
-    </div>
-
-    <div class="post new">
-        <h2><a href="/how-much-does-10000-in-pltw-pay-weekly.html">How Much Does $10,000 in $PLTW Pay Per Week?</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published October 2026</div>
-        <p>The weekly income math on the Roundhill PLTR WeeklyPay ETF: about $138 a week at the newest payout and $109 at the 13-week average, all 88 distributions since launch, why 2026 checks are less than half of 2025's, and $PLTW vs $PLTY.</p>
-    </div>
-
-    <div class="post new">
-        <h2><a href="/best-weeklypay-etfs-to-buy-2026.html">Best WeeklyPay ETFs to Buy in 2026 (and How They Work)</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published October 2026</div>
-        <p>Roundhill's WeeklyPay ETFs explained: about 1.2x a stock's weekly return, paid out every week. Of the 20 we track only $AMDW and $GOOW show no price decay, and the highest yielders like $COIW and $MSTW lost the most.</p>
-    </div>
-
-    <div class="post new">
-        <h2><a href="/how-much-does-10000-in-aipi-pay-weekly.html">How Much Does $10,000 in $AIPI Pay Per Week?</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published October 2026</div>
-        <p>The weekly income math on the REX AI Equity Premium Income ETF: about $68 a week at the latest payout and $70 at the 13-week average, all 44 payouts since launch (monthly, then weekly since May 2026), and a 1-year total return near +11%.</p>
-    </div>
-
-    <div class="post new">
-        <h2><a href="/weekly-dividend-etf-cheat-sheet-2026.html">Weekly Dividend ETF Cheat Sheet 2026: Every Type Ranked</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published October 2026</div>
-        <p>All 7 types of weekly dividend ETFs on one page, from T-bill funds like $WEEK to YieldMax, Roundhill WeeklyPay and crypto income funds, with yields, price decay and total returns. Only 4 of 100+ weekly payers show no price decay.</p>
-    </div>
-
-    <div class="post new">
-        <h2><a href="/how-much-does-10000-in-chpy-pay-weekly.html">How Much Does $10,000 in $CHPY Pay Per Week?</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published October 2026</div>
-        <p>The weekly income math on the YieldMax Semiconductor Portfolio Option Income ETF: about $77 a week at the latest payout and $90 at the 13-week average, all 80 distributions, and a 1-year total return near +51%.</p>
-    </div>
-
-    <div class="post new">
-        <h2><a href="/how-much-does-10000-in-armw-pay-weekly.html">How Much Does $10,000 in $ARMW Pay Per Week?</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published October 2026</div>
-        <p>The weekly income math on the Roundhill ARM WeeklyPay ETF: about $65 a week at the latest payout and $187 at the 13-week average, all 51 distributions since launch, and why $ARMW trailed plain $ARM stock.</p>
-    </div>
-
-    <div class="post new">
-        <h2><a href="/is-seeking-alpha-premium-worth-it-2026.html">Is Seeking Alpha Premium Worth It? 2026 Review for Weekly ETF Investors</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published October 2026</div>
-        <p>What Seeking Alpha Premium actually gives weekly ETF investors: ETF Grades, Quant Ratings on the stock under funds like $NVDW and $TSLW, the price, the free trial, and Premium vs Alpha Picks vs PRO.</p>
-    </div>
-
-    <div class="post new">
-        <h2><a href="/weekly-etfs-down-the-most-from-launch-price.html">20 Weekly Dividend ETFs Down the Most From Their Launch Price (2026)</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published October 2026</div>
-        <p>104 of 109 weekly payers trade below their launch price. The 20 biggest drops, from $AIYY at -96% to $SMYY at -78%, which ones still made money, and whether they are buying opportunities or traps.</p>
-    </div>
-
-    <div class="post new">
-        <h2><a href="/weekly-dividend-stocks.html">Weekly Dividend Stocks 2026: Top 10 List + What Actually Pays Weekly</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published September 2026</div>
-        <p>Almost no stocks pay weekly dividends. Here is why, the top 10 weekly payers by yield and by total return, and the weekly ETFs built on $NVDA, $TSLA, $GOOGL, $AMD and more.</p>
-    </div>
-
-    <div class="post new">
-        <h2><a href="/safest-weekly-dividend-etfs-2026.html">The 10 Safest Weekly Dividend ETFs for Passive Income (2026)</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published September 2026</div>
-        <p>Ten weekly payers picked for staying power instead of headline yield: $WEEK, $XDTE, $QDTE, $FEPI, $CHPY and more, plus sample passive income mixes and what to avoid.</p>
-    </div>
-
-    <div class="section-label">💰 Income Math & Calculators</div>
-
-    <div class="post new">
-        <h2><a href="/how-much-does-10000-in-blox-pay-weekly.html">How Much Does $10,000 in $BLOX Pay Per Week?</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published July 2026</div>
-        <p>The exact weekly income math on the Nicholas Crypto Income ETF: what $1K to $100K pays at a ~35% yield, why the total return picture matters more, and a live calculator preloaded with $BLOX.</p>
-    </div>
-
-    <div class="post new">
-        <h2><a href="/how-much-for-100-per-week-in-dividends.html">How Much Do You Need for $100/Week in Dividends?</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published July 2026</div>
-        <p>From ~$6,900 at ultra-high yields to $130,000 with traditional payers, the full capital-required table at every yield level, plus the risk trade-off hiding inside it.</p>
-    </div>
-
-    <div class="post new">
-        <h2><a href="/500-per-month-from-weekly-dividend-etfs.html">How to Get $500/Month From Weekly Dividend ETFs</a><span class="badge new">NEW</span></h2>
-        <div class="date">Published July 2026</div>
-        <p>Three sample paths to a $500/month income stream that pays every week: capital-heavy and steady, the blended middle, and minimum-capital maximum-risk. Full math included.</p>
-    </div>
-
-    <div class="section-label">🏆 Rankings & Top Lists</div>
-
-    <div class="post">
-        <h2><a href="/top-weekly-etf-rankings.html">Top 10 Weekly Dividend ETFs by Total Return &amp; Yield (Live)</a></h2>
-        <div class="date">Published August 2026</div>
-        <p>Live rankings of the top 10 weekly dividend ETFs by total return, plus the top 10 highest yielding weekly payers with no price decay. Updated daily.</p>
-    </div>
-
-    <div class="post hot">
-        <h2><a href="/top-20-weekly-etfs-2026.html">Top 20 Weekly Dividend ETFs for 2026 (Yields Up to 75%)</a><span class="badge hot">POPULAR</span></h2>
-        <div class="date">Published January 2026 · Updated July 2026</div>
-        <p>The definitive top 20 high-yield weekly payers from YieldMax and Roundhill, with yields, weekly schedules, and performance metrics on every fund.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/top-20-highest-yield-weekly-etfs.html">Top 20 Highest Yielding Weekly ETFs (Live Rankings)</a></h2>
-        <div class="date">Published June 2026 · Auto-updated daily</div>
-        <p>The 20 highest-yielding weekly payers ranked live from the WeeklyETFs.com master database, refreshed as the data changes.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/100-highest-total-return-weekly-etfs.html">100 Highest Total Return Weekly ETFs 2026</a></h2>
-        <div class="date">Published January 2026</div>
-        <p>The top 100 weekly paying ETFs ranked by total return, the truest performance measure, featuring YieldMax, Roundhill, Defiance, and GraniteShares funds.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/weekly-etfs-10-top-performing-weekly-dividend-etfs-in-2026.html">10 Top Performing Weekly Dividend ETFs in 2026</a></h2>
-        <div class="date">Published February 2026</div>
-        <p>The top 10 weekly payers by total return (up to 302%), featuring $NVDY, $PLTY, $GOOW and more, with yields, decay flags, and income strategy notes.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/top-10-highest-paying-weekly-dividend-etfs.html">Top 10 Highest Paying Weekly Dividend ETFs</a></h2>
-        <div class="date">Published 2026</div>
-        <p>The biggest weekly payouts on the market ranked by distribution rate, with the risk picture behind each headline yield.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/25-highest-paying-weekly-dividend-etfs-2026.html">25 Highest Paying Weekly Dividend ETFs 2026</a></h2>
-        <div class="date">Published 2026</div>
-        <p>An expanded ranking of the 25 largest weekly distribution rates across every issuer we track.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/list-of-weekly-paying-etfs-2026.html">List of Weekly Paying ETFs 2026</a></h2>
-        <div class="date">Published January 2026</div>
-        <p>The comprehensive 2026 directory of weekly paying ETFs with yields, price decay risks, total returns, and income strategies.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/best-weekly-payer.html">Best WeeklyPay ETF 2026</a></h2>
-        <div class="date">Published January 2026</div>
-        <p>Why $NVDY stands out with a ~300% total return since inception, massive weekly income from NVDA options, and how it compares to other top payers.</p>
-    </div>
-
-    <div class="section-label">🏦 Issuer Deep Dives</div>
-
-    <div class="post">
-        <h2><a href="/roundhill-weekly-etfs-2026.html">Top Roundhill ETFs 2026: Every Weekly Payer Ranked by Yield &amp; Total Return</a></h2>
-        <div class="date">Published August 2026</div>
-        <p>The full Roundhill lineup ranked by distribution rate and total return: $QDTE, $XDTE, $RDTE, $GOOW, $COIW, $WEEK and the entire WeeklyPay series.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/yieldmax-etfs-high-yield-weekly-2026.html">YieldMax ETFs: High Yield Weekly Income Options for 2026</a></h2>
-        <div class="date">Published January 2026</div>
-        <p>Deep dive into the YieldMax lineup: how the option income strategies work, top funds, benefits, risks, and where they fit in a weekly income portfolio.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/roundhill-weeklypay-etfs-distributions-performance.html">Roundhill WeeklyPay ETFs: Distributions, Top Payers & Performance</a></h2>
-        <div class="date">Published February 2026</div>
-        <p>The Roundhill WeeklyPay series ($GOOW, $NVDW, $MSTW, $WPAY and more) with distribution rates up to 59%, leverage mechanics, and NAV decay risks explained.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/high-yield-roundhill-weekly-etfs-list-2026.html">High Yield Roundhill Weekly ETFs List 2026</a></h2>
-        <div class="date">Published 2026</div>
-        <p>Every high-yield Roundhill weekly payer in one list with current rates and performance context.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/top-weekly-etf-providers-2026.html">Top Weekly ETF Fund Providers List 2026</a></h2>
-        <div class="date">Published December 2025</div>
-        <p>Roundhill, YieldMax, Defiance, GraniteShares: the issuers behind the weekly income boom and how their approaches differ.</p>
-    </div>
-
-    <div class="section-label">📚 Guides & Basics</div>
-
-    <div class="post">
-        <h2><a href="/weekly-dividend-etfs-explained-how-they-work.html">Weekly Dividend ETFs Explained: How They Work in 2026</a></h2>
-        <div class="date">Published February 2026</div>
-        <p>How weekly payout ETFs generate income through options or leverage, differences from monthly payers, faster compounding benefits, and the risks to watch.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/weekly-dividend-etfs-basics.html">Weekly Dividend ETFs: All the Basics You Need To Know</a></h2>
-        <div class="date">Published December 2025</div>
-        <p>The complete beginner's guide to weekly payout ETFs and building a reliable weekly income stream from scratch.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/weekly-dividend-etfs-52-payments.html">Weekly Dividend ETFs Pay You 52 Times Per Year!</a></h2>
-        <div class="date">Published December 2025</div>
-        <p>How the 52-payment cycle works and why weekly cash flow accelerates compounding versus monthly or quarterly payers.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/weekly-dividend-etfs-definitions.html">Weekly Dividend ETFs: Definitions & Key Terms Explained</a></h2>
-        <div class="date">Published December 2025</div>
-        <p>A simple glossary of every term in weekly ETF investing: covered calls, yield traps, NAV erosion, return of capital, and more.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/weekly-dividend-etfs-lowest-price-decay.html">Weekly Dividend ETFs With the Lowest Price Decay</a></h2>
-        <div class="date">Published 2026</div>
-        <p>The weekly payers that have best protected their share price, and why decay is the single most important risk to understand.</p>
-    </div>
-
-    <div class="post">
-        <h2><a href="/weekly-dividend-etfs-zero-nav-decay-2026.html">Weekly Dividend ETFs With Zero NAV Decay 2026</a></h2>
-        <div class="date">Published 2026</div>
-        <p>The short list of weekly payers showing no NAV erosion since inception, the rare combination of weekly income and principal preservation.</p>
-    </div>
+    <div class="empty" id="empty">No articles match that search.<br><button type="button" id="clear">Show all articles</button></div>
 
     <div class="cta-box">
         <p><strong>Track all 100+ weekly dividend ETFs with live yields, price decay flags, and total returns, 100% FREE</strong></p>
         <a href="/">📊 See the Full ETF Ranking</a>
         <a href="/weekly-dividend-calculator.html" class="alt">💰 Weekly Dividend Calculator</a>
     </div>
-
     <div class="back"><a href="/">← Back to Weekly ETFs List</a></div>
+</main>
+
+<aside class="side">
+    <div class="box"><h3>Browse by topic</h3><div id="topics"></div></div>
+    <div class="box psec" id="by-etf"><h3>Weekly income by ETF</h3><div class="tick" id="tick"></div><a class="row" href="/yield/" style="margin-top:10px;border-top:1px solid var(--line)">Yield and total returns, every ETF <span>→</span></a></div>
+    <div class="box tools"><h3>Tools</h3>
+        <a class="row" href="/">Full weekly ETF rankings <span>→</span></a>
+        <a class="row" href="/weekly-dividend-calculator.html">Weekly dividend calculator <span>→</span></a>
+        <a class="row" href="/top-weekly-etf-rankings.html">Top weekly ETF rankings <span>→</span></a>
+        <a class="row" href="/faq.html">FAQ <span>→</span></a>
+    </div>
+</aside>
 </div>
+
+<script>
+(function () {
+    var secs = [].slice.call(document.querySelectorAll('.psec[id]')).filter(function (s) { return s.querySelector('.pgrid'); });
+    var posts = [].slice.call(document.querySelectorAll('.pgrid .post'));
+    var q = document.getElementById('bq'), fc = document.getElementById('fcount');
+    function mk(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+
+    /* counts on section headings, sidebar topics and the jump chips */
+    var topics = document.getElementById('topics');
+    secs.forEach(function (s) {
+        var lab = s.querySelector('.section-label'), n = s.querySelectorAll('.post').length, name = lab.textContent.trim();
+        lab.appendChild(mk('small', null, n + (n === 1 ? ' article' : ' articles')));
+        var a = mk('a', 'row'); a.href = '#' + s.id; a.appendChild(document.createTextNode(name)); a.appendChild(mk('i', null, String(n))); topics.appendChild(a);
+        var chip = document.querySelector('#jump a[href="#' + s.id + '"]'); if (chip) chip.appendChild(mk('i', null, String(n)));
+    });
+
+    /* ticker chips from the "How much does $10,000 in $X pay" posts */
+    var tick = document.getElementById('tick'), seen = {};
+    posts.forEach(function (p) {
+        var a = p.querySelector('h2 a'), m = a && /how-much-does-10000-in-([a-z0-9]+)-pay-weekly/.exec(a.getAttribute('href'));
+        if (!m || seen[m[1]]) return; seen[m[1]] = 1;
+        var c = mk('a', null, '$' + m[1].toUpperCase()); c.href = a.getAttribute('href'); c.title = a.textContent.trim(); tick.appendChild(c);
+    });
+    var nT = Object.keys(seen).length;
+
+    /* stats */
+    var st = document.getElementById('bstats');
+    [[posts.length, 'Articles'], [nT, 'ETF income breakdowns'], [secs.length, 'Topics']].forEach(function (x) { var d = mk('div'); d.appendChild(mk('b', null, String(x[0]))); d.appendChild(mk('span', null, x[1])); st.appendChild(d); });
+
+    /* live filter */
+    function apply() {
+        var words = q.value.toLowerCase().trim().split(/\s+/).filter(Boolean), shown = 0;
+        posts.forEach(function (p) { var t = p.textContent.toLowerCase(), ok = words.every(function (w) { return t.indexOf(w) >= 0; }); p.hidden = !ok; if (ok) shown++; });
+        secs.forEach(function (s) { s.style.display = s.querySelector('.post:not([hidden])') ? '' : 'none'; });
+        document.getElementById('start').style.display = words.length ? 'none' : '';
+        fc.textContent = words.length ? 'Showing ' + shown + ' of ' + posts.length + ' articles' : '';
+        document.getElementById('empty').style.display = shown ? 'none' : 'block';
+    }
+    q.addEventListener('input', apply);
+    document.getElementById('clear').onclick = function () { q.value = ''; apply(); q.focus(); };
+})();
+</script>
 
 <footer>
     <p>
         <a href="/terms.html">Terms of Use</a> |
         <a href="/privacy.html">Privacy Policy</a> |
         <a href="/faq.html">FAQ</a> |
-        <a href="/blog.html">Blog</a> |
+        <a href="/blog">Blog</a> |
         <a href="/weekly-dividend-calculator.html">Weekly Dividend Calculator</a> |
         <a href="https://topdividendetfs.com/" target="_blank" rel="noopener">Top Dividend ETFs</a>
     </p>
@@ -392,6 +545,7 @@
     </div>
 </footer>
 
+<script src="/site-search.js" defer></script>
 <script src="/pro-ads.js" defer></script>
 </body>
 </html>

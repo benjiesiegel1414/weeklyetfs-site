@@ -53,7 +53,13 @@
     '.wxps-x:hover{background:#e74c3c;border-color:#e74c3c;color:#fff}',
     '@media(max-width:700px){.wxps-in{padding:0 44px 0 10px;gap:10px;justify-content:flex-start}.wxps-link{gap:10px;flex:1}.wxps-txt{flex:1}.wxps-txt b{font-size:14px}.wxps-txt small{display:none}.wxps-l{display:none}.wxps-s{display:inline}',
     ' .wxps-badge{font-size:11px;padding:5px 7px}.wxps-cta{font-size:13px;padding:8px 13px}.wxps-x{right:8px;width:26px;height:26px}}',
-    '@media(prefers-reduced-motion:reduce){#wxpSticky,.wxp-card,.wxp-cta,.wxps-cta{transition:none}}',
+    /* flashing "Unlock PRO" button */
+    '.wxp-cta{position:relative;overflow:hidden;animation:wxpPulse 1.5s ease-in-out infinite}',
+    '.wxp-cta:after{content:"";position:absolute;top:0;bottom:0;left:-70%;width:45%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.8),rgba(255,255,255,0));transform:skewX(-20deg);animation:wxpShine 2.2s ease-in-out infinite;pointer-events:none}',
+    '@keyframes wxpPulse{0%,100%{transform:scale(1);box-shadow:0 4px 14px rgba(46,204,113,.38),0 0 0 0 rgba(46,204,113,.7)}50%{transform:scale(1.08);box-shadow:0 6px 22px rgba(46,204,113,.65),0 0 0 10px rgba(46,204,113,0)}}',
+    '@keyframes wxpShine{0%,50%{left:-70%}100%{left:140%}}',
+    '.wxp-card:hover .wxp-cta{animation-play-state:paused;transform:scale(1.08)}',
+    '@media(prefers-reduced-motion:reduce){#wxpSticky,.wxp-card,.wxp-cta,.wxps-cta{transition:none}.wxp-cta,.wxp-cta:after{animation:none}}',
     '@media print{#wxpSticky,.wxp-slot{display:none!important}}'
   ].join('\n');
   var st = document.createElement('style'); st.id = 'wxp-css'; st.textContent = css; document.head.appendChild(st);
@@ -124,6 +130,12 @@
     if (a && (a.classList.contains('wxp-card') || a.classList.contains('wxps-link'))) track(a.getAttribute('data-place'));
   });
 
-  function go() { fill(); sticky(); }
+  /* the site search bar: pages that do not include it themselves get it from here */
+  function search() {
+    if (window.__wxSearch || document.querySelector('script[src*="site-search.js"]')) return;
+    var s = document.createElement('script'); s.src = '/site-search.js'; s.defer = true; document.head.appendChild(s);
+  }
+
+  function go() { fill(); sticky(); search(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
 })();
