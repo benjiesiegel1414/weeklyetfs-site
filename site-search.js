@@ -169,3 +169,6 @@
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
 })();
+
+/* article side rails (outline, related reading) on blog posts */
+(function(){try{if(document.querySelector('script[src*="article-rails.js"]'))return;var s=document.createElement('script');s.src='/article-rails.js';s.defer=true;document.head.appendChild(s);}catch(e){}})();
