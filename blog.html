@@ -138,6 +138,90 @@
         @media (max-width:960px){.layout{grid-template-columns:1fr}.side{position:static;order:-1;display:grid;grid-template-columns:1fr 1fr}.side .box.tools{display:none}}
         @media (max-width:640px){.bhero h1{font-size:1.7em}.pgrid,.start{grid-template-columns:1fr}.side{grid-template-columns:1fr}.bstats{gap:22px}.bstats div b{font-size:1.4em}.psec#latest .pgrid .post:first-child h2{font-size:1.2em}.section-label{font-size:1.2em}}
         @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+        /* ===== Blog v2: editorial finance look ===== */
+        body{background:#f6f7f9;color:#1c2733;-webkit-font-smoothing:antialiased}
+        .bhero{background:linear-gradient(180deg,#001f3d 0%,#04294e 100%);padding:44px 20px 36px;border-bottom:3px solid var(--red)}
+        .bhero .eyebrow{color:#9fb6cc;letter-spacing:.2em;font-size:.7em;margin-bottom:12px}
+        .bhero h1{font-size:2.5em;letter-spacing:-.8px;margin-bottom:10px}
+        .tagline{color:#c3d3e3;font-size:1.04em;margin-bottom:22px;line-height:1.55}
+        .top-links{margin-bottom:26px}
+        .top-links a,.top-links a.green,.top-links a.red{background:transparent;border:1px solid rgba(255,255,255,.32);border-radius:6px;padding:10px 18px;font-size:.92em;font-weight:700;letter-spacing:.01em;transition:background .15s,border-color .15s}
+        .top-links a.green{background:#fff;border-color:#fff;color:var(--navy)}
+        .top-links a:hover{background:rgba(255,255,255,.12);border-color:#fff}
+        .top-links a.green:hover{background:#e9eef4}
+        .bstats{gap:0;border-top:1px solid rgba(255,255,255,.14);padding-top:20px;max-width:640px;margin:0 auto}
+        .bstats div{flex:1;min-width:120px;padding:0 14px;border-left:1px solid rgba(255,255,255,.14)}
+        .bstats div:first-child{border-left:0}
+        .bstats div b{font-size:1.9em;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+        .bstats div span{font-size:.68em;letter-spacing:.14em;color:#8fa8c0}
+
+        .jump{border-bottom:1px solid var(--line);box-shadow:0 1px 0 rgba(0,31,61,.03)}
+        .jump-in{padding:0 15px;gap:0}
+        .jump span{margin-right:14px;letter-spacing:.14em;color:#8a96a3}
+        .jump a{border:0;border-radius:0;padding:13px 14px;color:#34465a;font-size:.86em;border-bottom:2px solid transparent;margin-bottom:-1px}
+        .jump a:hover{background:transparent;color:var(--navy);border-bottom-color:var(--red)}
+        .jump a i{font-size:.78em;opacity:1;color:#8a96a3;background:#eef1f5;border-radius:999px;padding:1px 7px;font-weight:700}
+
+        .layout{padding-top:30px;gap:36px}
+        .filter input{border:1px solid #cfd8e2;border-radius:8px;height:48px;box-shadow:0 1px 2px rgba(0,31,61,.04)}
+        .filter input:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(0,31,61,.12)}
+
+        .section-label{font-size:1.02em;text-transform:uppercase;letter-spacing:.12em;border-bottom:1px solid #cfd8e2;padding:0 0 10px 14px;margin:40px 0 16px;position:relative;align-items:center}
+        .section-label::before{content:"";position:absolute;left:0;top:3px;bottom:13px;width:4px;background:var(--red);border-radius:2px}
+        .section-label small{font-size:.72em;letter-spacing:.06em;text-transform:none;color:#7b8794;font-weight:700}
+        #start .section-label{margin-top:22px}
+
+        .start{gap:14px}
+        .start a{background:#fff;color:var(--navy);border:1px solid var(--line);border-radius:10px;padding:16px;align-items:center;box-shadow:0 1px 2px rgba(0,31,61,.04);transition:border-color .15s,box-shadow .15s,transform .15s}
+        .start a:hover{transform:translateY(-2px);border-color:#b9c6d4;box-shadow:0 10px 24px rgba(0,31,61,.1)}
+        .start a em{width:42px;height:42px;border-radius:9px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:1em}
+        .start a em svg{width:21px;height:21px}
+        .start a b{color:var(--navy);font-size:1em}
+        .start a span span{color:#5d6b7a}
+
+        .pgrid{gap:16px}
+        .post,.post.new,.post.hot{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-top:1px solid var(--line);border-radius:10px;padding:18px 20px 14px;box-shadow:0 1px 2px rgba(0,31,61,.04);cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .15s}
+        .post:hover{transform:translateY(-2px);border-color:#b9c6d4;box-shadow:0 12px 28px rgba(0,31,61,.11)}
+        .post::before{content:attr(data-cat);font-size:.68em;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--red);margin-bottom:8px;min-height:1em}
+        .post h2{font-size:1.1em;line-height:1.34;margin:0 0 8px;letter-spacing:-.1px}
+        .post h2 a::after{content:"";position:absolute;inset:0;border-radius:10px;z-index:1}
+        .post h2 a:focus-visible{outline:0}
+        .post h2 a:focus-visible::after{box-shadow:0 0 0 3px rgba(231,76,60,.45)}
+        .post:hover h2 a{color:var(--navy2);text-decoration:underline;text-decoration-color:rgba(231,76,60,.7);text-underline-offset:3px}
+        .post p{order:3;font-size:.92em;line-height:1.58;color:#4a5866;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+        .post .date{order:4;margin:14px 0 0;padding-top:11px;border-top:1px solid #edf0f4;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.76em;color:#7b8794;font-weight:700;margin-top:auto}
+        .post p + .date,.post .date{margin-top:14px}
+        .post{justify-content:flex-start}
+        .post .date::after{content:"Read article \2192";color:var(--navy);font-weight:900;white-space:nowrap;transition:color .15s}
+        .post:hover .date::after{color:var(--red)}
+        .badge,.badge.new,.badge.hot{display:none}
+        .psec#latest .pgrid .post:nth-child(-n+3) .badge.new{display:inline-block;background:transparent;color:var(--green);border:1px solid var(--green);font-size:.56em;padding:1px 6px;border-radius:4px;letter-spacing:.1em;position:relative;top:-2px}
+
+        .psec#latest .pgrid .post:first-child{background:linear-gradient(135deg,#001f3d 0%,#0a3a6b 100%);border-color:#001f3d;border-top-width:1px;padding:28px 30px 20px}
+        .psec#latest .pgrid .post:first-child::before{content:"Latest article";color:#ff9b8f}
+        .psec#latest .pgrid .post:first-child h2{font-size:1.6em;line-height:1.22;letter-spacing:-.4px;margin-bottom:10px}
+        .psec#latest .pgrid .post:first-child h2 a{color:#fff}
+        .psec#latest .pgrid .post:first-child p{color:#c9d8e7;font-size:1em;max-width:760px;-webkit-line-clamp:3}
+        .psec#latest .pgrid .post:first-child .date{border-top-color:rgba(255,255,255,.16);color:#9fb6cc}
+        .psec#latest .pgrid .post:first-child .date::after{color:#fff;background:var(--red);padding:8px 14px;border-radius:6px}
+        .psec#latest .pgrid .post:first-child .badge.new{color:#7be0a3;border-color:#7be0a3}
+
+        .box{border-radius:10px;box-shadow:0 1px 2px rgba(0,31,61,.04);padding:18px 18px 12px}
+        .box h3{color:var(--navy);font-size:.72em;letter-spacing:.14em;padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:6px}
+        .box a.row{font-size:.92em;padding:9px 0;border-top-color:#edf0f4}
+        .box a.row i{background:#eef1f5;color:#34465a;font-weight:700}
+        .tick{padding-top:8px}
+        .tick a{background:#fff;color:var(--navy);border:1px solid #cfd8e2;border-radius:5px;font-weight:700;font-variant-numeric:tabular-nums;transition:background .15s,color .15s,border-color .15s}
+        .tick a:hover{background:var(--navy);border-color:var(--navy);color:#fff}
+
+        .cta-box{border-radius:10px;padding:30px 22px;margin-top:40px;background:linear-gradient(135deg,#001f3d 0%,#0a3a6b 100%)}
+        .cta-box p{font-size:1.2em;font-weight:900;letter-spacing:-.2px}
+        .cta-box a,.cta-box a.alt{background:#fff;color:var(--navy);border:1px solid #fff;border-radius:6px;padding:11px 20px;font-size:.94em}
+        .cta-box a.alt{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}
+        .cta-box a:hover{background:#e9eef4}.cta-box a.alt:hover{background:rgba(255,255,255,.12)}
+        .back a{text-decoration:none;font-size:.92em}.back a:hover{text-decoration:underline}
+
+        @media (max-width:640px){.bhero{padding:30px 16px 26px}.bhero h1{font-size:1.75em}.top-links a{padding:9px 13px;font-size:.86em;margin:3px}.bstats div{min-width:0;padding:0 8px}.bstats div b{font-size:1.45em}.bstats div span{font-size:.6em;letter-spacing:.08em}.psec#latest .pgrid .post:first-child{padding:22px 20px 16px}.psec#latest .pgrid .post:first-child h2{font-size:1.3em}.post p{-webkit-line-clamp:3}.jump span{display:none}.jump a{padding:12px 11px}}
     </style>
 </head>
 <body>
@@ -150,15 +234,15 @@
     <h1>Weekly Dividend ETF Blog</h1>
     <p class="tagline">Rankings, payout breakdowns, and income guides for 100+ weekly paying ETFs, updated for 2026</p>
     <div class="top-links">
-        <a href="/" class="green">📊 Full ETF Rankings</a>
-        <a href="/weekly-dividend-calculator.html">🧮 Income Calculator</a>
-        <a href="/top-20-weekly-etfs-2026.html" class="red">🏆 Top 20 for 2026</a>
+        <a href="/" class="green">Full ETF Rankings</a>
+        <a href="/weekly-dividend-calculator.html">Income Calculator</a>
+        <a href="/top-20-weekly-etfs-2026.html" class="red">Top 20 for 2026</a>
     </div>
     <div class="bstats" id="bstats"></div>
 </section>
 
 <nav class="jump" aria-label="Sections"><div class="jump-in" id="jump"><span>Jump to:</span>
-    <a href="#latest">🆕 Latest</a><a href="#by-etf">💵 Income by ETF</a><a href="#income-math">💰 Income Math</a><a href="#rankings">🏆 Rankings</a><a href="#issuers">🏦 Issuers</a><a href="#guides">📚 Guides</a>
+    <a href="#latest">Latest</a><a href="#by-etf">Income by ETF</a><a href="#income-math">Income Math</a><a href="#rankings">Rankings</a><a href="#issuers">Issuers</a><a href="#guides">Guides</a>
 </div></nav>
 
 <div class="layout">
@@ -170,12 +254,12 @@
     <p class="fcount" id="fcount"></p>
 
     <section class="psec" id="start">
-        <div class="section-label">🚀 Start Here</div>
+        <div class="section-label">Start Here</div>
         <div class="start">
-            <a href="/weekly-dividend-etfs-basics.html"><em>📘</em><span><b>Weekly Dividend ETFs: The Basics</b><span>How weekly payers work and what to watch for</span></span></a>
-            <a href="/list-of-weekly-paying-etfs-2026.html"><em>📋</em><span><b>List of Weekly Paying ETFs 2026</b><span>Every fund that pays every week</span></span></a>
-            <a href="/top-20-weekly-etfs-2026.html"><em>🏆</em><span><b>Top 20 Weekly ETFs for 2026</b><span>The ranked shortlist</span></span></a>
-            <a href="/weekly-dividend-etf-cheat-sheet-2026.html"><em>🧾</em><span><b>Weekly Dividend ETF Cheat Sheet</b><span>Quick reference for yields, decay and payouts</span></span></a>
+            <a href="/weekly-dividend-etfs-basics.html"><em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20"/></svg></em><span><b>Weekly Dividend ETFs: The Basics</b><span>How weekly payers work and what to watch for</span></span></a>
+            <a href="/list-of-weekly-paying-etfs-2026.html"><em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg></em><span><b>List of Weekly Paying ETFs 2026</b><span>Every fund that pays every week</span></span></a>
+            <a href="/top-20-weekly-etfs-2026.html"><em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></em><span><b>Top 20 Weekly ETFs for 2026</b><span>The ranked shortlist</span></span></a>
+            <a href="/weekly-dividend-etf-cheat-sheet-2026.html"><em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></em><span><b>Weekly Dividend ETF Cheat Sheet</b><span>Quick reference for yields, decay and payouts</span></span></a>
         </div>
     </section>
 
@@ -184,7 +268,7 @@
     <script src="/email-signup.js" defer></script>
 
     <section class="psec" id="latest">
-        <div class="section-label">🆕 Latest Posts</div>
+        <div class="section-label">Latest Posts</div>
         <!-- NEW POSTS: add each new <div class="post new"> as the FIRST item inside the .pgrid just below.
              Keep the same markup (h2 > a, .date, p). Link the blog as /blog, never /blog.html. -->
         <div class="pgrid">
@@ -311,7 +395,7 @@
     </section>
 
     <section class="psec" id="income-math">
-        <div class="section-label">💰 Income Math & Calculators</div>
+        <div class="section-label">Income Math & Calculators</div>
         <div class="pgrid">
         <div class="post new">
             <h2><a href="/how-much-does-10000-in-blox-pay-weekly.html">How Much Does $10,000 in $BLOX Pay Per Week?</a><span class="badge new">NEW</span></h2>
@@ -334,7 +418,7 @@
     </section>
 
     <section class="psec" id="rankings">
-        <div class="section-label">🏆 Rankings & Top Lists</div>
+        <div class="section-label">Rankings & Top Lists</div>
         <div class="pgrid">
         <div class="post">
             <h2><a href="/top-weekly-etf-rankings.html">Top 10 Weekly Dividend ETFs by Total Return &amp; Yield (Live)</a></h2>
@@ -393,7 +477,7 @@
     </section>
 
     <section class="psec" id="issuers">
-        <div class="section-label">🏦 Issuer Deep Dives</div>
+        <div class="section-label">Issuer Deep Dives</div>
         <div class="pgrid">
         <div class="post">
             <h2><a href="/roundhill-weekly-etfs-2026.html">Top Roundhill ETFs 2026: Every Weekly Payer Ranked by Yield &amp; Total Return</a></h2>
@@ -428,7 +512,7 @@
     </section>
 
     <section class="psec" id="guides">
-        <div class="section-label">📚 Guides & Basics</div>
+        <div class="section-label">Guides & Basics</div>
         <div class="pgrid">
         <div class="post">
             <h2><a href="/weekly-dividend-etfs-explained-how-they-work.html">Weekly Dividend ETFs Explained: How They Work in 2026</a></h2>
@@ -473,8 +557,8 @@
 
     <div class="cta-box">
         <p><strong>Track all 100+ weekly dividend ETFs with live yields, price decay flags, and total returns, 100% FREE</strong></p>
-        <a href="/">📊 See the Full ETF Ranking</a>
-        <a href="/weekly-dividend-calculator.html" class="alt">💰 Weekly Dividend Calculator</a>
+        <a href="/">See the Full ETF Ranking</a>
+        <a href="/weekly-dividend-calculator.html" class="alt">Weekly Dividend Calculator</a>
     </div>
     <div class="back"><a href="/">← Back to Weekly ETFs List</a></div>
 </main>
@@ -505,6 +589,18 @@
         lab.appendChild(mk('small', null, n + (n === 1 ? ' article' : ' articles')));
         var a = mk('a', 'row'); a.href = '#' + s.id; a.appendChild(document.createTextNode(name)); a.appendChild(mk('i', null, String(n))); topics.appendChild(a);
         var chip = document.querySelector('#jump a[href="#' + s.id + '"]'); if (chip) chip.appendChild(mk('i', null, String(n)));
+    });
+
+    /* category label above each card title */
+    posts.forEach(function (p) {
+        var a = p.querySelector('h2 a'), h = a ? a.getAttribute('href') : '', t = a ? a.textContent : '', sec = p.closest('.psec'), cat;
+        if (sec && sec.id !== 'latest') cat = sec.querySelector('.section-label').firstChild.textContent.trim();
+        else if (/how-much|per-month|per-week|calculator/.test(h)) cat = 'Income Math';
+        else if (/review|worth-it/.test(h)) cat = 'Review';
+        else if (/^\/(top|best|safest|list|high-yield)|-list-|ranked|down-the-most/.test(h) || /^\d+ |Top \d+|Ranked/.test(t)) cat = 'Rankings';
+        else cat = 'Guide';
+        var m = /\$[A-Z]{2,5}\b/.exec(t); if (m && !/\$\d/.test(m[0])) cat += ' \u00b7 ' + m[0];
+        p.setAttribute('data-cat', cat);
     });
 
     /* ticker chips from the "How much does $10,000 in $X pay" posts */
@@ -543,7 +639,7 @@
         <a href="/weekly-dividend-calculator.html">Weekly Dividend Calculator</a> |
         <a href="https://topdividendetfs.com/" target="_blank" rel="noopener">Top Dividend ETFs</a>
     </p>
-    <p><a href="https://topdividendtools.com/" target="_blank" rel="noopener">Top Dividend Tools 🛠️</a>
+    <p><a href="https://topdividendtools.com/" target="_blank" rel="noopener">Top Dividend Tools </a>
 <a href="https://topetfs.com/" target="_blank" rel="noopener">TopETFs</a></p>
     <p>Contact email: <a href="mailto:Business@TopDividendETFs.com">Business@TopDividendETFs.com</a></p>
     <div class="tracker">
