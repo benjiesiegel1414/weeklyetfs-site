@@ -184,6 +184,12 @@ const imageObj = e => ({
   acquireLicensePage: `${SITE}/etf-images/#license`
 });
 
+// Link each ticker image page to its "How much does $10,000 in <TICKER> pay per week" post when that post exists.
+const tenK = (sym) => {
+  const f = `how-much-does-10000-in-${sym.toLowerCase()}-pay-weekly.html`;
+  return fs.existsSync(path.join(ROOT, f)) ? ` Want the income math? See <a href="/${f}">how much $10,000 in ${sym} pays per week</a>.` : '';
+};
+
 for (let i = 0; i < ETFS.length; i++) {
   const e = ETFS[i], prev = ETFS[(i - 1 + ETFS.length) % ETFS.length], next = ETFS[(i + 1) % ETFS.length];
   const body = `
@@ -200,7 +206,7 @@ for (let i = 0; i < ETFS.length; i++) {
   <p>Direct image link: <code>${SITE}/etf-images/${e.png}</code></p>
 </div>
 <h2>About ${e.sym}</h2>
-<p>${e.sym} is the ticker symbol for the ${esc(e.name)}, a weekly paying ETF. See its dividend yield, total returns and price decay on the <a href="${e.yieldPage}">${e.sym} yield and total return page</a>.</p>
+<p>${e.sym} is the ticker symbol for the ${esc(e.name)}, a weekly paying ETF. See its dividend yield, total returns and price decay on the <a href="${e.yieldPage}">${e.sym} yield and total return page</a>.${tenK(e.sym)}</p>
 <div class="pn"><a href="${prev.page}">← ${prev.sym}</a><a href="/etf-images/">All ticker images</a><a href="${next.page}">${next.sym} →</a></div>
 <p class="disc">These are ticker symbol graphics, not the issuers' official fund logos. Ticker symbols and fund names belong to their respective issuers. WeeklyETFs.com is not affiliated with ${esc(e.name)}'s issuer. Images are provided for identification and educational use only and are not investment advice.</p>`;
   fs.writeFileSync(path.join(OUT, `${e.slug}.html`), shell({
